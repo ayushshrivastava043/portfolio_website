@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="blogbg1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#3498db"/>
+            <stop offset="100%" style="stop-color:#2980b9"/>
+        </linearGradient>
+        <style>
+            .icon { font-size: 64px; fill: white; font-family: Arial; }
+            .title { font-size: 32px; fill: white; font-family: Arial; font-weight: bold; }
+            .subtitle { font-size: 20px; fill: #BDC3C7; font-family: Arial; }
+            .overlay { fill: rgba(0, 0, 0, 0.2); }
+        </style>
+    </defs>
+    <rect width="800" height="400" fill="url(#blogbg1)" rx="20"/>
+    <rect class="overlay" width="800" height="400" rx="20"/>
+    <text x="400" y="160" class="icon" text-anchor="middle">🛍️</text>
+    <text x="400" y="240" class="title" text-anchor="middle">The Future of AI in E-commerce</text>
+    <text x="400" y="280" class="subtitle" text-anchor="middle">Exploring how AI is revolutionizing online shopping</text>
+</svg> 

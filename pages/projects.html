@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Tree Interface - Ayush's AI Projects</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            /* overflow: hidden; */
+            background: radial-gradient(circle at center, #0f2027, #203a43, #2c5364);
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+        }
+        svg {
+            display: block;
+            cursor: grab;
+        }
+        body, html {
+            overflow: auto;
+        }
+        .link {
+            fill: none;
+            stroke: #00ffe7;
+            stroke-width: 4px;
+            filter: drop-shadow(0 0 8px #00ffe7cc);
+            opacity: 0.85;
+        }
+        .node circle {
+            fill: url(#metal-gradient);
+            stroke: #00ffe7;
+            stroke-width: 3px;
+            filter: drop-shadow(0 0 12px #00ffe7cc);
+            cursor: pointer;
+            transition: filter 0.3s, stroke 0.3s, fill 0.3s;
+        }
+        .node .core {
+            fill: #0ff;
+            stroke: #fff;
+            stroke-width: 1.5px;
+            filter: drop-shadow(0 0 6px #00ffe7cc);
+        }
+        .node text {
+            font: bold 15px Orbitron, monospace;
+            fill: #fff;
+            text-shadow: 0 0 6px #00ffe7, 0 0 2px #000;
+            pointer-events: none;
+        }
+        .node.active circle, .node.active .core {
+            filter: drop-shadow(0 0 24px #00ffae) drop-shadow(0 0 12px #00ffe7cc);
+            stroke: #00ffae;
+            animation: pulseGlow 1.2s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { filter: drop-shadow(0 0 16px #00ffae) drop-shadow(0 0 8px #00ffe7cc); }
+            100% { filter: drop-shadow(0 0 32px #00ffae) drop-shadow(0 0 16px #00ffe7cc); }
+        }
+        /* Bot head (root node) antenna/ears */
+        .bot-antenna {
+            stroke: #fff;
+            stroke-width: 3px;
+            filter: drop-shadow(0 0 6px #00ffe7cc);
+        }
+        .bot-ear {
+            fill: #00ffe7;
+            stroke: #fff;
+            stroke-width: 2px;
+            filter: drop-shadow(0 0 4px #00ffe7cc);
+        }
+        /* Info panel styling */
+        #infoPanel {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.7);
+            opacity: 0;
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid #0ff;
+            padding: 24px;
+            border-radius: 12px;
+            width: 360px;
+            max-height: 90%;
+            overflow-y: auto;
+            z-index: 2;
+            pointer-events: none;
+            box-shadow: 0 0 20px rgba(0,255,255,0.5);
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        }
+        #infoPanel.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #infoPanel h2 {
+            margin: 0 0 12px;
+            color: #0ff;
+            font-size: 24px;
+            text-align: center;
+        }
+        .section {
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideIn 0.4s forwards;
+        }
+        .section:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+        .section:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+        .section:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+        .section h3 {
+            margin: 0 0 8px;
+            color: #0cff;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+        .section h3 img {
+            width: 18px;
+            height: 18px;
+            margin-right: 6px;
+            filter: invert(1);
+        }
+        .section p, .section ul {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .section ul {
+            padding-left: 20px;
+        }
+        .section ul li {
+            margin-bottom: 6px;
+        }
+        #infoPanel button {
+            display: block;
+            margin: 16px auto 0;
+            background: #0ff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #000;
+            transition: background 0.2s;
+        }
+        #infoPanel button:hover {
+            background: #0ecccc;
+        }
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="svg-container" style="width:100vw;height:100vh;overflow:auto;"><svg></svg></div>
+    <div id="infoPanel">
+        <h2 id="infoTitle"></h2>
+        <div id="overview" class="section"><h3><img src="https://img.icons8.com/ios-filled/50/ffffff/info.png"/>Overview</h3><p id="infoDesc"></p></div>
+        <div id="techSection" class="section"><h3><img src="https://img.icons8.com/ios-filled/50/ffffff/code.png"/>Tech Stack</h3><ul id="infoTech"></ul></div>
+        <div id="featSection" class="section"><h3><img src="https://img.icons8.com/ios-filled/50/ffffff/star--v1.png"/>Key Features</h3><ul id="infoFeat"></ul></div>
+        <div id="metaSection" class="section"><h3><img src="https://img.icons8.com/ios-filled/50/ffffff/calendar.png"/>Timeline & Status</h3><ul id="infoMeta"></ul></div>
+        <button onclick="hideInfo()">Close</button>
+    </div>
+    <script>
+        const data = {
+            "name": "💡 Ayush's AI Projects",
+            "children": [
+                { "name": "🤖 AI Bots", "children": [
+                        { "name": "AI Sales Agent" },
+                        { "name": "FinBot" },
+                        { "name": "Mental Health Bot" }
+                    ]
+                },
+                { "name": "📊 Dashboards", "children": [
+                        { "name": "Smart KPI Dashboards" }
+                    ]
+                },
+                { "name": "⚙️ Automation", "children": [
+                        { "name": "Social Media Auto" },
+                        { "name": "Auto Data Analysis" }
+                    ]
+                },
+                { "name": "🎬 Video Series", "children": [
+                        { "name": "Mythology & Geopolitics" }
+                    ]
+                },
+                { "name": "🧪 Experiments", "children": [
+                        { "name": "PDF Reader Bot" },
+                        { "name": "Widget Framework" }
+                    ]
+                }
+            ]
+        };
+
+        const detailsMap = {
+            'AI Sales Agent': {
+                desc: 'Conversational AI acting as a virtual sales executive for e-commerce, guiding users end-to-end through product discovery to checkout.',
+                tech: ['RAG Search & QA', 'FastAPI', 'LangChain', 'TailwindCSS'],
+                feat: ['Personalized recommendations', 'A/B tested messaging', 'Real-time analytics dashboard'],
+                meta: ['Baseline v1.0 (Jan 2024)', 'v2.1 deployed (Mar 2025)', 'Status: Production']
+            },
+            'FinBot': {
+                desc: 'AI financial advisor chatbot offering personalized investment strategies.',
+                tech: ['BharatGPT', 'Python', 'React'],
+                feat: ['Risk profiling', 'Sector picks', 'Portfolio rebalancing'],
+                meta: ['Prototype (Feb 2025)', 'In Beta', 'Status: Beta']
+            },
+            'Mental Health Bot': {
+                desc: 'Empathetic chatbot for stress relief and mood tracking.',
+                tech: ['OpenAI GPT', 'Emotion ML'],
+                feat: ['Mood journaling', 'Breathing exercises', '24/7 support'],
+                meta: ['Concept (Dec 2024)', 'Pilot testing', 'Status: Pilot']
+            },
+            'Smart KPI Dashboards': {
+                desc: 'Automated dashboards with anomaly detection.',
+                tech: ['D3.js', 'GPT Summaries'],
+                feat: ['Live charts', 'Alert notifications'],
+                meta: ['Alpha release (Nov 2024)', 'v1.0 released', 'Status: Active']
+            },
+            'Social Media Auto': {
+                desc: 'Content scheduler and optimizer for creators.',
+                tech: ['Node.js', 'YouTube API'],
+                feat: ['Auto captions', 'Optimal timing'],
+                meta: ['v0.9 (Apr 2025)', 'In Dev', 'Status: Dev']
+            },
+            'Auto Data Analysis': {
+                desc: 'No-code insights from raw data.',
+                tech: ['Pandas', 'Matplotlib', 'OpenAI GPT'],
+                feat: ['Chart generation', 'Natural language reports'],
+                meta: ['MVP (Mar 2025)', 'Testing', 'Status: Testing']
+            },
+            'Mythology & Geopolitics': {
+                desc: 'AI pipeline for animated videos.',
+                tech: ['Midjourney', 'Google TTS'],
+                feat: ['Script to video', 'Voiceover synthesis'],
+                meta: ['Series I (Jan 2025)', 'Released EP1', 'Status: Ongoing']
+            },
+            'PDF Reader Bot': {
+                desc: 'Document Q&A assistant.',
+                tech: ['PDF.js', 'GPT-4'],
+                feat: ['Summaries', 'Contextual Q&A'],
+                meta: ['v1.0 (Feb 2025)', 'Stable', 'Status: Stable']
+            },
+            'Widget Framework': {
+                desc: 'Plug-in dashboard widget library.',
+                tech: ['Web Components', 'TypeScript'],
+                feat: ['Drag-and-drop', 'Dynamic binding'],
+                meta: ['Initial release', 'Documentation ready', 'Status: Live']
+            }
+        };
+
+        const svg = d3.select('svg');
+        const container = document.getElementById('svg-container');
+        const margin = { top: 40, left: 20, right: 20, bottom: 20 };
+
+        function render() {
+            svg.selectAll('*').remove();
+            // Add metallic gradient for nodes
+            const defs = svg.append('defs');
+            const grad = defs.append('linearGradient')
+                .attr('id', 'metal-gradient')
+                .attr('x1', '0%').attr('y1', '0%')
+                .attr('x2', '100%').attr('y2', '100%');
+            grad.append('stop').attr('offset', '0%').attr('stop-color', '#00ffe7');
+            grad.append('stop').attr('offset', '60%').attr('stop-color', '#23283a');
+            grad.append('stop').attr('offset', '100%').attr('stop-color', '#00bfff');
+
+            // Use a large initial size for layout, will crop after
+            const initialWidth = 1600;
+            const initialHeight = 1200;
+            const tree = d3.tree().size([initialWidth, initialHeight]);
+            const root = d3.hierarchy(data);
+            tree(root);
+            root.leaves().forEach(d => d.y += (Math.random() * 2 - 1) * 60);
+
+            // Calculate bounding box of all nodes
+            const nodes = root.descendants();
+            const minX = d3.min(nodes, d => d.x);
+            const maxX = d3.max(nodes, d => d.x);
+            const minY = d3.min(nodes, d => d.y);
+            const maxY = d3.max(nodes, d => d.y);
+            const margin = 60;
+            const svgWidth = (maxX - minX) + margin * 2;
+            const svgHeight = (maxY - minY) + margin * 2;
+            svg.attr('width', svgWidth).attr('height', svgHeight);
+
+            // Place the group so the tree is fully visible from (0,0)
+            const g = svg.append('g').attr('transform', `translate(${-minX + margin},${-minY + margin})`);
+
+            g.selectAll('.link')
+                .data(root.links())
+                .enter().append('path')
+                .attr('class', 'link')
+                .attr('d', d3.linkVertical().x(d => d.x).y(d => d.y));
+
+            const node = g.selectAll('.node')
+                .data(nodes)
+                .enter().append('g')
+                .attr('class', 'node')
+                .attr('transform', d => `translate(${d.x},${d.y})`)
+                .on('click', function (e, d) {
+                    d3.selectAll('.node').classed('active', false);
+                    d3.select(this).classed('active', true);
+                    showInfo(d.data.name);
+                });
+
+            // Main node circle
+            node.append('circle').attr('r', 24);
+            // Glowing core
+            node.append('circle').attr('class', 'core').attr('r', 10);
+            // Node text
+            node.append('text').attr('dy', -32).attr('text-anchor', 'middle').text(d => d.data.name);
+
+            // Bot head (root node) antenna and ears
+            const rootNode = nodes[0];
+            if (rootNode) {
+                // Antenna
+                g.append('line')
+                    .attr('class', 'bot-antenna')
+                    .attr('x1', rootNode.x)
+                    .attr('y1', rootNode.y - 24)
+                    .attr('x2', rootNode.x)
+                    .attr('y2', rootNode.y - 48);
+                g.append('circle')
+                    .attr('class', 'core')
+                    .attr('cx', rootNode.x)
+                    .attr('cy', rootNode.y - 54)
+                    .attr('r', 5);
+                // Ears
+                g.append('ellipse')
+                    .attr('class', 'bot-ear')
+                    .attr('cx', rootNode.x - 28)
+                    .attr('cy', rootNode.y)
+                    .attr('rx', 6)
+                    .attr('ry', 10);
+                g.append('ellipse')
+                    .attr('class', 'bot-ear')
+                    .attr('cx', rootNode.x + 28)
+                    .attr('cy', rootNode.y)
+                    .attr('rx', 6)
+                    .attr('ry', 10);
+            }
+        }
+
+        function showInfo(name) {
+            const info = detailsMap[name] || {};
+            document.getElementById('infoTitle').textContent = name;
+            document.getElementById('infoDesc').textContent = info.desc || '';
+            const techUl = document.getElementById('infoTech');
+            techUl.innerHTML = '';
+            (info.tech || []).forEach(t => {
+                const li = document.createElement('li');
+                li.textContent = t;
+                techUl.append(li);
+            });
+            const featUl = document.getElementById('infoFeat');
+            featUl.innerHTML = '';
+            (info.feat || []).forEach(f => {
+                const li = document.createElement('li');
+                li.textContent = f;
+                featUl.append(li);
+            });
+            const metaUl = document.getElementById('infoMeta');
+            metaUl.innerHTML = '';
+            (info.meta || []).forEach(m => {
+                const li = document.createElement('li');
+                li.textContent = m;
+                metaUl.append(li);
+            });
+            document.querySelectorAll('.section').forEach(sec => sec.classList.add('visible'));
+            document.getElementById('infoPanel').classList.add('show');
+        }
+
+        function hideInfo() {
+            document.getElementById('infoPanel').classList.remove('show');
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('visible'));
+            d3.selectAll('.node').classed('active', false);
+        }
+
+        window.addEventListener('resize', render);
+        render();
+    </script>
+</body>
+</html> 

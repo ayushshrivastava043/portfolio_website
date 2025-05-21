@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Interactive Dashboard</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 2rem;
+            color: inherit;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-5px);
+        }
+
+        .category-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .category-filter {
+            padding: 0.5rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 2rem;
+            color: inherit;
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .category-filter.active {
+            background: linear-gradient(135deg, #00f2ff, #8e44ad);
+            box-shadow: 0 5px 15px rgba(0, 242, 255, 0.3);
+        }
+
+        .category-filter:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .blog-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.3);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 2px solid rgba(0, 242, 255, 0.3);
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-title {
+            margin: 0 0 1rem;
+            font-size: 1.5rem;
+            color: #00f2ff;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .blog-excerpt {
+            margin: 0 0 1.5rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .blog-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .blog-tag {
+            padding: 0.3rem 0.8rem;
+            background: rgba(0, 242, 255, 0.1);
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .blog-tag:hover {
+            background: rgba(0, 242, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .read-more {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #00f2ff, #8e44ad);
+            border-radius: 2rem;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .read-more:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 242, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .blog-container {
+                padding: 1rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .blog-card {
+                margin: 0 1rem;
+            }
+
+            .category-filters {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="history.back()">← Back</button>
+
+    <div class="blog-container">
+        <h1 data-aos="fade-down">Blog Posts</h1>
+        
+        <div class="category-filters" data-aos="fade-up">
+            <button class="category-filter active">All</button>
+            <button class="category-filter">AI/ML</button>
+            <button class="category-filter">Web Dev</button>
+            <button class="category-filter">Tech News</button>
+            <button class="category-filter">Tutorials</button>
+        </div>
+
+        <div class="blog-grid">
+            <article class="blog-card" data-aos="fade-up">
+                <img src="https://via.placeholder.com/400x200" alt="Future of AI" class="blog-image">
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span>May 2, 2025</span>
+                        <span>5 min read</span>
+                    </div>
+                    <h2 class="blog-title">The Future of AI</h2>
+                    <p class="blog-excerpt">Exploring the latest developments in artificial intelligence and their potential impact on various industries.</p>
+                    <div class="blog-tags">
+                        <span class="blog-tag">AI/ML</span>
+                        <span class="blog-tag">Technology</span>
+                        <span class="blog-tag">Future</span>
+                    </div>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+            </article>
+
+            <article class="blog-card" data-aos="fade-up" data-aos-delay="100">
+                <img src="https://via.placeholder.com/400x200" alt="Web Development Trends" class="blog-image">
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span>April 28, 2025</span>
+                        <span>4 min read</span>
+                    </div>
+                    <h2 class="blog-title">Web Development Trends</h2>
+                    <p class="blog-excerpt">A comprehensive look at the latest trends and technologies shaping the future of web development.</p>
+                    <div class="blog-tags">
+                        <span class="blog-tag">Web Dev</span>
+                        <span class="blog-tag">JavaScript</span>
+                        <span class="blog-tag">Trends</span>
+                    </div>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+            </article>
+
+            <article class="blog-card" data-aos="fade-up" data-aos-delay="200">
+                <img src="https://via.placeholder.com/400x200" alt="Machine Learning Tutorial" class="blog-image">
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span>April 25, 2025</span>
+                        <span>8 min read</span>
+                    </div>
+                    <h2 class="blog-title">Getting Started with ML</h2>
+                    <p class="blog-excerpt">A beginner-friendly guide to understanding and implementing machine learning algorithms.</p>
+                    <div class="blog-tags">
+                        <span class="blog-tag">Tutorial</span>
+                        <span class="blog-tag">AI/ML</span>
+                        <span class="blog-tag">Python</span>
+                    </div>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out',
+            once: false
+        });
+
+        // Category filter functionality
+        const filters = document.querySelectorAll('.category-filter');
+        filters.forEach(filter => {
+            filter.addEventListener('click', () => {
+                filters.forEach(f => f.classList.remove('active'));
+                filter.classList.add('active');
+                // Add filtering logic here
+            });
+        });
+    </script>
+</body>
+</html> 

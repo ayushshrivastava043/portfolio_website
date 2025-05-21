@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#27AE60"/>
+            <stop offset="100%" style="stop-color:#2ECC71"/>
+        </linearGradient>
+        <style>
+            .icon { font-size: 48px; fill: white; font-family: Arial; }
+            .title { font-size: 24px; fill: white; font-family: Arial; font-weight: bold; }
+            .subtitle { font-size: 16px; fill: #E8F6E9; font-family: Arial; }
+        </style>
+    </defs>
+    <rect width="400" height="300" fill="url(#bg2)" rx="15"/>
+    <text x="200" y="120" class="icon" text-anchor="middle">📊</text>
+    <text x="200" y="180" class="title" text-anchor="middle">FinBot</text>
+    <text x="200" y="210" class="subtitle" text-anchor="middle">Investment Advisory</text>
+</svg> 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#8E44AD"/>
+            <stop offset="100%" style="stop-color:#9B59B6"/>
+        </linearGradient>
+        <style>
+            .icon { font-size: 48px; fill: white; font-family: Arial; }
+            .title { font-size: 24px; fill: white; font-family: Arial; font-weight: bold; }
+            .subtitle { font-size: 16px; fill: #F5E6FF; font-family: Arial; }
+        </style>
+    </defs>
+    <rect width="400" height="300" fill="url(#bg3)" rx="15"/>
+    <text x="200" y="120" class="icon" text-anchor="middle">🎥</text>
+    <text x="200" y="180" class="title" text-anchor="middle">ShivaVerse</text>
+    <text x="200" y="210" class="subtitle" text-anchor="middle">AI Mythology</text>
+</svg> 

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Interactive Dashboard</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 2rem;
+            color: inherit;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-5px);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-info h2 {
+            color: #00f2ff;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .info-item:hover {
+            transform: translateX(10px);
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 242, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+
+        .info-text {
+            font-size: 1.1rem;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #00f2ff;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            border-radius: 0.5rem;
+            color: inherit;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #00f2ff;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1rem;
+            background: #00f2ff;
+            color: #111;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background: #00d4ff;
+            transform: translateY(-2px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-link:hover {
+            background: #00f2ff;
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-container {
+                padding: 1rem;
+            }
+
+            .info-item {
+                margin-bottom: 1rem;
+            }
+        }
+
+        .success-message,
+        .error-message {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            background: rgba(46, 204, 113, 0.9);
+            color: white;
+            transform: translateX(200%);
+            transition: transform 0.3s ease;
+        }
+
+        .error-message {
+            background: rgba(231, 76, 60, 0.9);
+        }
+
+        .show-message {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="history.back()">← Back</button>
+
+    <div class="contact-container">
+        <h1 data-aos="fade-down">Get in Touch</h1>
+
+        <div class="contact-grid">
+            <div class="contact-info" data-aos="fade-right">
+                <h2>Contact Information</h2>
+                <div class="info-item">
+                    <div class="info-icon">📍</div>
+                    <div class="info-text">123 Tech Street, Silicon Valley, CA</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">📧</div>
+                    <div class="info-text">hello@example.com</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">📱</div>
+                    <div class="info-text">+1 (555) 123-4567</div>
+                </div>
+                <div class="social-links">
+                    <div class="social-link">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z"/></svg>
+                    </div>
+                    <div class="social-link">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.066 9.645c.183 4.04-2.83 8.544-8.164 8.544-1.622 0-3.131-.476-4.402-1.291 1.524.18 3.045-.244 4.252-1.189-1.256-.023-2.317-.854-2.684-1.995.451.086.895.061 1.298-.049-1.381-.278-2.335-1.522-2.304-2.853.388.215.83.344 1.301.359-1.279-.855-1.641-2.544-.889-3.835 1.416 1.738 3.533 2.881 5.92 3.001-.419-1.796.944-3.527 2.799-3.527.825 0 1.572.349 2.096.907.654-.128 1.27-.368 1.824-.697-.215.671-.67 1.233-1.263 1.589.581-.07 1.135-.224 1.649-.453-.384.578-.87 1.084-1.433 1.489z"/></svg>
+                    </div>
+                    <div class="social-link">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z"/></svg>
+                    </div>
+                </div>
+            </div>
+
+            <form class="contact-form" data-aos="fade-left" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label class="form-label" for="name">Name</label>
+                    <input type="text" id="name" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" id="email" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="subject">Subject</label>
+                    <input type="text" id="subject" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="message">Message</label>
+                    <textarea id="message" class="form-textarea" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="success-message">Message sent successfully!</div>
+    <div class="error-message">Something went wrong. Please try again.</div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out',
+            once: false
+        });
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            // Simulate form submission
+            setTimeout(() => {
+                if (Math.random() > 0.5) { // Simulate success/failure
+                    showMessage('.success-message');
+                    form.reset();
+                } else {
+                    showMessage('.error-message');
+                }
+            }, 1000);
+        }
+
+        function showMessage(selector) {
+            const message = document.querySelector(selector);
+            message.classList.add('show-message');
+            setTimeout(() => {
+                message.classList.remove('show-message');
+            }, 3000);
+        }
+
+        // Add floating animation to social links
+        const socialLinks = document.querySelectorAll('.social-link');
+        socialLinks.forEach((link, index) => {
+            link.style.animation = `float 3s ease-in-out ${index * 0.2}s infinite`;
+        });
+
+        // Add keyframe animation for floating effect
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0% { transform: translateY(0); }
+                50% { transform: translateY(-10px); }
+                100% { transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html> 

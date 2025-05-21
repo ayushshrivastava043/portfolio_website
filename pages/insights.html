@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insights - Interactive Dashboard</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .insights-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 2rem;
+            color: inherit;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-5px);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.3);
+        }
+
+        .metric-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #00f2ff;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-change {
+            font-size: 0.9rem;
+            color: #4CAF50;
+        }
+
+        .metric-change.negative {
+            color: #f44336;
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .chart-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.3);
+        }
+
+        .chart-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #00f2ff;
+        }
+
+        canvas {
+            width: 100% !important;
+            height: 300px !important;
+        }
+
+        @media (max-width: 768px) {
+            .insights-container {
+                padding: 1rem;
+            }
+
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .metric-card {
+                margin: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="history.back()">← Back</button>
+
+    <div class="insights-container">
+        <h1 data-aos="fade-down">Insights Dashboard</h1>
+
+        <div class="metrics-grid">
+            <div class="metric-card" data-aos="fade-up">
+                <div class="metric-title">Active Users</div>
+                <div class="metric-value">1,234</div>
+                <div class="metric-change">+12.5% ↑</div>
+            </div>
+
+            <div class="metric-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="metric-title">Response Time</div>
+                <div class="metric-value">45ms</div>
+                <div class="metric-change negative">+5.2% ↑</div>
+            </div>
+
+            <div class="metric-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="metric-title">Success Rate</div>
+                <div class="metric-value">98.7%</div>
+                <div class="metric-change">+0.5% ↑</div>
+            </div>
+
+            <div class="metric-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="metric-title">Total Requests</div>
+                <div class="metric-value">845K</div>
+                <div class="metric-change">+23.1% ↑</div>
+            </div>
+        </div>
+
+        <div class="chart-grid">
+            <div class="chart-container" data-aos="fade-up">
+                <h3 class="chart-title">User Activity</h3>
+                <canvas id="activityChart"></canvas>
+            </div>
+
+            <div class="chart-container" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="chart-title">Performance Metrics</h3>
+                <canvas id="performanceChart"></canvas>
+            </div>
+
+            <div class="chart-container" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="chart-title">Resource Usage</h3>
+                <canvas id="resourceChart"></canvas>
+            </div>
+
+            <div class="chart-container" data-aos="fade-up" data-aos-delay="300">
+                <h3 class="chart-title">Error Distribution</h3>
+                <canvas id="errorChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out',
+            once: false
+        });
+
+        // Initialize charts
+        const activityChart = new Chart(document.getElementById('activityChart'), {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Active Users',
+                    data: [1200, 1350, 1250, 1400, 1300, 1450, 1350],
+                    borderColor: '#00f2ff',
+                    backgroundColor: 'rgba(0, 242, 255, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    }
+                }
+            }
+        });
+
+        const performanceChart = new Chart(document.getElementById('performanceChart'), {
+            type: 'bar',
+            data: {
+                labels: ['API 1', 'API 2', 'API 3', 'API 4', 'API 5'],
+                datasets: [{
+                    label: 'Response Time (ms)',
+                    data: [45, 32, 38, 41, 35],
+                    backgroundColor: 'rgba(142, 68, 173, 0.8)'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    }
+                }
+            }
+        });
+
+        const resourceChart = new Chart(document.getElementById('resourceChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['CPU', 'Memory', 'Storage', 'Network'],
+                datasets: [{
+                    data: [30, 25, 20, 25],
+                    backgroundColor: [
+                        '#00f2ff',
+                        '#8e44ad',
+                        '#3498db',
+                        '#2ecc71'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'right'
+                    }
+                }
+            }
+        });
+
+        const errorChart = new Chart(document.getElementById('errorChart'), {
+            type: 'radar',
+            data: {
+                labels: ['404', '500', '403', '401', '502'],
+                datasets: [{
+                    label: 'Error Count',
+                    data: [15, 8, 12, 6, 3],
+                    backgroundColor: 'rgba(142, 68, 173, 0.2)',
+                    borderColor: '#8e44ad',
+                    pointBackgroundColor: '#8e44ad'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Simulate real-time updates
+        setInterval(() => {
+            // Update metrics
+            document.querySelectorAll('.metric-value').forEach(metric => {
+                const currentValue = parseFloat(metric.textContent.replace(/[^0-9.-]+/g, ''));
+                const change = (Math.random() - 0.5) * 10;
+                metric.textContent = (currentValue + change).toFixed(1) + (metric.textContent.includes('%') ? '%' : '');
+            });
+
+            // Update charts
+            activityChart.data.datasets[0].data = activityChart.data.datasets[0].data.map(
+                value => value + (Math.random() - 0.5) * 100
+            );
+            activityChart.update();
+
+            performanceChart.data.datasets[0].data = performanceChart.data.datasets[0].data.map(
+                value => value + (Math.random() - 0.5) * 5
+            );
+            performanceChart.update();
+        }, 5000);
+    </script>
+</body>
+</html> 
