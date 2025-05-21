@@ -44,9 +44,9 @@ const saturn = document.querySelector('.planet.saturn');
 
 // Default planet positions and sizes
 const defaultSettings = {
-    earth: { x: 0, y: -200, z: 0, rotate: 0, size: 280 },
-    jupiter: { x: 0, y: 0, z: 0, rotate: 0, size: 280 },
-    saturn: { x: 0, y: 200, z: 0, rotate: 0, size: 280 }
+    earth: { x: -400, y: -200, z: 0, rotate: 0, size: 280 },  // AI Projects top-left
+    jupiter: { x: 0, y: 300, z: 0, rotate: 0, size: 280 },    // PM Projects bottom-center
+    saturn: { x: 400, y: -200, z: 0, rotate: 0, size: 280 }   // Business Projects top-right
 };
 
 // Function to apply transform and size to a planet
@@ -136,7 +136,7 @@ applyConfigBtn.addEventListener('click', applyPlanetSettings);
 resetConfigBtn.addEventListener('click', resetPlanetSettings);
 
 // Initialize settings when the page loads
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', () => {
     initializePlanetSettings();
     
     // Load saved accent color

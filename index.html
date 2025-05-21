@@ -260,6 +260,12 @@
             box-shadow: 0 0 12px #00ffee99,0 2px 8px #23283a;
             border: 2.5px solid #00ffee;
             background: #23283a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ffee;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2em;
         }
         @keyframes floatChat {
             0% { transform: translateY(0); }
@@ -673,25 +679,25 @@
             <div class="constellation-container">
                 <div class="planet earth" data-category="ai">
                     <div class="planet-content">
-                        <h3>AI Projects</h3>
+                        <h3>🚀 AI & Automation Projects</h3>
                     </div>
                     <div class="moon-system">
                         <div class="moon moon-1" data-project="ai-sales">
                             <div class="moon-content">
                                 <h4>🤖 AI Sales Agent</h4>
-                                <p>Smart chatbot for e-commerce</p>
+                                <p>E-commerce chatbot</p>
                             </div>
                         </div>
                         <div class="moon moon-2" data-project="ai-video">
                             <div class="moon-content">
                                 <h4>🎬 AI Video Pipeline</h4>
-                                <p>Automated video generation</p>
+                                <p>Script-to-screen automation</p>
                             </div>
                         </div>
                         <div class="moon moon-3" data-project="ai-api">
                             <div class="moon-content">
                                 <h4>⚙️ API Orchestration</h4>
-                                <p>Centralized automation</p>
+                                <p>Workflow automation engine</p>
                             </div>
                         </div>
                     </div>
@@ -701,14 +707,28 @@
                         <h3>PM Projects</h3>
                     </div>
                     <div class="moon-system">
-                        <div class="moon moon-1">
+                        <div class="moon moon-1" data-project="pm-telecom">
                             <div class="moon-content">
-                                <h4>Coming Soon</h4>
+                                <h4>📡 Telecom Rollout</h4>
+                                <p>Bell Canada eSIM & DTH</p>
                             </div>
                         </div>
-                        <div class="moon moon-2">
+                        <div class="moon moon-2" data-project="pm-hrsuite">
                             <div class="moon-content">
-                                <h4>Coming Soon</h4>
+                                <h4>👥 HR-Suite Revamp</h4>
+                                <p>KenboxTech LMS/LDS/BES</p>
+                            </div>
+                        </div>
+                        <div class="moon moon-3" data-project="pm-websites">
+                            <div class="moon-content">
+                                <h4>🌐 Multi-Brand Sites</h4>
+                                <p>AI, Retail, Coaching</p>
+                            </div>
+                        </div>
+                        <div class="moon moon-4" data-project="pm-edtech">
+                            <div class="moon-content">
+                                <h4>🎓 Banking-EdTech</h4>
+                                <p>E-learning platform</p>
                             </div>
                         </div>
                     </div>
@@ -718,14 +738,34 @@
                         <h3>Business Projects</h3>
                     </div>
                     <div class="moon-system">
-                        <div class="moon moon-1">
+                        <div class="moon moon-1" data-project="biz-kpi-playbook">
                             <div class="moon-content">
-                                <h4>Coming Soon</h4>
+                                <h4>📊 KPI-Driven AI Playbook</h4>
+                                <p>Verifast growth metrics</p>
                             </div>
                         </div>
-                        <div class="moon moon-2">
+                        <div class="moon moon-2" data-project="biz-esim-dth-launch">
                             <div class="moon-content">
-                                <h4>Coming Soon</h4>
+                                <h4>🚀 eSIM & DTH Launch</h4>
+                                <p>Bell Canada go-to-market</p>
+                            </div>
+                        </div>
+                        <div class="moon moon-3" data-project="biz-genai-pilot">
+                            <div class="moon-content">
+                                <h4>🤖 GenAI Telecom Pilot</h4>
+                                <p>CGI FAQ & ticket triage POC</p>
+                            </div>
+                        </div>
+                        <div class="moon moon-4" data-project="biz-edtech-expansion">
+                            <div class="moon-content">
+                                <h4>💡 EdTech Revenue Expansion</h4>
+                                <p>DKPR virtual & gamified modules</p>
+                            </div>
+                        </div>
+                        <div class="moon moon-5" data-project="biz-green-build">
+                            <div class="moon-content">
+                                <h4>🌳 Green-Build Cost-Saves</h4>
+                                <p>Eco-materials ROI & waste cut</p>
                             </div>
                         </div>
                     </div>
@@ -755,8 +795,8 @@
     </div>
 
     <div class="chatbot-widget closed" id="chatbot-widget">
-        <div class="chatbot-avatar" id="dog-avatar" style="position:absolute;top:-40px;right:10px;width:48px;height:48px;z-index:10;border-radius:50%;overflow:hidden;box-shadow:0 0 12px #00ffee99,0 2px 8px #23283a;border:2.5px solid #00ffee;background:#23283a;">
-          <img src="assets/@00c6cba2-1688-4aab-ab91-13925f41fc20.jpg" alt="Dog Avatar" style="width:100%;height:100%;object-fit:cover;"/>
+        <div class="chatbot-avatar" id="dog-avatar" style="position:absolute;top:-40px;right:10px;width:48px;height:48px;z-index:10;border-radius:50%;overflow:hidden;box-shadow:0 0 12px #00ffee99,0 2px 8px #23283a;border:2.5px solid #00ffee;background:#23283a;display:flex;align-items:center;justify-content:center;color:#00ffee;font-family:'Orbitron',sans-serif;font-size:1.2em;">
+            AS
         </div>
         <div class="chatbot-window">
             <div class="chatbot-header" style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
@@ -839,6 +879,19 @@
                         <div style="grid-column: span 2;">Size: <input type="number" id="saturnSizeInput" value="280" style="width:60px;background:rgba(0,0,0,0.3);border:1px solid var(--accent);color:#fff;padding:4px;"> px</div>
                     </div>
                 </div>
+                <div style="margin-bottom:16px;padding:12px;background:rgba(255,255,255,0.05);border-radius:8px;">
+                    <div style="color:var(--accent);margin-bottom:8px;">🪐 PM Moons (Jupiter)</div>
+                    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
+                        <div>Moon 1 X: <input type="number" id="moon1XInput" value="60" style="width:60px;"></div>
+                        <div>Moon 1 Y: <input type="number" id="moon1YInput" value="0" style="width:60px;"></div>
+                        <div>Moon 2 X: <input type="number" id="moon2XInput" value="100" style="width:60px;"></div>
+                        <div>Moon 2 Y: <input type="number" id="moon2YInput" value="60" style="width:60px;"></div>
+                        <div>Moon 3 X: <input type="number" id="moon3XInput" value="60" style="width:60px;"></div>
+                        <div>Moon 3 Y: <input type="number" id="moon3YInput" value="100" style="width:60px;"></div>
+                        <div>Moon 4 X: <input type="number" id="moon4XInput" value="0" style="width:60px;"></div>
+                        <div>Moon 4 Y: <input type="number" id="moon4YInput" value="60" style="width:60px;"></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div style="display:flex;gap:8px;">
@@ -874,7 +927,7 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="config.js"></script>
-    <script src="projects.js"></script>
+    <script src="projects.js?v=3"></script>
     <script src="main.js?v=3"></script>
     <script type="module">
     // Hyperspace Cruise: Cinematic, GPU-friendly animated background
@@ -908,29 +961,21 @@
     scene.add(stars);
 
     // ---- Planets/comets (front layer) ----
-    const planetTex = new THREE.TextureLoader().load('assets/planet.png'); // spaceship or planet PNG
-    const planetMat = new THREE.SpriteMaterial({map:planetTex});
-    let activePlanets = [];
-    function spawnPlanet(){
-      const sprite = new THREE.Sprite(planetMat.clone());
-      sprite.position.set( (Math.random()-0.5)*100, (Math.random()-0.5)*60, -800 );
-      const scale = 8+Math.random()*12;
-      sprite.scale.set(scale,scale,1);
-      scene.add(sprite);
-      activePlanets.push(sprite);
-      setTimeout(spawnPlanet, 4000 + Math.random()*3000); // next planet
-    }
-    spawnPlanet();
+    // const planetTex = new THREE.TextureLoader().load('assets/planet.png');
+    // const planetMat = new THREE.SpriteMaterial({map:planetTex});
+    // let activePlanets = [];
+    // function spawnPlanet(){ ... }
+    // spawnPlanet();
 
     // ---- Nebula background (back layer) ----
-    const nebulaTex = new THREE.TextureLoader().load('assets/nebula_low.jpg'); // best cosmic/galaxy image
-    nebulaTex.rotation = Math.PI;               // subtle drift
-    nebulaTex.center.set(0.5,0.5);
-    const nebulaMat = new THREE.SpriteMaterial({map:nebulaTex, opacity:0.35, depthWrite:false});
-    const nebula    = new THREE.Sprite(nebulaMat);
-    nebula.scale.set(2000,1000,1);
-    nebula.position.set(0,0,-900);
-    scene.add(nebula);
+    // const nebulaTex = new THREE.TextureLoader().load('assets/nebula_low.jpg');
+    // nebulaTex.rotation = Math.PI;
+    // nebulaTex.center.set(0.5,0.5);
+    // const nebulaMat = new THREE.SpriteMaterial({map:nebulaTex, opacity:0.35, depthWrite:false});
+    // const nebula    = new THREE.Sprite(nebulaMat);
+    // nebula.scale.set(2000,1000,1);
+    // nebula.position.set(0,0,-900);
+    // scene.add(nebula);
 
     // ---- Animation loop ----
     camera.position.z = 5;
@@ -955,15 +1000,15 @@
       }
       starGeo.attributes.position.needsUpdate = true;
       // planets glide by
-      for (let i=activePlanets.length-1; i>=0; i--){
-        const p = activePlanets[i];
-        p.position.z += 6;
-        if (p.position.z > 5){
-          scene.remove(p);
-          activePlanets.splice(i,1);
-        }
-      }
-      nebulaTex.offset.x += 0.0001; // dreamy slow drift
+      // for (let i=activePlanets.length-1; i>=0; i--){
+      //   const p = activePlanets[i];
+      //   p.position.z += 6;
+      //   if (p.position.z > 5){
+      //     scene.remove(p);
+      //     activePlanets.splice(i,1);
+      //   }
+      // }
+      // nebulaTex.offset.x += 0.0001; // dreamy slow drift
       renderer.render(scene,camera);
     }
     animate();

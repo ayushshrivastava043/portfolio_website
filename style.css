@@ -883,11 +883,11 @@ img, canvas {
     opacity: 0.9;
 }
 
-/* Moon System */
+/* Moon System - ensure enough space */
 .moon-system {
-    position: absolute;
-    width: 500px;
-    height: 500px;
+    position: relative;
+    width: 700px;
+    height: 700px;
     transform-style: preserve-3d;
     top: 50%;
     left: 50%;
@@ -896,6 +896,7 @@ img, canvas {
     transition: opacity 0.3s ease, transform 0.3s ease;
     pointer-events: none;
     z-index: 100;
+    margin: auto;
 }
 
 .planet:hover .moon-system {
@@ -921,24 +922,7 @@ img, canvas {
     z-index: 5;
 }
 
-.moon-1 {
-    top: 58px;
-    left: 378px;
-    background: radial-gradient(circle at 30% 30%, #e0e5ff 5%, #c0c5d0 30%, #a0a5b0 60%, #707580 100%);
-}
-
-.moon-2 {
-    top: 58px;
-    left: -28px;
-    background: radial-gradient(circle at 70% 30%, #f0f0f5 5%, #c5c5ce 30%, #a5a5ae 60%, #75757e 100%);
-}
-
-.moon-3 {
-    top: 410px;
-    left: 175px;
-    background: radial-gradient(circle at 30% 70%, #dfe3ff 5%, #bfc3d0 30%, #9fa3b0 60%, #6f7380 100%);
-}
-
+/* Moon hover effects and content styles */
 .moon:hover {
     transform: scale(1.1);
     z-index: 10;
@@ -984,69 +968,15 @@ img, canvas {
     display: none;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .constellation-section {
-        padding: 40px 20px;
-    }
-
-    .constellation-title {
-        font-size: 2.5rem;
-        margin-bottom: 60px;
-    }
-
-    .planet {
-        width: 200px;
-        height: 200px;
-    }
-
-    .planet.saturn::before {
-        width: 280px;
-        height: 40px;
-        left: -40px;
-        top: 80px;
-    }
-
-    .planet.saturn::after {
-        width: 240px;
-        height: 30px;
-        left: -20px;
-        top: 85px;
-    }
-
+/* Responsive adjustments */
+@media (max-width: 900px) {
     .moon-system {
         width: 350px;
         height: 350px;
-        top: -75px;
-        left: -75px;
     }
-
     .moon {
         width: 70px;
         height: 70px;
-    }
-
-    .moon-1 {
-        top: 50px;
-        left: 250px;
-    }
-
-    .moon-2 {
-        top: 140px;
-        left: 270px;
-    }
-
-    .moon-3 {
-        top: 220px;
-        left: 250px;
-    }
-
-    .moon-content h4 {
-        font-size: 0.8rem;
-    }
-
-    .moon-content p {
-        font-size: 0.6rem;
     }
 }
 
