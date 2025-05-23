@@ -871,7 +871,8 @@ img, canvas {
     padding: 30px;
     backdrop-filter: blur(4px);
     transform: translateZ(20px);
-    pointer-events: none;
+    pointer-events: auto;
+    cursor: pointer;
 }
 
 .planet-content h3 {
@@ -894,7 +895,7 @@ img, canvas {
     transform: translate(-50%, -50%);
     opacity: 0;
     transition: opacity 0.3s ease, transform 0.3s ease;
-    pointer-events: none;
+    pointer-events: auto;
     z-index: 100;
     margin: auto;
 }
@@ -920,6 +921,34 @@ img, canvas {
     overflow: hidden;
     backface-visibility: hidden;
     z-index: 5;
+    pointer-events: auto;
+}
+
+/* Edit mode indicator for moons */
+.moon.edit-mode-active {
+    box-shadow: 0 0 20px var(--accent, #00ffee),
+                5px 5px 15px rgba(0, 0, 0, 0.4),
+                inset -8px -8px 15px rgba(0,0,0,0.25),
+                inset 5px 5px 10px rgba(255,255,255,0.1);
+}
+
+.moon.edit-mode-active::before {
+    content: '✏️';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 16px;
+    z-index: 7;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.moon.edit-mode-active:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px var(--accent, #00ffee),
+                8px 8px 20px rgba(0, 0, 0, 0.5),
+                inset -5px -5px 15px rgba(0,0,0,0.3),
+                inset 8px 8px 15px rgba(255,255,255,0.15);
 }
 
 /* Moon hover effects and content styles */
@@ -944,6 +973,8 @@ img, canvas {
     color: white;
     text-align: center;
     transition: background 0.3s ease;
+    pointer-events: none;
+    z-index: 6;
 }
 
 .moon:hover .moon-content {
@@ -1012,6 +1043,7 @@ img, canvas {
     padding: 30px;
     overflow-y: auto;
     box-shadow: 0 0 30px rgba(0, 255, 238, 0.1);
+    z-index: 1001;
 }
 
 .modal-content h2 {
@@ -1119,4 +1151,56 @@ img, canvas {
 
 .modal-content::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 255, 238, 0.8);
+}
+
+/* Inline Editing Styles */
+.editable {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 1002;
+}
+
+.editable:hover {
+    background: rgba(0, 255, 238, 0.1);
+    outline: 2px dashed var(--accent, #00ffee);
+    outline-offset: 2px;
+}
+
+.editable::after {
+    content: '✏️';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 1003;
+}
+
+.editable:hover::after {
+    opacity: 1;
+}
+
+/* Ensure modal content is editable when modal is active */
+.project-modal.active .modal-content .editable {
+    z-index: 1003;
+}
+
+/* Ensure moon clicks work properly */
+.moon:not(.editable) {
+    pointer-events: auto;
+}
+
+.moon.editable {
+    pointer-events: none;
+}
+
+#edit-mode-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+#edit-mode-toggle:active {
+    transform: translateY(0);
 } 
