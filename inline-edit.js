@@ -1,5 +1,56 @@
 // Inline editing functionality
 document.addEventListener('DOMContentLoaded', () => {
+    // Add Edit Mode toggle button
+    const btn = document.createElement('button');
+    btn.id = 'edit-mode-toggle';
+    btn.textContent = '✏️ Edit Mode';
+    btn.style.cssText = `
+        position: fixed; top: 20px; right: 20px; z-index: 99999;
+        background: var(--accent, #00ffee); color: #111; border: none;
+        border-radius: 6px; padding: 10px 18px; font-weight: bold; cursor: pointer;
+        box-shadow: 0 2px 8px #00ffee44; font-size: 1.1em;
+    `;
+    document.body.appendChild(btn);
+
+    let editMode = false;
+
+    function setEditMode(on) {
+        document.querySelectorAll('.editable-text[data-key]').forEach(el => {
+            el.setAttribute('contenteditable', on ? 'true' : 'false');
+            if (on) {
+                el.classList.add('editable-highlight');
+            } else {
+                el.classList.remove('editable-highlight');
+            }
+        });
+        btn.style.background = on ? '#ff4444' : 'var(--accent, #00ffee)';
+        btn.textContent = on ? '✅ Done Editing' : '✏️ Edit Mode';
+    }
+
+    // Load saved content on startup
+    document.querySelectorAll('.editable-text[data-key]').forEach(el => {
+        const key = `editable_${el.dataset.key}`;
+        const saved = localStorage.getItem(key);
+        if (saved !== null) {
+            el.innerHTML = saved;
+        }
+        el.setAttribute('contenteditable', 'false');
+    });
+
+    // Save on input
+    document.querySelectorAll('.editable-text[data-key]').forEach(el => {
+        el.addEventListener('input', () => {
+            const key = `editable_${el.dataset.key}`;
+            localStorage.setItem(key, el.innerHTML);
+        });
+    });
+
+    // Toggle edit mode on button click
+    btn.addEventListener('click', () => {
+        editMode = !editMode;
+        setEditMode(editMode);
+    });
+
     // Add edit mode toggle button to the config panel
     const configPanel = document.getElementById('config-panel');
     if (!configPanel) return;
@@ -22,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     configPanel.appendChild(editButton);
 
-    let editMode = false;
     let editableElements = new Set();
 
     // Add save feedback function at the top level
