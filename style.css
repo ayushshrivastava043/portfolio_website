@@ -572,6 +572,7 @@ img, canvas {
     gap: 32px;
     padding-bottom: 0;
     margin-right: 340px; /* Avoid sidebar overlap */
+    margin-top: 200px; /* Increased to move boxes further down and avoid overlap with moons */
 }
 
 @media (max-width: 1200px) {
@@ -734,21 +735,12 @@ img, canvas {
     cursor: pointer;
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     transform-style: preserve-3d;
-    box-shadow: 
-        0 0 60px rgba(0, 255, 238, 0.2),
-        inset 0 0 60px rgba(0, 0, 0, 0.4);
+    box-shadow: none;
 }
 
 .planet.earth {
-    background: linear-gradient(45deg, 
-        #1a4d2e 0%,
-        #2d6a4f 25%,
-        #40916c 50%,
-        #2d6a4f 75%,
-        #1a4d2e 100%);
-    box-shadow: 
-        0 0 60px rgba(64, 145, 108, 0.4),
-        inset 0 0 60px rgba(0, 0, 0, 0.4);
+    background: url('/assets/earth.png') center center/cover no-repeat;
+    box-shadow: none;
     transform: translateZ(0) rotate(0deg);
 }
 
@@ -759,9 +751,7 @@ img, canvas {
         #e9c46a 50%,
         #f4a261 75%,
         #e76f51 100%);
-    box-shadow: 
-        0 0 60px rgba(244, 162, 97, 0.4),
-        inset 0 0 60px rgba(0, 0, 0, 0.4);
+    box-shadow: none;
     transform: translateZ(0) rotate(0deg);
 }
 
@@ -772,9 +762,7 @@ img, canvas {
         #2a9d8f 50%,
         #264653 75%,
         #2a9d8f 100%);
-    box-shadow: 
-        0 0 60px rgba(42, 157, 143, 0.4),
-        inset 0 0 60px rgba(0, 0, 0, 0.4);
+    box-shadow: none;
     transform: translateZ(0) rotate(0deg);
     position: relative;
 }
@@ -822,9 +810,7 @@ img, canvas {
 .planet:hover {
     /* transform: scale(1.02) !important; */ /* Removed to prevent interference with JS positioning */
     z-index: 10;
-    box-shadow: 
-        0 0 80px rgba(0, 255, 238, 0.4),
-        inset 0 0 60px rgba(0, 0, 0, 0.4);
+    box-shadow: none;
 }
 
 .planet-content {
@@ -839,10 +825,11 @@ img, canvas {
     text-align: center;
     opacity: 1;
     transition: all 0.4s ease;
-    background: rgba(0, 0, 0, 0.5);
+    /* Remove background and blur for vibrancy */
+    background: none;
     border-radius: 50%;
     padding: 30px;
-    backdrop-filter: blur(4px);
+    /* backdrop-filter: blur(4px); */
     transform: translateZ(20px);
     pointer-events: auto;
     cursor: pointer;
@@ -884,7 +871,7 @@ img, canvas {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, #ddeeff 5%, #c0c0c0 30%, #a9a9a9 60%, #808080 100%);
+    background: url('assets/MOON.png') center center/cover no-repeat;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4),
                 inset -8px -8px 15px rgba(0,0,0,0.25),
                 inset 5px 5px 10px rgba(255,255,255,0.1);

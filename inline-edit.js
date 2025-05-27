@@ -1,17 +1,5 @@
 // Inline editing functionality
 document.addEventListener('DOMContentLoaded', () => {
-    // Add Edit Mode toggle button
-    const btn = document.createElement('button');
-    btn.id = 'edit-mode-toggle';
-    btn.textContent = '✏️ Edit Mode';
-    btn.style.cssText = `
-        position: fixed; top: 20px; right: 20px; z-index: 99999;
-        background: var(--accent, #00ffee); color: #111; border: none;
-        border-radius: 6px; padding: 10px 18px; font-weight: bold; cursor: pointer;
-        box-shadow: 0 2px 8px #00ffee44; font-size: 1.1em;
-    `;
-    document.body.appendChild(btn);
-
     let editMode = false;
 
     function setEditMode(on) {
@@ -23,8 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 el.classList.remove('editable-highlight');
             }
         });
-        btn.style.background = on ? '#ff4444' : 'var(--accent, #00ffee)';
-        btn.textContent = on ? '✅ Done Editing' : '✏️ Edit Mode';
     }
 
     // Load saved content on startup
@@ -46,18 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Toggle edit mode on button click
-    btn.addEventListener('click', () => {
-        editMode = !editMode;
-        setEditMode(editMode);
-    });
-
-    // Add edit mode toggle button to the config panel
     const configPanel = document.getElementById('config-panel');
     if (!configPanel) return;
 
     const editButton = document.createElement('button');
     editButton.id = 'edit-mode-toggle';
-    editButton.innerHTML = '✏️ Edit Mode';
+    editButton.textContent = '✏️ Edit Mode';
     editButton.style.cssText = `
         display: block;
         width: 100%;
@@ -136,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     editButton.addEventListener('click', () => {
         editMode = !editMode;
         editButton.style.background = editMode ? '#ff4444' : 'var(--accent, #00ffee)';
-        editButton.innerHTML = editMode ? '✏️ Exit Edit Mode' : '✏️ Edit Mode';
+        editButton.textContent = editMode ? '✏️ Exit Edit Mode' : '✏️ Edit Mode';
         
         // Make regular content editable
         makeElementsEditable(document.querySelectorAll('h1, h2, h3, h4, p, li, .moon-content h4, .moon-content p, .blog-title, .blog-excerpt'));
