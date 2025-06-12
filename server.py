@@ -1,8 +1,7 @@
 import asyncio
 import websockets
 import http.server
-import socketserver
-import threading
+import socketservera
 import json
 import logging
 from datetime import datetime
@@ -54,7 +53,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
         logging.info(f"{self.client_address[0]} - - {format%args}")
 
 def run_http_server():
-    port = 8000
+    port = 8080
     handler = RequestHandler
     
     while True:
