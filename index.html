@@ -3,7 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Your website description">
+    <meta name="description" content="Ayush Shrivastava's AI Portfolio - Showcasing AI projects, automation tools, and learning experiences">
+    <meta name="keywords" content="AI, Machine Learning, Automation, Portfolio, Ayush Shrivastava, Chatbot, Video Generation, API Development">
+    <meta name="author" content="Ayush Shrivastava">
+    <meta name="robots" content="index, follow">
+    <!-- Open Graph tags for better social media sharing -->
+    <meta property="og:title" content="Ayush's AI World - Portfolio">
+    <meta property="og:description" content="Crafting smart agents, automation tools, and AI videos">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.com">
+    <!-- Twitter Card tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ayush's AI World - Portfolio">
+    <meta name="twitter:description" content="Crafting smart agents, automation tools, and AI videos">
+    <!-- Structured data for better AI understanding -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Ayush Shrivastava",
+        "jobTitle": "AI Developer",
+        "description": "Building AI-powered products that think, talk, and convert. Passionate about automation, analytics, and building tools that make a difference.",
+        "url": "https://your-domain.com",
+        "sameAs": [
+            "https://www.linkedin.com/in/ayushshrivastava1292",
+            "https://www.youtube.com/@Virtualr_eality"
+        ],
+        "knowsAbout": [
+            "AI Development",
+            "Chatbot Development",
+            "Video Generation",
+            "API Development",
+            "Automation"
+        ]
+    }
+    </script>
     <title>Ayush | AI Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -644,6 +678,240 @@
         /* IMPORTANT: Do NOT add overflow:hidden to html or body! This breaks scrolling. Only #space should have overflow:hidden. */
         html,body{margin:0;width:100vw;height:100vh;background:#000;}
         #space{width:100vw;height:100vh;overflow:hidden;}
+
+        /* Journal Modal Styles */
+        .journal-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .journal-content {
+            width: 90%;
+            max-width: 1000px;
+            height: 90vh;
+            position: relative;
+            perspective: 2000px;
+        }
+
+        .book {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+
+        .book-cover {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            border-radius: 20px;
+            padding: 40px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transform-origin: left;
+            transition: transform 1s;
+            box-shadow: 0 0 30px rgba(0, 255, 238, 0.3);
+            border: 2px solid #00ffee;
+        }
+
+        .book.open .book-cover {
+            transform: rotateY(-180deg);
+        }
+
+        .book-cover h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: #00ffee;
+            margin: 0;
+            text-align: center;
+        }
+
+        .book-cover p {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            opacity: 0.8;
+        }
+
+        .book-pages {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border-radius: 20px;
+            padding: 40px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            color: #333;
+            transform-origin: left;
+            transition: transform 1s;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .book.open .book-pages {
+            transform: rotateY(0);
+        }
+
+        .close-journal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 2001;
+        }
+
+        .entry {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .entry:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 238, 0.2);
+        }
+
+        .entry h2 {
+            color: #302b63;
+            margin: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .entry h2::after {
+            content: '▼';
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .entry.open h2::after {
+            transform: rotate(180deg);
+        }
+
+        .entry-content {
+            display: none;
+            margin-top: 15px;
+            color: #666;
+        }
+
+        .entry.open .entry-content {
+            display: block;
+        }
+
+        .entry pre {
+            background: #23283a;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+
+        .entry code {
+            color: #00ffee;
+            font-family: 'Consolas', monospace;
+        }
+
+        @media (max-width: 768px) {
+            .journal-content {
+                width: 95%;
+                height: 95vh;
+            }
+
+            .book-cover h2 {
+                font-size: 2rem;
+            }
+
+            .entry {
+                padding: 15px;
+            }
+        }
+
+        .book-container {
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+
+        .book-container.open .book-cover {
+            transform: rotateY(-180deg);
+        }
+
+        .book-container.open .book-pages {
+            transform: rotateY(0deg);
+        }
+
+        .entry:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .entry h2::after {
+            content: '▼';
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+            margin-left: auto;
+        }
+
+        .entry.open h2::after {
+            transform: rotate(180deg);
+        }
+
+        .entry.open .entry-content {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .journal-section {
+                padding: 0 15px;
+                margin: 40px auto;
+            }
+
+            .book-container {
+                height: 500px;
+            }
+
+            .book-cover h2 {
+                font-size: 2rem;
+            }
+
+            .entry {
+                padding: 15px;
+            }
+
+            .entry h2 {
+                font-size: 1.1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -787,6 +1055,154 @@
                 <p>Explore interactive analytics, AI-driven insights, and real-time dashboards for all projects. Coming soon!</p>
             </div>
         </div>
+
+        <!-- Book-style Learning Journal Section -->
+        <div class="journal-section" style="width: 100%; max-width: 1200px; margin: 80px auto; padding: 0 20px; perspective: 2000px;">
+            <h2 class="section-title" style="text-align: center; font-family: 'Orbitron', sans-serif; font-size: 2.5rem; color: #00ffee; margin-bottom: 40px; text-shadow: 0 0 20px rgba(0, 255, 238, 0.4);">🧠 Learning Journal</h2>
+            
+            <div class="book-container" style="position: relative; width: 100%; height: 600px; transform-style: preserve-3d; transition: transform 1s;">
+                <!-- Book Cover -->
+                <div class="book-cover" style="position: absolute; width: 100%; height: 100%; background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); border-radius: 20px; padding: 40px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; transform-origin: left; transition: transform 1s; box-shadow: 0 0 30px rgba(0, 255, 238, 0.3); border: 2px solid #00ffee; backface-visibility: hidden;">
+                    <h2 style="font-family: 'Orbitron', sans-serif; font-size: 2.5rem; color: #00ffee; margin: 0; text-align: center;">🧠 Learning Journal</h2>
+                    <p style="color: #fff; font-size: 1.2rem; margin-top: 20px; opacity: 0.8;">Click to open</p>
+                </div>
+
+                <!-- Book Pages -->
+                <div class="book-pages" style="position: absolute; width: 100%; height: 100%; background: #fff; border-radius: 20px; padding: 40px; box-sizing: border-box; overflow-y: auto; color: #333; transform-origin: left; transition: transform 1s; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); transform: rotateY(0deg);">
+                    <div class="page">
+                        <div class="entry" style="background: #f8f9fa; border-radius: 15px; padding: 25px; margin-bottom: 25px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;">
+                            <h2 onclick="this.parentElement.classList.toggle('open')" style="color: #302b63; margin: 0; cursor: pointer; display: flex; align-items: center; gap: 10px; font-family: 'Orbitron', sans-serif;">🧠 Verifast AI Chatbot (Jan–May 2025)</h2>
+                            <div class="entry-content" style="display: none; margin-top: 20px; color: #666;">
+                                <p><strong style="color: #302b63;">📌 Context:</strong> Improve KPI-driven AI chatbot performance at Verifast</p>
+                                <p><strong style="color: #302b63;">🧠 Learnings:</strong> OpenAI API integration, fallback logic, Redis/Firebase session tracking, latency logging</p>
+                                <pre style="background: #23283a; padding: 15px; border-radius: 10px; overflow-x: auto; margin-top: 15px;"><code style="color: #00ffee; font-family: 'Consolas', monospace;">app.route('/chat', methods=['POST'])
+def chat():
+    data = request.json
+    response = openai_response(data['message'])
+    return jsonify({'reply': response})</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="entry" style="background: #f8f9fa; border-radius: 15px; padding: 25px; margin-bottom: 25px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;">
+                            <h2 onclick="this.parentElement.classList.toggle('open')" style="color: #302b63; margin: 0; cursor: pointer; display: flex; align-items: center; gap: 10px; font-family: 'Orbitron', sans-serif;">🎥 AI Video Generator (Feb–May 2025)</h2>
+                            <div class="entry-content" style="display: none; margin-top: 20px; color: #666;">
+                                <p><strong style="color: #302b63;">📌 Context:</strong> Automate AI-generated history documentaries</p>
+                                <p><strong style="color: #302b63;">🧠 Learnings:</strong> Midjourney visuals, Google TTS, Minimax video generation, Shotcut automation</p>
+                                <pre style="background: #23283a; padding: 15px; border-radius: 10px; overflow-x: auto; margin-top: 15px;"><code style="color: #00ffee; font-family: 'Consolas', monospace;">from gtts import gTTS
+def generate_voice(text, filename):
+    tts = gTTS(text=text)
+    tts.save(f'audio/{filename}.mp3')</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="entry" style="background: #f8f9fa; border-radius: 15px; padding: 25px; margin-bottom: 25px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;">
+                            <h2 onclick="this.parentElement.classList.toggle('open')" style="color: #302b63; margin: 0; cursor: pointer; display: flex; align-items: center; gap: 10px; font-family: 'Orbitron', sans-serif;">🌐 Flask CORS + API Debugging (Jan–Apr 2025)</h2>
+                            <div class="entry-content" style="display: none; margin-top: 20px; color: #666;">
+                                <p><strong style="color: #302b63;">📌 Context:</strong> Fix CORS issue between local Flask API and frontend</p>
+                                <p><strong style="color: #302b63;">🧠 Learnings:</strong> Flask-CORS setup, preflight handling, debugging `OPTIONS` requests</p>
+                                <pre style="background: #23283a; padding: 15px; border-radius: 10px; overflow-x: auto; margin-top: 15px;"><code style="color: #00ffee; font-family: 'Consolas', monospace;">from flask_cors import CORS
+app = Flask(__name__)
+CORS(app)</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="entry" style="background: #f8f9fa; border-radius: 15px; padding: 25px; margin-bottom: 25px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;">
+                            <h2 onclick="this.parentElement.classList.toggle('open')" style="color: #302b63; margin: 0; cursor: pointer; display: flex; align-items: center; gap: 10px; font-family: 'Orbitron', sans-serif;">💬 Finbot Investment Chatbot (Mar–May 2025)</h2>
+                            <div class="entry-content" style="display: none; margin-top: 20px; color: #666;">
+                                <p><strong style="color: #302b63;">📌 Context:</strong> Build conversational logic for a financial advisor chatbot</p>
+                                <p><strong style="color: #302b63;">🧠 Learnings:</strong> Intent flows, multi-turn conversation, risk-based suggestions</p>
+                                <pre style="background: #23283a; padding: 15px; border-radius: 10px; overflow-x: auto; margin-top: 15px;"><code style="color: #00ffee; font-family: 'Consolas', monospace;">def get_advice(intent, budget):
+    if intent == 'budget':
+        return f"Try small cap stocks under ₹{budget}"</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .book-container {
+                transform-style: preserve-3d;
+                transition: transform 1s;
+            }
+
+            .book-container.open .book-cover {
+                transform: rotateY(-180deg);
+            }
+
+            .book-container.open .book-pages {
+                transform: rotateY(0deg);
+            }
+
+            .entry:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            }
+
+            .entry h2::after {
+                content: '▼';
+                font-size: 0.8rem;
+                transition: transform 0.3s ease;
+                margin-left: auto;
+            }
+
+            .entry.open h2::after {
+                transform: rotate(180deg);
+            }
+
+            .entry.open .entry-content {
+                display: block;
+                animation: fadeIn 0.3s ease;
+            }
+
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            @media (max-width: 768px) {
+                .journal-section {
+                    padding: 0 15px;
+                    margin: 40px auto;
+                }
+
+                .book-container {
+                    height: 500px;
+                }
+
+                .book-cover h2 {
+                    font-size: 2rem;
+                }
+
+                .entry {
+                    padding: 15px;
+                }
+
+                .entry h2 {
+                    font-size: 1.1rem;
+                }
+            }
+        </style>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const bookContainer = document.querySelector('.book-container');
+                const bookCover = document.querySelector('.book-cover');
+
+                // Open book when clicking the cover
+                bookCover.addEventListener('click', () => {
+                    bookContainer.classList.add('open');
+                });
+
+                // Add click handlers for journal entries
+                document.querySelectorAll('.entry h2').forEach(header => {
+                    header.addEventListener('click', () => {
+                        header.parentElement.classList.toggle('open');
+                    });
+                });
+            });
+        </script>
     </div>
 
     <div class="chatbot-widget closed" id="chatbot-widget">
@@ -1008,6 +1424,18 @@
       renderer.render(scene,camera);
     }
     animate();
+    </script>
+
+    <script>
+        // Journal functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add click handlers for journal entries
+            document.querySelectorAll('.entry h2').forEach(header => {
+                header.addEventListener('click', () => {
+                    header.parentElement.classList.toggle('open');
+                });
+            });
+        });
     </script>
 </body>
 </html> 
