@@ -568,7 +568,7 @@ img, canvas {
 
 .content-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 32px;
     padding-bottom: 0;
     margin-right: 340px; /* Avoid sidebar overlap */
@@ -871,10 +871,10 @@ img, canvas {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    background: radial-gradient(circle at 60% 40%, #fffbe6 40%, #e0eaff 80%, transparent 100%), url('assets/MOON.png') center center/cover no-repeat;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2),
-                inset -8px -8px 15px rgba(255,255,255,0.15),
-                inset 5px 5px 10px rgba(255,255,255,0.2);
+    background: url('assets/MOON.png') center center/cover no-repeat;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4),
+                inset -8px -8px 15px rgba(0,0,0,0.25),
+                inset 5px 5px 10px rgba(255,255,255,0.1);
     transform-style: preserve-3d;
     transition: all 0.3s ease;
     cursor: pointer;
