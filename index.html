@@ -3,121 +3,1008 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Hath par paining karne ka competition hone wala hai">
-    <meta name="keywords" content="portfolio, Dhawal 🤜🏻🫸🏻 = 💀, LOOLA">
-    <meta name="author" content="Dhawal 🤜🏻🫸🏻 = 💀">
-    <title>Dhawal | Loola.. haha</title>
+    <meta name="description" content="Your website description">
+    <title>Ayush | AI Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="style.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
+    <style>
+        :root {
+            --bg: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+            --text: #ffffff;
+            --accent: #00ffee;
+            --panel-bg: rgba(0, 0, 0, 0.8);
+            --profile-img-pos-x: 50%;
+            --profile-img-pos-y: 50%;
+        }
+        body.light {
+            --bg: #f4f4f4;
+            --text: #111;
+            --accent: #0066ff;
+            --panel-bg: rgba(255, 255, 255, 0.9);
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text, #fff);
+            background: radial-gradient(ellipse at center, #000 0%, #0f2027 70%, #203a43 100%);
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: background 0.5s ease;
+            height: auto;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .hero-section {
+            width: 100vw;
+            max-width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: rgba(17,17,17,0.65);
+        }
+        .hero-section img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+            display: block;
+            background: #222;
+        }
+        .hero-text {
+            width: 100%;
+            text-align: center;
+            z-index: 3;
+            color: #fff;
+            text-shadow: 2px 2px 8px #000;
+            margin-bottom: 32px;
+        }
+        .hero-text h1 {
+            font-size: 2.8rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+        }
+        .hero-text p {
+            font-size: 1.3rem;
+        }
+        .main-content {
+            position: relative;
+            z-index: 1;
+            margin-top: 40px;
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(3, auto);
+            gap: 32px;
+            padding: 40px 10px 60px 10px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .box {
+            background: #23283a;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+            padding: 2em;
+            position: relative;
+            transition: transform 0.2s;
+            color: #fff;
+            text-decoration: none;
+            min-height: 180px;
+        }
+        .box:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+        }
+        .box img {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        .box h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .box h2::after {
+            content: '→';
+            font-size: 1.2rem;
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .box:hover h2::after {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+        .box p, .box ul {
+            font-size: 0.85rem;
+            line-height: 1.3;
+            margin: 0;
+        }
+        .box ul {
+            list-style: none;
+            padding: 0;
+        }
+        .box li {
+            margin: 3px 0;
+            padding: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            transition: transform 0.3s ease;
+        }
+        .box li:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .gallery-img, iframe, .news-car {
+            width: 100%;
+            max-height: 200px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px var(--accent);
+            object-fit: cover;
+        }
+        .news-car {
+            animation: drive 5s ease-in-out infinite alternate;
+        }
+        @keyframes drive {
+            0% { transform: translateX(-10%); }
+            100% { transform: translateX(10%); }
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            z-index: 999;
+        }
+
+        /* Live Feed Styles */
+        #live-feed {
+            height: 150px;
+            overflow-y: auto;
+            padding: 8px;
+        }
+        
+        #live-feed p {
+            margin: 3px 0;
+            padding: 6px;
+            font-size: 0.8rem;
+        }
+
+        /* Chatbot Styles */
+        .chatbot-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            z-index: 1000;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform-origin: bottom right;
+        }
+        .chatbot-widget.closed {
+            transform: translateY(calc(100% - 60px));
+        }
+        .chatbot-header {
+            background: var(--accent);
+            color: var(--panel-bg);
+            padding: 15px;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chatbot-header:hover {
+            opacity: 0.9;
+        }
+        .chatbot-toggle {
+            transform: rotate(0deg);
+            transition: transform 0.3s ease;
+        }
+        .closed .chatbot-toggle {
+            transform: rotate(180deg);
+        }
+        .chatbot-window {
+            display: flex;
+            flex-direction: column;
+        }
+        .chatbot-messages {
+            height: 150px;
+            overflow-y: auto;
+            padding: 10px;
+            font-size: 0.85rem;
+        }
+        #chat-input {
+            border: none;
+            border-top: 1px solid var(--accent);
+            padding: 10px;
+            font-size: 0.85rem;
+            outline: none;
+            background: transparent;
+            color: var(--text);
+        }
+        .chatbot-avatar {
+            position: absolute;
+            top: -40px;
+            right: 10px;
+            width: 48px;
+            height: 48px;
+            z-index: 10;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 12px #00ffee99,0 2px 8px #23283a;
+            border: 2.5px solid #00ffee;
+            background: #23283a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ffee;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2em;
+        }
+        @keyframes floatChat {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Config Panel Styles */
+        .config-panel {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 250px;
+            background: var(--panel-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 15px;
+            z-index: 1000;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform-origin: bottom left;
+        }
+        .config-panel.closed {
+            transform: translateX(-120%);
+            opacity: 0;
+        }
+        .config-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--accent);
+            color: var(--panel-bg);
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .config-toggle:hover {
+            transform: scale(1.1);
+        }
+        .config-toggle.panel-open {
+            transform: rotate(180deg);
+        }
+        .config-panel h3 {
+            margin: 0 0 15px 0;
+            color: var(--accent);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+        }
+        .config-panel button {
+            background: var(--accent);
+            color: var(--panel-bg);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin: 5px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: transform 0.2s ease;
+        }
+        .config-panel button:hover {
+            transform: scale(1.05);
+        }
+        .config-section {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--accent);
+        }
+        .config-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        /* Background Themes */
+        body.theme-galaxy {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                        url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        body.theme-solar {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                        url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        body.theme-nebula {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                        url('https://images.unsplash.com/photo-1462332420958-a05d1e002413');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        body.theme-gradient {
+            background: linear-gradient(45deg, 
+                #0f0c29 0%, 
+                #302b63 50%, 
+                #24243e 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Default theme */
+        body {
+            background: linear-gradient(45deg, #000000, #1a1a1a);
+            transition: background-image 0.5s ease, background 0.5s ease;
+        }
+
+        #home {
+            position:relative; width:100vw; height:100vh;
+            background:url('assets/A_digital_illustration_in_a_comic_book_and_cartoon.png') center/cover no-repeat;
+        }
+        .door {
+            position:absolute;
+            background:rgba(255,0,0,0.3); border:2px solid #fff;
+            cursor:pointer;
+        }
+        /* Updated positions for each door */
+        #door-about {
+            top: 62%; left: 32.5%; width: 10%; height: 22%;
+        }
+        #door-projects {
+            top: 62%; left: 60%; width: 18%; height: 22%;
+        }
+        #door-insights {
+            top: 22%; left: 37.5%; width: 10%; height: 18%;
+        }
+        #door-contact {
+            top: 13%; left: 62%; width: 18%; height: 10%;
+        }
+        @media (max-width: 900px) {
+            .content-grid { grid-template-columns: 1fr; grid-template-rows: none; }
+        }
+        @media (max-width: 600px) {
+            .hero-text { font-size: 1em; top: 10%; }
+            .content-grid { padding: 10px; }
+            .box { padding: 1em; }
+        }
+        .footer-section {
+            width: 100%;
+            margin-top: 100px;
+            text-align: center;
+            background-color: #0f0f0f;
+            padding: 40px 0;
+            position: relative;
+            z-index: 1;
+        }
+        .footer-section video {
+            max-width: 90%;
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
+        }
+        .footer-section .cta-btn {
+            background: var(--accent);
+            color: #111;
+            padding: 12px 32px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 10px;
+            display: inline-block;
+        }
+        .footer-section .cta-btn:hover {
+            background: #00e6e6;
+        }
+        .footer-section .social-icons {
+            margin-bottom: 24px;
+        }
+        .footer-section .social-icons a {
+            margin: 0 10px;
+            display: inline-block;
+        }
+        .footer-section .social-icons img {
+            width: 36px;
+            height: 36px;
+        }
+        .sidebar-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            justify-content: center;
+            width: 100px;
+            height: 32px;
+            min-width: 100px;
+            max-width: 100px;
+            padding: 0 8px;
+            background: linear-gradient(90deg,#00ffee,#23283a);
+            color: #fff;
+            font-family: 'Orbitron', monospace;
+            font-weight: 500;
+            border: none;
+            border-radius: 14px;
+            box-shadow: 0 1px 4px #00ffee44;
+            font-size: 0.78em;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: transform 0.18s cubic-bezier(.4,2,.6,1), box-shadow 0.18s cubic-bezier(.4,2,.6,1), background 0.18s;
+            margin-bottom: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+        .sidebar-btn.whatsapp {
+            background: linear-gradient(90deg,#00ffee,#25d366);
+            box-shadow: 0 1px 4px #25d36644;
+            color: #111;
+        }
+        .sidebar-btn.mail {
+            background: linear-gradient(90deg,#00ffee,#0077b5);
+            box-shadow: 0 1px 4px #00ffee44;
+            color: #111;
+        }
+        .sidebar-btn.resume {
+            background: linear-gradient(90deg,#00ffee,#23283a);
+            box-shadow: 0 1px 4px #23283a44;
+        }
+        .sidebar-btn:hover, .sidebar-btn:focus {
+            transform: scale(1.08) translateY(-2px);
+            box-shadow: 0 0 16px #00ffee99, 0 1px 8px #00ffee44;
+            background: linear-gradient(90deg,#00ffee,#00bfff);
+            z-index: 2;
+        }
+
+        /* Swaggy Chatbot Styles */
+        .chatbot-widget {
+            background: rgba(10, 10, 30, 0.85);
+            box-shadow: 0 0 32px #00ffee99, 0 0 8px #00ffee44;
+            border-radius: 18px;
+            border: 2.5px solid #00ffee;
+            animation: neonPulse 2.5s infinite alternate;
+            backdrop-filter: blur(12px);
+            transition: box-shadow 0.4s, border 0.4s, background 0.4s;
+        }
+        @keyframes neonPulse {
+            0% { box-shadow: 0 0 16px #00ffee99, 0 0 8px #00ffee44; border-color: #00ffee; }
+            100% { box-shadow: 0 0 32px #00ffee, 0 0 24px #00ffee99; border-color: #00bfff; }
+        }
+        .chatbot-header {
+            background: linear-gradient(90deg, #00ffee 0%, #23283a 100%);
+            color: #23283a;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+            border-radius: 18px 18px 0 0;
+            box-shadow: 0 2px 12px #00ffee44;
+            animation: headerGradient 4s linear infinite alternate;
+            position: relative;
+            overflow: hidden;
+        }
+        @keyframes headerGradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        .chatbot-avatar {
+            animation: bounceAvatar 2s infinite;
+            box-shadow: 0 0 16px #00ffee99, 0 0 8px #00ffee44;
+            border: 2.5px solid #00ffee;
+            background: url('https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif') no-repeat center/cover, #111;
+        }
+        @keyframes bounceAvatar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px) scale(1.08); }
+        }
+        .chatbot-window {
+            background: rgba(20, 20, 40, 0.85);
+            border-radius: 0 0 18px 18px;
+            box-shadow: 0 2px 12px #00ffee22;
+            backdrop-filter: blur(8px);
+            transition: background 0.4s;
+        }
+        .chatbot-messages {
+            color: #00ffee;
+            font-family: 'Orbitron', monospace;
+            font-size: 1em;
+            text-shadow: 0 1px 4px #00ffee44;
+            animation: fadeInChat 1s;
+        }
+        @keyframes fadeInChat {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        #chat-input {
+            background: rgba(0,0,0,0.5);
+            color: #00ffee;
+            border-radius: 0 0 14px 14px;
+            border: 1.5px solid #00ffee;
+            font-family: 'Orbitron', monospace;
+            font-size: 1em;
+            padding: 10px;
+            box-shadow: 0 1px 4px #00ffee44;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+        #chat-input:focus {
+            border: 1.5px solid #00bfff;
+            box-shadow: 0 0 8px #00ffee99;
+            outline: none;
+        }
+        .chatbot-header button {
+            background: linear-gradient(90deg,#00ffee,#23283a);
+            color: #23283a;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Orbitron', monospace;
+            font-size: 1em;
+            margin-left: 4px;
+            box-shadow: 0 1px 4px #00ffee44;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+            cursor: pointer;
+        }
+        .chatbot-header button:hover {
+            background: linear-gradient(90deg,#00ffee,#00bfff);
+            color: #111;
+            transform: scale(1.12);
+            box-shadow: 0 0 8px #00ffee99;
+        }
+        @keyframes pingFade {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0.7; transform: scale(1.06); }
+        }
+        .expand-content { display: none; margin-top: 1em; color: #ccc; }
+        .box.expanded .expand-content { display: block; }
+        .expand-btn { margin-top: 1em; background: #0ff; color: #111; border: none; border-radius: 6px; padding: 6px 18px; cursor: pointer; font-weight: bold; transition: background 0.2s; }
+        .expand-btn:hover { background: #00bfff; }
+        .about-section img {
+            object-position: var(--profile-img-pos-x) var(--profile-img-pos-y);
+            transition: object-position 0.2s;
+            cursor: grab;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+        .about-section img:active {
+            cursor: grabbing;
+        }
+        .about-section img#profile-img {
+            pointer-events: auto !important;
+        }
+        .img-slider-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5em;
+            margin-top: 1em;
+            max-width: 220px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .img-slider-controls label {
+            font-size: 0.95em;
+            color: #00ffee;
+            margin-bottom: 0.2em;
+        }
+        .img-slider-controls input[type=range] {
+            width: 160px;
+        }
+        /* IMPORTANT: Do NOT add overflow:hidden to html or body! This breaks scrolling. Only #space should have overflow:hidden. */
+        html,body{margin:0;width:100vw;height:100vh;background:#000;}
+        #space{width:100vw;height:100vh;overflow:hidden;}
+    </style>
 </head>
 <body>
     <canvas id="space" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;"></canvas>
-    
     <!-- Hero Section -->
-    <div class="hero-section">
-        <div class="hero-text">
-            <h1>Dhawal 🤜🏻🫸🏻 = 💀</h1>
-            <p>LOOLA</p>
-            <p>Hone wala hai painting competition - mere haath par, come, create art, give sympathy, give cash</p>
+    <div class="hero-section" style="width:100vw;max-width:100%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+      <div class="hero-text" style="width:100%;text-align:center;z-index:3;color:#fff;text-shadow:2px 2px 8px #000;margin-bottom:32px;">
+        <h1 class="editable-text" data-key="hero-title" style="font-size:2.8rem;font-family:'Orbitron',sans-serif;letter-spacing:2px;">Welcome to Ayush's AI World</h1>
+        <p class="editable-text" data-key="hero-subtitle" style="font-size:1.3rem;">Crafting smart agents, automation tools, and AI videos</p>
       </div>
-        <div class="video-collage">
-            <video src="../assets/mahajanpadas.mp4" autoplay loop muted playsinline></video>
-            <video src="../assets/Mauryan era.mp4" autoplay loop muted playsinline></video>
-            <video src="../assets/Vedic Age AI video.mp4" autoplay loop muted playsinline></video>
-            <video src="../assets/AI_sample.mp4" autoplay loop muted playsinline></video>
+      <div class="video-collage" style="display:flex;gap:32px;align-items:center;justify-content:center;width:100%;max-width:900px;">
+        <video src="assets/mahajanpadas.mp4" autoplay loop muted playsinline style="width:220px;height:390px;object-fit:cover;object-position:center;border-radius:18px;box-shadow:0 4px 24px #00ffee88;"></video>
+        <video src="assets/Mauryan era.mp4" autoplay loop muted playsinline style="width:220px;height:390px;object-fit:cover;object-position:center;border-radius:18px;box-shadow:0 4px 24px #00ffee88;"></video>
+        <video src="assets/Vedic Age AI video.mp4" autoplay loop muted playsinline style="width:220px;height:390px;object-fit:cover;object-position:center;border-radius:18px;box-shadow:0 4px 24px #00ffee88;"></video>
+        <video src="assets/AI_sample.mp4" autoplay loop muted playsinline style="width:220px;height:390px;object-fit:cover;object-position:center;border-radius:18px;box-shadow:0 4px 24px #00ffee88;"></video>
       </div>
     </div>
 
-    <!-- About Section -->
-    <div class="about-section">
-        <div class="profile-img-container">
-            <img id="profile-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop" alt="Dhawal 🤜🏻🫸🏻 = 💀" />
+    <!-- About Me section without Show More button and with image fallback -->
+    <div class="about-section" style="width:100%;background:linear-gradient(90deg,#0f0c29,#302b63,#24243e);padding:60px 0;text-align:center;color:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.15);">
+      <div style="max-width:900px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:20px;">
+        <div class="profile-img-container" style="width:180px;height:180px;border-radius:50%;background:#23283a;display:flex;align-items:center;justify-content:center;border:4px solid #00ffee;box-shadow:0 0 20px rgba(0,255,238,0.5);overflow:hidden;">
+          <img id="profile-img" src="assets/View recent photos.jpeg" alt="Ayush" style="width:100%;height:100%;object-fit:cover;display:block;object-position:var(--profile-img-pos-x) var(--profile-img-pos-y);" onerror="this.style.display='none';this.parentNode.innerHTML='<span style=\'color:#00ffee;font-size:3rem;font-family:Orbitron,sans-serif;\'>AS</span>';" />
         </div>
-        <h2>Dhawal 🤜🏻🫸🏻 = 💀</h2>
-        <p>Hone wala hai painting competition - mere haath par, come, create art, give sympathy, give cash</p>
+        <h2 style="font-family:'Orbitron',sans-serif;font-size:2.2rem;color:#00ffee;margin:0;">Ayush Shrivastava</h2>
+        <p style="font-size:1.15rem;max-width:600px;margin:0 auto;line-height:1.6;color:#ccc;">I build AI-powered products that think, talk, and convert. Passionate about automation, analytics, and building tools that make a difference.</p>
+      </div>
     </div>
 
-    <!-- Projects Section -->
-    <div class="projects-section">
-        <h2>Projects</h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <h3>Janiye meri poori kahani</h3>
-                <p>mera boxing career</p>
-                <div class="tech-stack">
-                    <span class="tech-tag">Python</span><span class="tech-tag">FastAPI</span><span class="tech-tag">GPT-4</span><span class="tech-tag">Shopify API</span><span class="tech-tag">Redis</span><span class="tech-tag">Docker</span>
-                </div>
+    <div class="main-content" id="main-content" style="margin-bottom:120px;">
+        <div class="constellation-section">
+            <h2 class="constellation-title">My Projects</h2>
+            <div class="constellation-container">
+                <div class="planet earth" data-category="ai">
+                    <img src="assets/earth.png" alt="Earth" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:50%;z-index:0;pointer-events:none;" />
+                    <div class="planet-content">
+                        <h3>🚀 AI & Automation Projects</h3>
                     </div>
-            <div class="project-card">
-                <h3>Automated Video Generation Pipeline</h3>
-                <p>Created a fully automated pipeline that transforms text prompts into narrated videos with visuals, voice-over, and captions. Reduced production time by 97% and costs by 85%.</p>
-                <div class="tech-stack">
-                    <span class="tech-tag">Python</span><span class="tech-tag">OpenAI</span><span class="tech-tag">Midjourney</span><span class="tech-tag">FFmpeg</span><span class="tech-tag">Airflow</span><span class="tech-tag">GCP</span>
+                    <div class="moon-system">
+                        <div class="moon moon-1" data-project="ai-sales">
+                            <div class="moon-content">
+                                <h4>🤖 AI Sales Agent</h4>
+                                <p>E-commerce chatbot</p>
+                            </div>
+                        </div>
+                        <div class="moon moon-2" data-project="ai-video">
+                            <div class="moon-content">
+                                <h4>🎬 AI Video Pipeline</h4>
+                                <p>Script-to-screen automation</p>
+                            </div>
+                        </div>
+                        <div class="moon moon-3" data-project="ai-api">
+                            <div class="moon-content">
+                                <h4>⚙️ API Orchestration</h4>
+                                <p>Workflow automation engine</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="planet jupiter" data-category="pm">
+                    <img src="assets/neptune1.jpeg" alt="Jupiter" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:50%;z-index:0;pointer-events:none;" />
+                    <div class="planet-content">
+                        <h3>PM Projects</h3>
+                    </div>
+                    <div class="moon-system">
+                        <div class="moon moon-1" data-project="pm-telecom">
+                            <div class="moon-content">
+                                <h4 class="editable-text" data-key="moon-pm-telecom-title">📡 Telecom Rollout</h4>
+                                <p class="editable-text" data-key="moon-pm-telecom-desc">Bell Canada eSIM & DTH</p>
+                            </div>
+                        </div>
+                        <div class="moon moon-2" data-project="pm-hrsuite">
+                            <div class="moon-content">
+                                <h4 class="editable-text" data-key="moon-pm-hrsuite-title">👥 HR-Suite Revamp</h4>
+                                <p class="editable-text" data-key="moon-pm-hrsuite-desc">KenboxTech LMS/LDS/BES</p>
+                            </div>
+                        </div>
+                        <div class="moon moon-3" data-project="pm-websites">
+                            <div class="moon-content">
+                                <h4 class="editable-text" data-key="moon-pm-websites-title">🌐 Multi-Brand Sites</h4>
+                                <p class="editable-text" data-key="moon-pm-websites-desc">AI, Retail, Coaching</p>
+                            </div>
+                        </div>
+                        <div class="moon moon-4" data-project="pm-edtech">
+                            <div class="moon-content">
+                                <h4 class="editable-text" data-key="moon-pm-edtech-title">🎓 Banking-EdTech</h4>
+                                <p class="editable-text" data-key="moon-pm-edtech-desc">E-learning platform</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="planet saturn" data-category="business">
+                    <img src="assets/nept.png" alt="Saturn" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:50%;z-index:0;pointer-events:none;" />
+                    <div class="planet-content">
+                        <h3>Business Projects</h3>
+                    </div>
+                    <div class="moon-system">
+                        <div class="moon moon-1" data-project="biz-kpi-playbook">
+                            <div class="moon-content">
+                                <h4>📊 KPI-Driven AI Playbook</h4>
+                                <p>Verifast growth metrics</p>
+                            </div>
+                        </div>
+                        <div class="moon moon-2" data-project="biz-esim-dth-launch">
+                            <div class="moon-content">
+                                <h4>🚀 eSIM & DTH Launch</h4>
+                                <p>Bell Canada go-to-market</p>
+                            </div>
+                        </div>
+                        <div class="moon moon-3" data-project="biz-genai-pilot">
+                            <div class="moon-content">
+                                <h4>🤖 GenAI Telecom Pilot</h4>
+                                <p>CGI FAQ & ticket triage POC</p>
+                            </div>
+                        </div>
+                        <div class="moon moon-4" data-project="biz-edtech-expansion">
+                            <div class="moon-content">
+                                <h4>💡 EdTech Revenue Expansion</h4>
+                                <p>DKPR virtual & gamified modules</p>
+                            </div>
+                        </div>
+                        <div class="moon moon-5" data-project="biz-green-build">
+                            <div class="moon-content">
+                                <h4>🌳 Green-Build Cost-Saves</h4>
+                                <p>Eco-materials ROI & waste cut</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="project-card">
-                <h3>Real-time Analytics Dashboard</h3>
-                <p>Developed a comprehensive analytics platform that processes millions of data points in real-time, providing actionable insights for business decision-making.</p>
-                <div class="tech-stack">
-                    <span class="tech-tag">React</span><span class="tech-tag">Node.js</span><span class="tech-tag">PostgreSQL</span><span class="tech-tag">Redis</span><span class="tech-tag">WebSocket</span><span class="tech-tag">Chart.js</span>
-                </div>
-            </div>
-            <div class="project-card">
-                <h3>Smart Home Automation System</h3>
-                <p>Designed and implemented an IoT-based home automation system with voice control, energy optimization, and security features.</p>
-                <div class="tech-stack">
-                    <span class="tech-tag">Python</span><span class="tech-tag">Raspberry Pi</span><span class="tech-tag">MQTT</span><span class="tech-tag">TensorFlow</span><span class="tech-tag">React Native</span><span class="tech-tag">AWS</span>
-                </div>
+        </div>
+        <div class="content-grid">
+            <div class="box" id="updates-insights-box">
+                <h2>Updates</h2>
+                <ul>
+                    <li>🚀 Launched FinBot for financial analytics</li>
+                    <li>🛠️ Added WhatsApp automation to API engine</li>
+                    <li>📈 Published new AI video series on YouTube</li>
+                </ul>
+                <h2 style="margin-top:2em;">Insights</h2>
+                <p>Explore interactive analytics, AI-driven insights, and real-time dashboards for all projects. Coming soon!</p>
             </div>
         </div>
     </div>
 
-    <!-- Social Links -->
-    <div class="social-links">
-        <a href="https://linkedin.com/in/johndoe" target="_blank">Linkedin</a><a href="https://github.com/johndoe" target="_blank">Github</a><a href="https://youtube.com/@johndoe" target="_blank">Youtube</a><a href="https://twitter.com/johndoe" target="_blank">Twitter</a>
+    <div class="chatbot-widget closed" id="chatbot-widget">
+        <div class="chatbot-avatar" id="dog-avatar" style="position:absolute;top:-40px;right:10px;width:48px;height:48px;z-index:10;border-radius:50%;overflow:hidden;box-shadow:0 0 12px #00ffee99,0 2px 8px #23283a;border:2.5px solid #00ffee;background:#23283a;display:flex;align-items:center;justify-content:center;color:#00ffee;font-family:'Orbitron',sans-serif;font-size:1.2em;">
+            AS
+        </div>
+        <div class="chatbot-window">
+            <div class="chatbot-header" style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+                <span>Chat with AyushBot</span>
+                <button id="close-chatbot-btn" style="background:none;border:none;color:#000;font-size:1.3em;cursor:pointer;line-height:1;">&times;</button>
+            </div>
+            <div class="chatbot-messages" id="chat-messages"></div>
+            <input type="text" id="chat-input" placeholder="Ask me anything..." onkeydown="handleChat(event)" />
+        </div>
+    </div>
+
+    <aside class="sidebar-section" style="width:120px;min-width:100px;max-width:140px;">
+        <div class="sidebar-content" style="padding:6px;">
+            <div class="social-icons" style="display:flex;gap:6px;justify-content:center;margin-bottom:8px;">
+                <a href="https://www.linkedin.com/in/ayushshrivastava1292" target="_blank" style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;background:#0077b5;border-radius:50%;box-shadow:0 2px 8px #0077b588;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm15.5 11.268h-3v-5.604c0-1.337-.025-3.063-1.868-3.063-1.868 0-2.154 1.459-2.154 2.968v5.699h-3v-10h2.881v1.367h.041c.401-.761 1.379-1.563 2.838-1.563 3.036 0 3.6 2.001 3.6 4.601v5.595z"/></svg></a>
+                <a href="https://www.youtube.com/@Virtualr_eality" target="_blank" style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;background:#ff0000;border-radius:50%;box-shadow:0 2px 8px #ff000088;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M19.615 3.184c-1.049-.384-5.615-.384-5.615-.384s-4.566 0-5.615.384c-1.049.384-1.871 1.206-2.255 2.255-.384 1.049-.384 3.231-.384 3.231s0 2.182.384 3.231c.384 1.049 1.206 1.871 2.255 2.255 1.049.384 5.615.384 5.615.384s4.566 0 5.615-.384c1.049-.384 1.871-1.206 2.255-2.255.384-1.049.384-3.231.384-3.231s0-2.182-.384-3.231c-.384-1.049-1.206-1.871-2.255-2.255zm-8.615 8.816v-5l5 2.5-5 2.5z"/></svg></a>
+            </div>
+            <div style="margin-top: 10px; text-align: center;display:flex;flex-direction:column;gap:6px;align-items:center;">
+                <a href="mailto:ayush.shrivastava.1292@gmail.com" class="sidebar-btn mail">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#0077b5" viewBox="0 0 24 24"><path d="M12 13.065l-11.985-7.065v16h24v-16l-12.015 7.065zm11.985-9.065h-23.97l11.985 7.065 11.985-7.065z"/></svg>
+                   Mail Me
+                </a>
+                <a href="https://wa.me/918770087774" target="_blank" class="sidebar-btn whatsapp">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#25d366" viewBox="0 0 24 24"><path d="M12.004 2.003c-5.514 0-9.997 4.484-9.997 9.997 0 1.762.464 3.484 1.345 4.997l-1.409 5.151 5.293-1.389c1.464.801 3.104 1.241 4.768 1.241h.001c5.514 0 9.997-4.484 9.997-9.997s-4.483-9.997-9.997-9.997zm5.634 14.631c-.241.678-1.413 1.293-1.941 1.377-.495.078-1.123.111-1.809-.117-.417-.137-.954-.312-1.646-.611-2.897-1.252-4.792-4.152-4.941-4.349-.144-.197-1.181-1.574-1.181-3.004 0-1.429.749-2.134 1.017-2.426.267-.292.579-.365.772-.365.193 0 .386.002.555.01.179.008.418-.067.655.501.241.578.819 1.995.891 2.139.072.144.12.312.024.509-.096.197-.144.312-.287.478-.144.166-.303.37-.431.497-.144.144-.293.301-.126.593.166.292.739 1.217 1.587 1.97 1.09.973 2.008 1.273 2.3 1.417.292.144.46.12.632-.072.166-.193.717-.836.909-1.123.192-.287.384-.239.655-.144.271.096 1.719.812 2.011.96.292.144.484.216.555.335.072.12.072.695-.169 1.373z"/></svg>
+                   WhatsApp Me
+                </a>
+                <a href="assets/your_resume.pdf" class="sidebar-btn resume">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#fff" viewBox="0 0 24 24"><path d="M14 2h-10c-1.104 0-2 .896-2 2v16c0 1.104.896 2 2 2h16c1.104 0 2-.896 2-2v-12l-6-6zm4 18h-16v-16h9v5h5v11zm-7-2h-2v-2h2v2zm0-4h-2v-6h2v6zm4 4h-2v-2h2v2zm0-4h-2v-6h2v6z"/></svg>
+                  Download Resume
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Config Button -->
+    <button id="config-toggle-btn" style="position:fixed;top:20px;left:20px;z-index:2100;background:var(--accent);color:#111;padding:10px 18px;border:none;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.3);cursor:pointer;font-family:'Poppins',sans-serif;font-weight:bold;display:flex;align-items:center;gap:8px;">
+        <span style="font-size:1.2em;">⚙️</span>
+        <span>Config</span>
+    </button>
+
+    <!-- Config Panel -->
+    <div id="config-panel" style="display:none;position:fixed;top:80px;left:20px;z-index:2000;background:rgba(0,0,0,0.9);color:#fff;padding:20px;border-radius:10px;max-width:340px;box-shadow:0 4px 20px rgba(0,0,0,0.4);border:1px solid var(--accent);max-height:calc(100vh - 100px);overflow-y:auto;">
+        <h3 style="color:var(--accent);margin-bottom:20px;font-family:'Orbitron',sans-serif;">Planet Config</h3>
+        <div style="margin-bottom:20px;">
+            <label style="display:block;margin-bottom:8px;">
+                Accent Color:
+                <input type="color" id="accentColorInput" value="#00ffee" style="width:40px;height:30px;border:none;vertical-align:middle;margin-left:8px;">
+            </label>
+        </div>
+        <div style="margin-bottom:20px;">
+            <div style="font-weight:bold;margin-bottom:12px;color:var(--accent);">Planet Positions</div>
+            <div style="font-size:0.95em;">
+                <div style="margin-bottom:16px;padding:12px;background:rgba(255,255,255,0.05);border-radius:8px;">
+                    <div style="color:var(--accent);margin-bottom:8px;">🌍 Earth (AI Projects)</div>
+                    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
+                        <div>X: <input type="number" id="earthXInput" value="0" style="width:60px;background:rgba(0,0,0,0.3);border:1px solid var(--accent);color:#fff;padding:4px;"></div>
+                        <div>Y: <input type="number" id="earthYInput" value="-200" style="width:60px;background:rgba(0,0,0,0.3);border:1px solid var(--accent);color:#fff;padding:4px;"></div>
+                        <div>Z: <input type="number" id="earthZInput" value="0" style="width:60px;background:rgba(0,0,0,0.3);border:1px solid var(--accent);color:#fff;padding:4px;"></div>
+                        <div>Rotate: <input type="number" id="earthRotateInput" value="0" style="width:60px;background:rgba(0,0,0,0.3);border:1px solid var(--accent);color:#fff;padding:4px;"></div>
+                        <div style="grid-column: span 2;">Size: <input type="number" id="earthSizeInput" value="280" style="width:60px;background:rgba(0,0,0,0.3);border:1px solid var(--accent);color:#fff;padding:4px;"> px</div>
+                    </div>
+                </div>
+                <div style="margin-bottom:16px;padding:12px;background:rgba(255,255,255,0.05);border-radius:8px;">
+                    <div style="color:var(--accent);margin-bottom:8px;">🪐 Jupiter (PM Projects)</div>
+                    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
+                        <div>X: <input type="number" id="jupiterXInput" value="0" style="width:60px;background:rgba(0,0,0,0.3);border:1px solid var(--accent);color:#fff;padding:4px;"></div>
+                        <div>Y: <input type="number" id="jupiterYInput" value="0" style="width:60px;background:rgba(0,0,0,0.3);border:1px solid var(--accent);color:#fff;padding:4px;"></div>
+                        <div>Z: <input type="number" id="jupiterZInput" value="0" style="width:60px;background:rgba(0,0,0,0.3);border:1px solid var(--accent);color:#fff;padding:4px;"></div>
+                        <div>Rotate: <input type="number" id="jupiterRotateInput" value="0" style="width:60px;background:rgba(0,0,0,0.3);border:1px solid var(--accent);color:#fff;padding:4px;"></div>
+                        <div style="grid-column: span 2;">Size: <input type="number" id="jupiterSizeInput" value="280" style="width:60px;background:rgba(0,0,0,0.3);border:1px solid var(--accent);color:#fff;padding:4px;"> px</div>
+                    </div>
+                </div>
+                <div style="margin-bottom:16px;padding:12px;background:rgba(255,255,255,0.05);border-radius:8px;">
+                    <div style="color:var(--accent);margin-bottom:8px;">🪐 Saturn (Business Projects)</div>
+                    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
+                        <div>X: <input type="number" id="saturnXInput" value="0" style="width:60px;background:rgba(0,0,0,0.3);border:1px solid var(--accent);color:#fff;padding:4px;"></div>
+                        <div>Y: <input type="number" id="saturnYInput" value="200" style="width:60px;background:rgba(0,0,0,0.3);border:1px solid var(--accent);color:#fff;padding:4px;"></div>
+                        <div>Z: <input type="number" id="saturnZInput" value="0" style="width:60px;background:rgba(0,0,0,0.3);border:1px solid var(--accent);color:#fff;padding:4px;"></div>
+                        <div>Rotate: <input type="number" id="saturnRotateInput" value="0" style="width:60px;background:rgba(0,0,0,0.3);border:1px solid var(--accent);color:#fff;padding:4px;"></div>
+                        <div style="grid-column: span 2;">Size: <input type="number" id="saturnSizeInput" value="280" style="width:60px;background:rgba(0,0,0,0.3);border:1px solid var(--accent);color:#fff;padding:4px;"> px</div>
+                    </div>
+                </div>
+                <div style="margin-bottom:16px;padding:12px;background:rgba(255,255,255,0.05);border-radius:8px;">
+                    <div style="color:var(--accent);margin-bottom:8px;">🪐 PM Moons (Jupiter)</div>
+                    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
+                        <div>Moon 1 X: <input type="number" id="moon1XInput" value="60" style="width:60px;"></div>
+                        <div>Moon 1 Y: <input type="number" id="moon1YInput" value="0" style="width:60px;"></div>
+                        <div>Moon 2 X: <input type="number" id="moon2XInput" value="100" style="width:60px;"></div>
+                        <div>Moon 2 Y: <input type="number" id="moon2YInput" value="60" style="width:60px;"></div>
+                        <div>Moon 3 X: <input type="number" id="moon3XInput" value="60" style="width:60px;"></div>
+                        <div>Moon 3 Y: <input type="number" id="moon3YInput" value="100" style="width:60px;"></div>
+                        <div>Moon 4 X: <input type="number" id="moon4XInput" value="0" style="width:60px;"></div>
+                        <div>Moon 4 Y: <input type="number" id="moon4YInput" value="60" style="width:60px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="display:flex;gap:8px;">
+            <button id="applyConfigBtn" style="flex:1;background:var(--accent);color:#111;border:none;padding:10px;border-radius:6px;cursor:pointer;font-weight:bold;">Apply Changes</button>
+            <button id="resetConfigBtn" style="flex:1;background:#666;color:#fff;border:none;padding:10px;border-radius:6px;cursor:pointer;font-weight:bold;">Reset</button>
+        </div>
+    </div>
+
+    <button id="open-chatbot-btn" style="display:none;position:fixed;bottom:30px;right:30px;z-index:2001;background:#00ffee;color:#111;padding:14px 22px;border:none;border-radius:30px;box-shadow:0 2px 8px #000;cursor:pointer;font-size:1.2em;">💬 Chat</button>
+
+    <div id="chatbot-ping" style="position:fixed;bottom:90px;right:60px;z-index:2101;display:flex;align-items:center;animation:pingFade 2.5s infinite alternate;">
+      <div style="position:relative;width:80px;height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <!-- Cloudy bubble using overlapping circles -->
+        <div style="position:absolute;top:0;left:0;width:80px;height:120px;z-index:0;">
+          <div style="position:absolute;top:18px;left:10px;width:60px;height:60px;background:linear-gradient(90deg,#00ffee,#23283a);border-radius:50%;box-shadow:0 2px 8px #00ffee88;"></div>
+          <div style="position:absolute;top:0px;left:30px;width:40px;height:40px;background:linear-gradient(90deg,#00ffee,#23283a);border-radius:50%;box-shadow:0 2px 8px #00ffee88;"></div>
+          <div style="position:absolute;top:50px;left:35px;width:38px;height:38px;background:linear-gradient(90deg,#00ffee,#23283a);border-radius:50%;box-shadow:0 2px 8px #00ffee88;"></div>
+          <div style="position:absolute;top:60px;left:5px;width:38px;height:38px;background:linear-gradient(90deg,#00ffee,#23283a);border-radius:50%;box-shadow:0 2px 8px #00ffee88;"></div>
+        </div>
+        <!-- Text only, no icon -->
+        <span style="text-align:center;word-break:break-word;white-space:normal;font-size:0.85em;z-index:1;line-height:1.25;margin-top:2px;">Open me<br>to know more<br>about ayush</span>
+        <!-- Tail -->
+        <span style="position:absolute;bottom:-18px;left:24px;width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:18px solid #00ffee;filter:blur(0.5px);z-index:2;"></span>
+      </div>
+    </div>
+
+    <div id="projectModal" class="project-modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="modal-body"></div>
+        </div>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="main.js"></script>
+    <script src="config.js"></script>
+    <script src="projects.js?v=3"></script>
+    <script src="main.js?v=3"></script>
+    <script src="inline-edit.js"></script>
     <script type="module">
+    // Hyperspace Cruise: Cinematic, GPU-friendly animated background
     import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js';
 
-        // Three.js background animation
-        const canvas = document.querySelector('#space');
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
+    // Responsive canvas setup
+    const canvas   = document.querySelector('#space');
+    const scene    = new THREE.Scene();
+    const camera   = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
     renderer.setSize(innerWidth, innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
-        
-        // Starfield
-        const starGeo = new THREE.BufferGeometry();
-        const starCount = 2000;
+    window.addEventListener('resize',()=>{
+      camera.aspect = innerWidth/innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(innerWidth, innerHeight);
+    });
+
+    // ---- Starfield (mid layer) ----
+    const starGeo   = new THREE.BufferGeometry();
+    const starCount = 2000; // Tweak for more/less stars
     const positions = new Float32Array(starCount*3);
     for (let i=0;i<starCount;i++){
       positions[i*3+0] = (Math.random()-0.5)*600;
       positions[i*3+1] = (Math.random()-0.5)*600;
-            positions[i*3+2] = -Math.random()*800;
+      positions[i*3+2] = -Math.random()*800; // start far away
     }
     starGeo.setAttribute('position', new THREE.BufferAttribute(positions,3));
     const starMat = new THREE.PointsMaterial({size:1.5, color:0xffffff});
-        const stars = new THREE.Points(starGeo, starMat);
+    const stars   = new THREE.Points(starGeo, starMat);
     scene.add(stars);
 
+    // ---- Planets/comets (front layer) ----
+    // const planetTex = new THREE.TextureLoader().load('assets/planet.png');
+    // const planetMat = new THREE.SpriteMaterial({map:planetTex});
+    // let activePlanets = [];
+    // function spawnPlanet(){ ... }
+    // spawnPlanet();
+
+    // ---- Nebula background (back layer) ----
+    // const nebulaTex = new THREE.TextureLoader().load('assets/nebula_low.jpg');
+    // nebulaTex.rotation = Math.PI;
+    // nebulaTex.center.set(0.5,0.5);
+    // const nebulaMat = new THREE.SpriteMaterial({map:nebulaTex, opacity:0.35, depthWrite:false});
+    // const nebula    = new THREE.Sprite(nebulaMat);
+    // nebula.scale.set(2000,1000,1);
+    // nebula.position.set(0,0,-900);
+    // scene.add(nebula);
+
+    // ---- Animation loop ----
     camera.position.z = 5;
     function animate(){
+      // Reduce motion for accessibility
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        renderer.domElement.style.display = 'none';
+        document.body.style.background = 'url("space-static.jpg") center/cover no-repeat'; // fallback image
+        return;
+      } else {
+        renderer.domElement.style.display = '';
+        document.body.style.background = '';
+      }
       requestAnimationFrame(animate);
+      // move stars
       const pos = starGeo.attributes.position.array;
       for (let i=0; i<starCount; i++){
-                pos[i*3+2] += 4;
-                if (pos[i*3+2] > 5){
+        pos[i*3+2] += 4;            // bring forward
+        if (pos[i*3+2] > 5){        // recycle
           pos[i*3+2] = -800;
         }
       }
       starGeo.attributes.position.needsUpdate = true;
+      // planets glide by
+      // for (let i=activePlanets.length-1; i>=0; i--){
+      //   const p = activePlanets[i];
+      //   p.position.z += 6;
+      //   if (p.position.z > 5){
+      //     scene.remove(p);
+      //     activePlanets.splice(i,1);
+      //   }
+      // }
+      // nebulaTex.offset.x += 0.0001; // dreamy slow drift
       renderer.render(scene,camera);
     }
     animate();

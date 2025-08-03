@@ -1,43 +1,45 @@
-// Main JavaScript for Dhawal's Website
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Dhawal\'s website loaded successfully! 🎨');
-    
-    // Add some interactive effects
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px) scale(1.02)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-    });
-    
-    // Add smooth scrolling for social links
-    const socialLinks = document.querySelectorAll('.social-links a');
-    socialLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            // Add a small delay for visual feedback
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-            }, 150);
-        });
-    });
-    
-    // Add loading animation
-    const heroText = document.querySelector('.hero-text');
-    if (heroText) {
-        heroText.style.opacity = '0';
-        heroText.style.transform = 'translateY(30px)';
-        
-        setTimeout(() => {
-            heroText.style.transition = 'all 0.8s ease';
-            heroText.style.opacity = '1';
-            heroText.style.transform = 'translateY(0)';
-        }, 500);
-    }
+document.addEventListener('DOMContentLoaded', () => {
+  // Load config from localStorage if available
+  let config = window.siteConfig;
+  const savedConfig = localStorage.getItem('siteConfig');
+  if (savedConfig) {
+    try {
+      config = Object.assign({}, config, JSON.parse(savedConfig));
+      // Retain default boxPositions if not in savedConfig, to avoid errors if user clears localStorage
+      if (config.boxPositions && window.siteConfig.boxPositions) {
+        config.boxPositions = Object.assign({}, window.siteConfig.boxPositions, config.boxPositions);
+      }
+      if (config.colors && window.siteConfig.colors) {
+        config.colors = Object.assign({}, window.siteConfig.colors, config.colors);
+      }
+    } catch (e) { /* ignore parse errors */ }
+  }
+  window.siteConfig = config;
+
+  // Set accent color from config
+  if (config && config.colors && config.colors.accent) {
+    document.documentElement.style.setProperty('--accent', config.colors.accent);
+  }
+
+  // Config panel toggle logic is now exclusively in config.js
+  // const configBtn = document.getElementById('config-toggle-btn');
+  // const configPanel = document.getElementById('config-panel');
+  // if (configBtn && configPanel) {
+  //   configBtn.onclick = () => {
+  //       configPanel.style.display = configPanel.style.display === 'none' ? 'block' : 'none';
+  //   };
+  // }
+
+  const accentInput = document.getElementById('accentColorInput');
+  // const applyBtn = document.getElementById('applyConfigBtn'); // This button is in the new planet config panel
+
+  // Set initial accent color value
+  if (accentInput && config && config.colors && config.colors.accent) {
+      accentInput.value = config.colors.accent;
+  }
+
+  // The applyBtn for planet config is handled by config.js
+  // Accent color input is also part of the planet config panel, so its apply logic is in config.js.
 }); 
 
 // About Me image drag-to-pan with localStorage persistence and image change (+ icon)
