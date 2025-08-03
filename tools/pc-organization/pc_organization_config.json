@@ -1,0 +1,135 @@
+{
+  "organization_settings": {
+    "desktop": {
+      "enabled": true,
+      "folders": {
+        "to_organize": "TO_ORGANIZE",
+        "to_delete": "TO_DELETE", 
+        "to_archive": "TO_ARCHIVE",
+        "quick_access": "QUICK_ACCESS"
+      },
+      "file_types": {
+        "documents": [".pdf", ".doc", ".docx", ".txt", ".rtf"],
+        "images": [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".svg", ".heic"],
+        "archives": [".zip", ".rar", ".tar", ".gz", ".7z"],
+        "videos": [".mp4", ".mov", ".avi", ".mkv", ".wmv"],
+        "audio": [".mp3", ".wav", ".aac", ".flac", ".m4a"],
+        "spreadsheets": [".xlsx", ".xls", ".csv"],
+        "presentations": [".pptx", ".ppt"],
+        "code": [".js", ".py", ".html", ".css", ".java", ".cpp", ".c"]
+      }
+    },
+    "downloads": {
+      "enabled": true,
+      "folders": {
+        "documents": "Documents",
+        "images": "Images", 
+        "videos": "Videos",
+        "software": "Software",
+        "archives": "Archives",
+        "cleanup": "Cleanup",
+        "data": "Data_Files",
+        "audio": "Audio"
+      },
+      "file_types": {
+        "documents": [".pdf", ".doc", ".docx", ".txt", ".rtf"],
+        "images": [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".svg", ".heic", ".webp"],
+        "videos": [".mp4", ".mov", ".avi", ".mkv", ".wmv", ".flv"],
+        "software": [".dmg", ".pkg", ".exe", ".msi", ".deb", ".rpm"],
+        "archives": [".zip", ".rar", ".tar", ".gz", ".7z", ".bz2"],
+        "data": [".csv", ".xlsx", ".xls", ".json", ".xml"],
+        "audio": [".mp3", ".wav", ".aac", ".flac", ".m4a", ".ogg"]
+      },
+      "cleanup_rules": {
+        "delete_older_than_days": 180,
+        "move_old_to_archive": true,
+        "archive_older_than_days": 90
+      }
+    },
+    "documents": {
+      "enabled": true,
+      "folders": {
+        "work": "Work",
+        "personal": "Personal", 
+        "archive": "Archive",
+        "projects": "Projects",
+        "finance": "Finance",
+        "health": "Health",
+        "travel": "Travel"
+      }
+    },
+    "pictures": {
+      "enabled": true,
+      "folders": {
+        "photos": "Photos",
+        "screenshots": "Screenshots",
+        "wallpapers": "Wallpapers",
+        "archive": "Archive"
+      }
+    },
+    "music": {
+      "enabled": true,
+      "folders": {
+        "playlists": "Playlists",
+        "albums": "Albums",
+        "downloads": "Downloads"
+      }
+    },
+    "videos": {
+      "enabled": true,
+      "folders": {
+        "movies": "Movies",
+        "tv_shows": "TV_Shows",
+        "tutorials": "Tutorials",
+        "recordings": "Recordings"
+      }
+    }
+  },
+  "advanced_settings": {
+    "duplicate_detection": {
+      "enabled": true,
+      "methods": ["content", "filename"],
+      "content_hash": "md5"
+    },
+    "backup": {
+      "enabled": true,
+      "backup_before_organization": true,
+      "backup_location": "~/Desktop/PC_Organization_Backup"
+    },
+    "logging": {
+      "enabled": true,
+      "log_file": "~/Desktop/pc_organization.log",
+      "verbose": true
+    },
+    "safety": {
+      "confirm_deletions": true,
+      "preview_changes": true,
+      "max_file_age_days": 365
+    }
+  },
+  "custom_rules": {
+    "file_patterns": {
+      "screenshots": ["*screenshot*", "*screen shot*", "*capture*"],
+      "temporary": ["*temp*", "*tmp*", "*cache*"],
+      "backup": ["*backup*", "*bak*", "*old*"]
+    },
+    "folder_mappings": {
+      "AI Vids": "Videos/AI_Content",
+      "Canada": "Personal/Travel/Canada",
+      "Civils": "Work/Government",
+      "GMAT Docs": "Education/GMAT"
+    }
+  },
+  "maintenance": {
+    "schedule": {
+      "weekly_cleanup": true,
+      "monthly_archive": true,
+      "quarterly_deep_clean": true
+    },
+    "automation": {
+      "auto_organize_downloads": false,
+      "auto_clean_desktop": false,
+      "notifications": true
+    }
+  }
+} 

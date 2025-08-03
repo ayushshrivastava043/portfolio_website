@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Constellation | Ayush Shrivastava</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: #000;
+            color: #fff;
+            margin: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            perspective: 1000px;
+        }
+        .constellation-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            animation: rotate 120s linear infinite;
+        }
+        @keyframes rotate {
+            from { transform: rotateY(0deg) rotateX(10deg); }
+            to { transform: rotateY(360deg) rotateX(10deg); }
+        }
+        .star {
+            position: absolute;
+            background: radial-gradient(circle at center, #fff 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .star:hover {
+            transform: translate(-50%, -50%) scale(1.2);
+            box-shadow: 0 0 20px #fff, 0 0 40px #00ffee;
+        }
+        .star-content {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(0, 255, 238, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+        .star:hover .star-content {
+            opacity: 1;
+            visibility: visible;
+        }
+        .star-content h3 {
+            color: #00ffee;
+            font-family: 'Orbitron', sans-serif;
+            margin: 0 0 10px 0;
+        }
+        .star-content p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        .star-content pre {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .star-content code {
+            color: #00ffee;
+            font-family: 'Consolas', monospace;
+        }
+        .connection {
+            position: absolute;
+            background: linear-gradient(90deg, rgba(0,255,238,0.1), rgba(0,255,238,0.3));
+            height: 1px;
+            transform-origin: left center;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 2rem;
+            color: #fff;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+        }
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-5px);
+        }
+        .title {
+            position: fixed;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Orbitron', sans-serif;
+            color: #00ffee;
+                font-size: 2rem;
+            text-align: center;
+            z-index: 1000;
+            text-shadow: 0 0 10px rgba(0, 255, 238, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Home
+    </a>
+    <h1 class="title">🌌 Learning Constellation</h1>
+
+    <div class="container">
+        <div class="constellation-container" id="constellation"></div>
+    </div>
+
+    <script>
+        const learningNodes = [
+            {
+                id: 'verifast',
+                title: '🧠 Verifast AI Chatbot',
+                period: 'Jan–May 2025',
+                x: 20,
+                y: 30,
+                z: 50,
+                size: 8,
+                color: '#00ffee',
+                content: {
+                    context: 'Improve KPI-driven AI chatbot performance at Verifast',
+                    learnings: 'OpenAI API integration, fallback logic, Redis/Firebase session tracking, latency logging',
+                    code: `app.route('/chat', methods=['POST'])
+def chat():
+    data = request.json
+    response = openai_response(data['message'])
+    return jsonify({'reply': response})`
+                }
+            },
+            {
+                id: 'video-gen',
+                title: '🎥 AI Video Generator',
+                period: 'Feb–May 2025',
+                x: 60,
+                y: 40,
+                z: 30,
+                size: 10,
+                color: '#ff00ff',
+                content: {
+                    context: 'Automate AI-generated history documentaries',
+                    learnings: 'Midjourney visuals, Google TTS, Minimax video generation, Shotcut automation',
+                    code: `from gtts import gTTS
+def generate_voice(text, filename):
+    tts = gTTS(text=text)
+    tts.save(f'audio/{filename}.mp3')`
+                }
+            },
+            {
+                id: 'flask-cors',
+                title: '🌐 Flask CORS + API Debugging',
+                period: 'Jan–Apr 2025',
+                x: 40,
+                y: 70,
+                z: 20,
+                size: 6,
+                color: '#00ff00',
+                content: {
+                    context: 'Fix CORS issue between local Flask API and frontend',
+                    learnings: 'Flask-CORS setup, preflight handling, debugging `OPTIONS` requests',
+                    code: `from flask_cors import CORS
+app = Flask(__name__)
+CORS(app)`
+                }
+            },
+            {
+                id: 'finbot',
+                title: '💬 Finbot Investment Chatbot',
+                period: 'Mar–May 2025',
+                x: 80,
+                y: 50,
+                z: 40,
+                size: 9,
+                color: '#ffaa00',
+                content: {
+                    context: 'Build conversational logic for a financial advisor chatbot',
+                    learnings: 'Intent flows, multi-turn conversation, risk-based suggestions',
+                    code: `def get_advice(intent, budget):
+    if intent == 'budget':
+        return f"Try small cap stocks under ₹{budget}"`
+                }
+            }
+        ];
+
+        const connections = [
+            ['verifast', 'video-gen'],
+            ['video-gen', 'finbot'],
+            ['flask-cors', 'verifast'],
+            ['flask-cors', 'finbot']
+        ];
+
+        function createConstellation() {
+            const container = document.getElementById('constellation');
+            
+            // Create connections
+            connections.forEach(([from, to]) => {
+                const fromNode = learningNodes.find(n => n.id === from);
+                const toNode = learningNodes.find(n => n.id === to);
+                
+                const connection = document.createElement('div');
+                connection.className = 'connection';
+                
+                const length = Math.sqrt(
+                    Math.pow(toNode.x - fromNode.x, 2) +
+                    Math.pow(toNode.y - fromNode.y, 2) +
+                    Math.pow(toNode.z - fromNode.z, 2)
+                );
+                
+                const angle = Math.atan2(toNode.y - fromNode.y, toNode.x - fromNode.x) * 180 / Math.PI;
+                
+                connection.style.width = `${length}%`;
+                connection.style.left = `${fromNode.x}%`;
+                connection.style.top = `${fromNode.y}%`;
+                connection.style.transform = `rotate(${angle}deg)`;
+                
+                container.appendChild(connection);
+            });
+
+            // Create stars
+            learningNodes.forEach(node => {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = `${node.x}%`;
+                star.style.top = `${node.y}%`;
+                star.style.width = `${node.size * 2}px`;
+                star.style.height = `${node.size * 2}px`;
+                star.style.zIndex = node.z;
+                star.style.boxShadow = `0 0 ${node.size * 2}px ${node.color}`;
+
+                const content = document.createElement('div');
+                content.className = 'star-content';
+                content.innerHTML = `
+                    <h3>${node.title}</h3>
+                    <p><strong>📅 Period:</strong> ${node.period}</p>
+                    <p><strong>📌 Context:</strong> ${node.content.context}</p>
+                    <p><strong>🧠 Learnings:</strong> ${node.content.learnings}</p>
+                    <pre><code>${node.content.code}</code></pre>
+                `;
+                
+                // Position content based on star position
+                if (node.x > 50) {
+                    content.style.left = 'auto';
+                    content.style.right = '100%';
+                } else {
+                    content.style.left = '100%';
+                    content.style.right = 'auto';
+                }
+                
+                if (node.y > 50) {
+                    content.style.top = 'auto';
+                    content.style.bottom = '0';
+                } else {
+                    content.style.top = '0';
+                    content.style.bottom = 'auto';
+                }
+
+                star.appendChild(content);
+                container.appendChild(star);
+            });
+        }
+
+        // Initialize constellation
+        createConstellation();
+
+        // Add parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const container = document.querySelector('.constellation-container');
+            const x = (window.innerWidth / 2 - e.clientX) / 50;
+            const y = (window.innerHeight / 2 - e.clientY) / 50;
+            container.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+        });
+    </script>
+</body>
+</html> 

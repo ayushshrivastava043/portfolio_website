@@ -1,0 +1,53 @@
+{
+  "basic": {
+    "siteName": "John Doe's Portfolio",
+    "siteTitle": "John Doe | AI Developer & Product Manager",
+    "siteDescription": "Passionate AI developer and product manager with expertise in machine learning, automation, and building scalable solutions.",
+    "authorName": "John Doe",
+    "authorTitle": "AI Developer & Product Manager",
+    "heroImage": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop"
+  },
+  "content": {
+    "aboutText": "I'm a passionate technologist with 5+ years of experience building AI-powered products that make a real impact. I specialize in machine learning, automation, and creating user-centric solutions that scale. When I'm not coding, you'll find me exploring new technologies, contributing to open source, or sharing knowledge with the developer community.",
+    "social": {
+      "linkedin": "https://linkedin.com/in/johndoe",
+      "github": "https://github.com/johndoe",
+      "youtube": "https://youtube.com/@johndoe",
+      "twitter": "https://twitter.com/johndoe"
+    },
+    "projects": [
+      {
+        "title": "AI-Powered E-commerce Assistant",
+        "description": "Built an intelligent chatbot that increased conversion rates by 40% and reduced customer support tickets by 67%. Integrated with Shopify APIs and used GPT-4 for natural language processing.",
+        "tech": ["Python", "FastAPI", "GPT-4", "Shopify API", "Redis", "Docker"]
+      },
+      {
+        "title": "Automated Video Generation Pipeline",
+        "description": "Created a fully automated pipeline that transforms text prompts into narrated videos with visuals, voice-over, and captions. Reduced production time by 97% and costs by 85%.",
+        "tech": ["Python", "OpenAI", "Midjourney", "FFmpeg", "Airflow", "GCP"]
+      },
+      {
+        "title": "Real-time Analytics Dashboard",
+        "description": "Developed a comprehensive analytics platform that processes millions of data points in real-time, providing actionable insights for business decision-making.",
+        "tech": ["React", "Node.js", "PostgreSQL", "Redis", "WebSocket", "Chart.js"]
+      },
+      {
+        "title": "Smart Home Automation System",
+        "description": "Designed and implemented an IoT-based home automation system with voice control, energy optimization, and security features.",
+        "tech": ["Python", "Raspberry Pi", "MQTT", "TensorFlow", "React Native", "AWS"]
+      }
+    ]
+  },
+  "styling": {
+    "primaryColor": "#00ffee",
+    "backgroundColor": "space",
+    "fontFamily": "Inter",
+    "animationStyle": "smooth"
+  },
+  "advanced": {
+    "outputDir": "john-doe-portfolio",
+    "includeTimeline": true,
+    "includeNews": false,
+    "customCSS": "/* Custom styles for John's portfolio */\n.hero-section {\n  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\n}\n\n.project-card {\n  backdrop-filter: blur(10px);\n  background: rgba(255, 255, 255, 0.1);\n}"
+  }
+} 

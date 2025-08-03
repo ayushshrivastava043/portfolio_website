@@ -1,0 +1,62 @@
+{
+  "basic": {
+    "siteName": "Dhawal ka hath toota.. haha",
+    "siteTitle": "Dhawal | Loola.. haha",
+    "siteDescription": "Janiye mere boxing career ke baare me",
+    "authorName": "Dhawal 🤜🏻🫸🏻 = 💀",
+    "authorTitle": "LOOLA",
+    "heroImage": "IMG_9449.jpg"
+  },
+  "content": {
+    "aboutText": "Janiye mere boxing career ke baare me - mere haath par, come, create art, give sympathy, give cash",
+    "includeContact": true,
+    "contactTitle": "Contact Dhawal",
+    "contactEmail": "dhawalyashshrivastava@gmail.com",
+    "contactPhone": "9772534339",
+    "contactLocation": "Painting Competition Venue",
+    "social": {
+      "linkedin": "https://linkedin.com/in/johndoe",
+      "github": "https://github.com/johndoe",
+      "youtube": "https://youtube.com/@johndoe",
+      "twitter": "https://twitter.com/johndoe"
+    },
+    "projects": [
+      {
+        "title": "Contact Dhawal",
+        "description": "Get in touch for the painting competition",
+        "tech": [
+          "📞 9772534339",
+          "📧 dhawal@example.com",
+          "📍 Painting Venue",
+          "🎨 Competition Entry",
+          "💬 WhatsApp",
+          "📱 Call Now"
+        ]
+      },
+      {
+        "title": "Google Form Entry",
+        "description": "Fill out this form to register for the painting competition on Dhawal's hand",
+        "tech": [
+          "📝 Registration Form",
+          "🎯 Competition Details",
+          "📅 Date & Time",
+          "💰 Entry Fee",
+          "🏆 Prizes",
+          "✅ Submit Entry"
+        ]
+      }
+    ]
+  },
+  "styling": {
+    "primaryColor": "#00ffee",
+    "backgroundColor": "space",
+    "fontFamily": "Inter",
+    "animationStyle": "smooth"
+  },
+  "advanced": {
+    "outputDir": "john-doe-portfolio",
+    "includeTimeline": true,
+    "includeNews": false,
+    "customCSS": "/* Custom styles for John's portfolio */\n.hero-section {\n  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\n}\n\n.project-card {\n  backdrop-filter: blur(10px);\n  background: rgba(255, 255, 255, 0.1);\n}"
+  }
+}

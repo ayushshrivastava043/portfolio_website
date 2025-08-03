@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "news-app-mobile",
+    "slug": "news-app-mobile",
+    "version": "1.0.0",
+    "sdkVersion": "49.0.0",
+    "platforms": ["ios", "android", "web"],
+    "extra": {
+      "EXPO_PUBLIC_NEWS_API_KEY": "6726647a1ce74d6ea36797682e240249",
+      "EXPO_PUBLIC_YOUTUBE_API_KEY": "AIzaSyAPtmgN15Mo1Ny_OEP2FVdI5CxUF1YACTY"
+    }
+  }
+} 

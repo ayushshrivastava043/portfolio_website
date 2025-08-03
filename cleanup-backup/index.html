@@ -22,13 +22,13 @@
             <h1>Dhawal 🤜🏻🫸🏻 = 💀</h1>
             <p>LOOLA</p>
             <p>Hone wala hai painting competition - mere haath par, come, create art, give sympathy, give cash</p>
-      </div>
+        </div>
         <div class="video-collage">
             <video src="../assets/mahajanpadas.mp4" autoplay loop muted playsinline></video>
             <video src="../assets/Mauryan era.mp4" autoplay loop muted playsinline></video>
             <video src="../assets/Vedic Age AI video.mp4" autoplay loop muted playsinline></video>
             <video src="../assets/AI_sample.mp4" autoplay loop muted playsinline></video>
-      </div>
+        </div>
     </div>
 
     <!-- About Section -->
@@ -50,7 +50,7 @@
                 <div class="tech-stack">
                     <span class="tech-tag">Python</span><span class="tech-tag">FastAPI</span><span class="tech-tag">GPT-4</span><span class="tech-tag">Shopify API</span><span class="tech-tag">Redis</span><span class="tech-tag">Docker</span>
                 </div>
-                    </div>
+            </div>
             <div class="project-card">
                 <h3>Automated Video Generation Pipeline</h3>
                 <p>Created a fully automated pipeline that transforms text prompts into narrated videos with visuals, voice-over, and captions. Reduced production time by 97% and costs by 85%.</p>
@@ -83,44 +83,44 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="main.js"></script>
     <script type="module">
-    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js';
-
+        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js';
+        
         // Three.js background animation
         const canvas = document.querySelector('#space');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
-    renderer.setSize(innerWidth, innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
+        const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
+        renderer.setSize(innerWidth, innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
         
         // Starfield
         const starGeo = new THREE.BufferGeometry();
         const starCount = 2000;
-    const positions = new Float32Array(starCount*3);
-    for (let i=0;i<starCount;i++){
-      positions[i*3+0] = (Math.random()-0.5)*600;
-      positions[i*3+1] = (Math.random()-0.5)*600;
+        const positions = new Float32Array(starCount*3);
+        for (let i=0;i<starCount;i++){
+            positions[i*3+0] = (Math.random()-0.5)*600;
+            positions[i*3+1] = (Math.random()-0.5)*600;
             positions[i*3+2] = -Math.random()*800;
-    }
-    starGeo.setAttribute('position', new THREE.BufferAttribute(positions,3));
-    const starMat = new THREE.PointsMaterial({size:1.5, color:0xffffff});
+        }
+        starGeo.setAttribute('position', new THREE.BufferAttribute(positions,3));
+        const starMat = new THREE.PointsMaterial({size:1.5, color:0xffffff});
         const stars = new THREE.Points(starGeo, starMat);
-    scene.add(stars);
-
-    camera.position.z = 5;
-    function animate(){
-      requestAnimationFrame(animate);
-      const pos = starGeo.attributes.position.array;
-      for (let i=0; i<starCount; i++){
+        scene.add(stars);
+        
+        camera.position.z = 5;
+        function animate(){
+            requestAnimationFrame(animate);
+            const pos = starGeo.attributes.position.array;
+            for (let i=0; i<starCount; i++){
                 pos[i*3+2] += 4;
                 if (pos[i*3+2] > 5){
-          pos[i*3+2] = -800;
+                    pos[i*3+2] = -800;
+                }
+            }
+            starGeo.attributes.position.needsUpdate = true;
+            renderer.render(scene,camera);
         }
-      }
-      starGeo.attributes.position.needsUpdate = true;
-      renderer.render(scene,camera);
-    }
-    animate();
+        animate();
     </script>
 </body>
 </html> 
