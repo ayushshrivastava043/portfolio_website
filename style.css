@@ -30,7 +30,7 @@ body {
     width: 100%;
     overflow-x: hidden;
     position: relative;
-    background: var(--bg);
+    background: transparent;
     display: flex;
     flex-direction: column;
 }
@@ -716,14 +716,14 @@ img, canvas {
 
 .constellation-container {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-around;
     align-items: center;
     position: relative;
     min-height: 800px;
     transform-style: preserve-3d;
     padding: 40px;
-    gap: 100px;
+    gap: 40px;
 }
 
 /* Planet Styles */
@@ -736,6 +736,9 @@ img, canvas {
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     transform-style: preserve-3d;
     box-shadow: none;
+    display: inline-block;
+    margin: 0 20px;
+    flex-shrink: 0;
 }
 
 .planet.earth {
@@ -1163,4 +1166,108 @@ img, canvas {
 
 #edit-mode-toggle:active {
     transform: translateY(0);
+} 
+
+/* Projects Portal Section Styles */
+/* TEMPORARILY DISABLED FOR DEBUGGING
+.projects-portal-section {
+    margin-top: 50px;
+    margin-bottom: 100px;
+    z-index: 9999;
+    position: relative;
+    background: radial-gradient(circle at center, #0a0a0a 0%, #0f0c29 50%, #1a1a2e 100%);
+    isolation: isolate;
+}
+*/
+
+/* Ensure the background canvas stays behind */
+#space {
+    z-index: -1 !important;
+}
+
+.project-card {
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 255, 238, 0.2);
+    border-color: rgba(0, 255, 238, 0.5);
+}
+
+.project-card button {
+    transition: all 0.2s ease;
+}
+
+.project-card button:hover {
+    transform: scale(1.05);
+}
+
+/* Space Station Animations */
+@keyframes controlPulse {
+    0% { opacity: 0.3; box-shadow: 0 0 5px rgba(0, 255, 238, 0.3); }
+    100% { opacity: 0.6; box-shadow: 0 0 15px rgba(0, 255, 238, 0.6); }
+}
+
+@keyframes scan {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes lifeSupport {
+    0% { background: rgba(0, 255, 238, 0.08); }
+    100% { background: rgba(0, 255, 238, 0.15); }
+}
+
+@keyframes energyFlow {
+    0% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+    100% { opacity: 0.3; }
+}
+
+@keyframes dataFlow {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.6; }
+    100% { opacity: 0.2; }
+}
+
+@keyframes float1 {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+@keyframes float2 {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(-180deg); }
+}
+
+@keyframes float3 {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-25px) rotate(90deg); }
+}
+
+@keyframes windowGlow {
+    0% { box-shadow: 0 0 10px rgba(0, 255, 238, 0.3); }
+    50% { box-shadow: 0 0 20px rgba(0, 255, 238, 0.6); }
+    100% { box-shadow: 0 0 10px rgba(0, 255, 238, 0.3); }
+}
+
+.station-window {
+    animation: windowGlow 4s infinite;
+}
+
+/* Responsive adjustments for Projects Portal */
+@media (max-width: 768px) {
+    .projects-portal-section {
+        padding: 40px 10px;
+    }
+    
+    .project-card {
+        margin-bottom: 20px;
+    }
+    
+    .about-section > div {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
 } 

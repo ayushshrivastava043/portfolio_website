@@ -1,0 +1,32 @@
+MAGENTA AUDIT REPORT
+Generated: 2025-08-04T00:30:00Z
+
+SEARCH TOKENS: #ff00ff, f0f, magenta, rgb(255, 0, 255), background:, !important
+
+FOUND INSTANCES:
+
+1. index.html:666 - TEST MESSAGE WITH RED BACKGROUND
+   - Line: <div style="position:absolute;top:40px;left:50%;transform:translateX(-50%);z-index:9999;font-size:3rem;color:#fff;background:#ff0000;padding:40px 80px;border-radius:20px;box-shadow:0 0 40px #ff0000;">TEST: PROJECTS PORTAL SECTION</div>
+   - Status: REMOVED - This was a debug test message that should not be in production
+   - Action: Removed the entire test div element
+
+2. pages/insights.html:106-107 - !important declarations
+   - Lines: width: 100% !important; height: 300px !important;
+   - Status: KEPT - These are legitimate !important declarations for layout purposes
+   - Action: No change needed
+
+3. index.html:623 - !important declaration
+   - Line: pointer-events: auto !important;
+   - Status: KEPT - This is a legitimate !important declaration for functionality
+   - Action: No change needed
+
+SUMMARY:
+- 1 magenta-related debug element removed from index.html
+- 3 legitimate !important declarations found and preserved
+- No actual magenta (#ff00ff) colors found in the codebase
+- The issue was caused by a debug test message with red background
+
+RECOMMENDATIONS:
+1. Use the new dev tools to prevent future cache issues
+2. Run the no-cache server for development
+3. Use find-magenta.js to detect any future injected styles 

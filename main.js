@@ -414,14 +414,5 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 }); 
 
-// --- PLANET TEXTURES (Three.js) ---
-const texLoader = new THREE.TextureLoader();
-
-const earthMat   = new THREE.MeshBasicMaterial({ map: texLoader.load('./assets/earth.png'),   transparent: true });
-const saturnMat  = new THREE.MeshBasicMaterial({ map: texLoader.load('./assets/saturn.png'),  transparent: true });
-const neptuneMat = new THREE.MeshBasicMaterial({ map: texLoader.load('/assets/nept.png'), transparent: true });
-
-// Example: apply to your sphere meshes (replace with your actual mesh variables)
-// earthSphere.material   = earthMat;
-// saturnSphere.material  = saturnMat;
-// neptuneSphere.material = neptuneMat; 
+// Three.js is loaded as a module in the HTML file
+// Planet textures and materials are handled there 
