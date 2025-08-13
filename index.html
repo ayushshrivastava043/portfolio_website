@@ -1,1 +1,2777 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Ayush | AI Portfolio</title><meta http-equiv="refresh" content="0; url=./website-core/"></head><body><p>Redirecting to website... <a href="./website-core/">Click here if not redirected automatically.</a></p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your website description">
+    <title>Ayush | AI Portfolio</title>
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <style>
+        :root {
+            --bg: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+            --text: #ffffff;
+            --accent: #00ffee;
+            --panel-bg: rgba(0, 0, 0, 0.8);
+            --profile-img-pos-x: 50%;
+            --profile-img-pos-y: 50%;
+        }
+        body.light {
+            --bg: #f4f4f4;
+            --text: #111;
+            --accent: #0066ff;
+            --panel-bg: rgba(255, 255, 255, 0.9);
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text, #fff);
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, rgba(15,32,39,0.3) 70%, rgba(32,58,67,0.3) 100%);
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: background 0.5s ease;
+            height: auto;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .hero-section {
+            width: 100vw;
+            max-width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+        }
+        .hero-section img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+            display: block;
+            background: #222;
+        }
+        .hero-text {
+            width: 100%;
+            text-align: center;
+            z-index: 3;
+            color: #fff;
+            text-shadow: 2px 2px 8px #000;
+            margin-bottom: 32px;
+        }
+        .hero-text h1 {
+            font-size: 2.8rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+        }
+        .hero-text p {
+            font-size: 1.3rem;
+        }
+        .main-content {
+            position: relative;
+            z-index: 1;
+            margin-top: 40px;
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(3, auto);
+            gap: 32px;
+            padding: 40px 10px 60px 10px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .box {
+            background: #23283a;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+            padding: 2em;
+            position: relative;
+            transition: transform 0.2s;
+            color: #fff;
+            text-decoration: none;
+            min-height: 180px;
+        }
+        .box:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+        }
+        .box img {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        .box h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .box h2::after {
+            content: '→';
+            font-size: 1.2rem;
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .box:hover h2::after {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+        .box p, .box ul {
+            font-size: 0.85rem;
+            line-height: 1.3;
+            margin: 0;
+        }
+        .box ul {
+            list-style: none;
+            padding: 0;
+        }
+        .box li {
+            margin: 3px 0;
+            padding: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            transition: transform 0.3s ease;
+        }
+        .box li:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .gallery-img, iframe, .news-car {
+            width: 100%;
+            max-height: 200px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px var(--accent);
+            object-fit: cover;
+        }
+        .news-car {
+            animation: drive 5s ease-in-out infinite alternate;
+        }
+        @keyframes drive {
+            0% { transform: translateX(-10%); }
+            100% { transform: translateX(10%); }
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            z-index: 999;
+        }
+
+        /* Live Feed Styles */
+        #live-feed {
+            height: 150px;
+            overflow-y: auto;
+            padding: 8px;
+        }
+        
+        #live-feed p {
+            margin: 3px 0;
+            padding: 6px;
+            font-size: 0.8rem;
+        }
+
+        /* Chatbot Styles */
+        .chatbot-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            z-index: 1000;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform-origin: bottom right;
+        }
+        .chatbot-widget.closed {
+            transform: translateY(calc(100% - 60px));
+        }
+        .chatbot-header {
+            background: var(--accent);
+            color: var(--panel-bg);
+            padding: 15px;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chatbot-header:hover {
+            opacity: 0.9;
+        }
+        .chatbot-toggle {
+            transform: rotate(0deg);
+            transition: transform 0.3s ease;
+        }
+        .closed .chatbot-toggle {
+            transform: rotate(180deg);
+        }
+        .chatbot-window {
+            display: flex;
+            flex-direction: column;
+        }
+        .chatbot-messages {
+            height: 150px;
+            overflow-y: auto;
+            padding: 10px;
+            font-size: 0.85rem;
+        }
+        #chat-input {
+            border: none;
+            border-top: 1px solid var(--accent);
+            padding: 10px;
+            font-size: 0.85rem;
+            outline: none;
+            background: transparent;
+            color: var(--text);
+        }
+        .chatbot-avatar {
+            position: absolute;
+            top: -40px;
+            right: 10px;
+            width: 48px;
+            height: 48px;
+            z-index: 10;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 12px #00ffee99,0 2px 8px #23283a;
+            border: 2.5px solid #00ffee;
+            background: #23283a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ffee;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2em;
+        }
+        @keyframes floatChat {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+
+        
+        /* Background Themes */
+        body.theme-galaxy {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                        url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        body.theme-solar {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                        url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        body.theme-nebula {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                        url('https://images.unsplash.com/photo-1462332420958-a05d1e002413');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        body.theme-gradient {
+            background: linear-gradient(45deg, 
+                #0f0c29 0%, 
+                #302b63 50%, 
+                #24243e 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Default theme */
+        body {
+            background: linear-gradient(45deg, #000000, #1a1a1a);
+            transition: background-image 0.5s ease, background 0.5s ease;
+        }
+
+        #home {
+            position:relative; width:100vw; height:100vh;
+            background:url('assets/A_digital_illustration_in_a_comic_book_and_cartoon.png') center/cover no-repeat;
+        }
+        .door {
+            position:absolute;
+            background:rgba(255,0,0,0.3); border:2px solid #fff;
+            cursor:pointer;
+        }
+        /* Updated positions for each door */
+        #door-about {
+            top: 62%; left: 32.5%; width: 10%; height: 22%;
+        }
+        #door-projects {
+            top: 62%; left: 60%; width: 18%; height: 22%;
+        }
+        #door-insights {
+            top: 22%; left: 37.5%; width: 10%; height: 18%;
+        }
+        #door-contact {
+            top: 13%; left: 62%; width: 18%; height: 10%;
+        }
+        @media (max-width: 900px) {
+            .content-grid { grid-template-columns: 1fr; grid-template-rows: none; }
+        }
+        @media (max-width: 600px) {
+            .hero-text { font-size: 1em; top: 10%; }
+            .content-grid { padding: 10px; }
+            .box { padding: 1em; }
+        }
+        .footer-section {
+            width: 100%;
+            margin-top: 100px;
+            text-align: center;
+            background-color: #0f0f0f;
+            padding: 40px 0;
+            position: relative;
+            z-index: 1;
+        }
+        .footer-section video {
+            max-width: 90%;
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
+        }
+        .footer-section .cta-btn {
+            background: var(--accent);
+            color: #111;
+            padding: 12px 32px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 10px;
+            display: inline-block;
+        }
+        .footer-section .cta-btn:hover {
+            background: #00e6e6;
+        }
+        .footer-section .social-icons {
+            margin-bottom: 24px;
+        }
+        .footer-section .social-icons a {
+            margin: 0 10px;
+            display: inline-block;
+        }
+        .footer-section .social-icons img {
+            width: 36px;
+            height: 36px;
+        }
+        .sidebar-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            justify-content: center;
+            width: 100px;
+            height: 32px;
+            min-width: 100px;
+            max-width: 100px;
+            padding: 0 8px;
+            background: linear-gradient(90deg,#00ffee,#23283a);
+            color: #fff;
+            font-family: 'Orbitron', monospace;
+            font-weight: 500;
+            border: none;
+            border-radius: 14px;
+            box-shadow: 0 1px 4px #00ffee44;
+            font-size: 0.78em;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: transform 0.18s cubic-bezier(.4,2,.6,1), box-shadow 0.18s cubic-bezier(.4,2,.6,1), background 0.18s;
+            margin-bottom: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+        .sidebar-btn.whatsapp {
+            background: linear-gradient(90deg,#00ffee,#25d366);
+            box-shadow: 0 1px 4px #25d36644;
+            color: #111;
+        }
+        .sidebar-btn.mail {
+            background: linear-gradient(90deg,#00ffee,#0077b5);
+            box-shadow: 0 1px 4px #00ffee44;
+            color: #111;
+        }
+        .sidebar-btn.resume {
+            background: linear-gradient(90deg,#00ffee,#23283a);
+            box-shadow: 0 1px 4px #23283a44;
+        }
+        .sidebar-btn:hover, .sidebar-btn:focus {
+            transform: scale(1.08) translateY(-2px);
+            box-shadow: 0 0 16px #00ffee99, 0 1px 8px #00ffee44;
+            background: linear-gradient(90deg,#00ffee,#00bfff);
+            z-index: 2;
+        }
+
+        /* Clean Chatbot Styles */
+        .chatbot-widget {
+            background: rgba(10, 10, 30, 0.85);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            border-radius: 18px;
+            border: 2px solid #333;
+            backdrop-filter: blur(12px);
+            transition: box-shadow 0.4s, border 0.4s, background 0.4s;
+        }
+        .chatbot-header {
+            background: #23283a;
+            color: #ffffff;
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 1.1em;
+            letter-spacing: 0.5px;
+            border-radius: 18px 18px 0 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .chatbot-avatar {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            border: 2px solid #333;
+            background: url('https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif') no-repeat center/cover, #111;
+        }
+        .chatbot-window {
+            background: rgba(20, 20, 40, 0.85);
+            border-radius: 0 0 18px 18px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+            transition: background 0.4s;
+        }
+        .chatbot-messages {
+            color: #ffffff;
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 1em;
+            animation: fadeInChat 1s;
+        }
+        @keyframes fadeInChat {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        #chat-input {
+            background: rgba(0,0,0,0.5);
+            color: #ffffff;
+            border-radius: 0 0 14px 14px;
+            border: 1px solid #333;
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 1em;
+            padding: 10px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+        #chat-input:focus {
+            border: 1px solid #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+            outline: none;
+        }
+        .chatbot-header button {
+            background: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 1em;
+            margin-left: 4px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+            cursor: pointer;
+        }
+        .chatbot-header button:hover {
+            background: #0056b3;
+            color: #ffffff;
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        @keyframes pingFade {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0.7; transform: scale(1.06); }
+        }
+        .expand-content { display: none; margin-top: 1em; color: #ccc; }
+        .box.expanded .expand-content { display: block; }
+        .expand-btn { margin-top: 1em; background: #0ff; color: #111; border: none; border-radius: 6px; padding: 6px 18px; cursor: pointer; font-weight: bold; transition: background 0.2s; }
+        .expand-btn:hover { background: #00bfff; }
+        .about-section img {
+            object-position: var(--profile-img-pos-x) var(--profile-img-pos-y);
+            transition: object-position 0.2s;
+            cursor: grab;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+        .about-section img:active {
+            cursor: grabbing;
+        }
+        .about-section img#profile-img {
+            pointer-events: auto !important;
+        }
+        .img-slider-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5em;
+            margin-top: 1em;
+            max-width: 220px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .img-slider-controls label {
+            font-size: 0.95em;
+            color: #00ffee;
+            margin-bottom: 0.2em;
+        }
+        .img-slider-controls input[type=range] {
+            width: 160px;
+        }
+        /* IMPORTANT: Do NOT add overflow:hidden to html or body! This breaks scrolling. Only #space should have overflow:hidden. */
+        html,body{margin:0;width:100vw;height:100vh;background:#000;}
+        #space{width:100vw;height:100vh;overflow:hidden;}
+
+        /* Professional GIF Alien Character Styles */
+        .alien-gif {
+          transition: all 0.3s ease;
+        }
+        
+        .alien-gif:hover {
+          transform: scale(1.1);
+          filter: drop-shadow(0 12px 24px rgba(0,255,255,0.6)) !important;
+        }
+
+        /* Reactive Animation Classes for Alien */
+        .alien-character.walking {
+          animation: walk 8s linear;
+        }
+
+        .alien-character.thinking {
+          animation: think 2s ease-in-out infinite;
+        }
+
+        .alien-character.excited {
+          animation: bounce 0.5s ease-in-out infinite;
+        }
+
+        .alien-character.responding {
+          animation: respond 3s ease-in-out;
+        }
+
+        @keyframes walk {
+          0% {
+            bottom: 100px;
+            left: 20px;
+            transform: translateY(0px) rotate(0deg);
+          }
+          25% {
+            bottom: 110px;
+            left: 200px;
+            transform: translateY(-5px) rotate(2deg);
+          }
+          50% {
+            bottom: 100px;
+            left: 400px;
+            transform: translateY(0px) rotate(0deg);
+          }
+          75% {
+            bottom: 110px;
+            left: 200px;
+            transform: translateY(-5px) rotate(-2deg);
+          }
+          100% {
+            bottom: 100px;
+            left: 20px;
+            transform: translateY(0px) rotate(0deg);
+          }
+        }
+
+        @keyframes think {
+          0%, 100% { transform: rotate(0deg); }
+          25% { transform: rotate(-10deg); }
+          75% { transform: rotate(10deg); }
+        }
+
+        @keyframes bounce {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+
+        @keyframes respond {
+          0% { transform: scale(1); }
+          25% { transform: scale(1.1); }
+          50% { transform: scale(1); }
+          75% { transform: scale(1.05); }
+          100% { transform: scale(1); }
+        }
+
+        /* Chat Bubble Animations - Integrated with astronaut's z-axis */
+        .chat-bubble.show {
+          opacity: 1 !important;
+          transform: scale(1) !important;
+          z-index: 100000 !important;
+        }
+
+        .chat-bubble.typing::after {
+          content: '';
+          display: inline-block;
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          background: white;
+          animation: typing-dots 1.4s infinite;
+          margin-left: 5px;
+        }
+
+        @keyframes typing-dots {
+          0%, 20% { opacity: 0; }
+          50% { opacity: 1; }
+          100% { opacity: 0; }
+        }
+
+        /* Custom Reactive Alien Character Styles */
+        .alien-character {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        /* Chat Bubble Positioning - Integrated with astronaut */
+        .chat-bubble {
+            position: absolute !important;
+            z-index: 100000 !important;
+            pointer-events: none;
+        }
+
+        .alien-character:hover {
+          transform: scale(1.05);
+        }
+
+        /* Enhanced Background Removal for Astronaut Characters */
+        .alien-character .alien-gif,
+        #chatbot-widget img {
+          mix-blend-mode: multiply;
+          background: transparent;
+          filter: contrast(1.2) brightness(1.1) saturate(1.1) drop-shadow(0 4px 8px rgba(0,255,255,0.3));
+          isolation: isolate;
+          image-rendering: -webkit-optimize-contrast;
+          image-rendering: crisp-edges;
+        }
+
+        /* Additional cleanup for background artifacts */
+        .alien-character .alien-gif::before,
+        #chatbot-widget img::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: transparent;
+          pointer-events: none;
+        }
+
+        /* REST STATE - Alien at Rest (Static, Mouth Closed) */
+        .alien-character.rest .alien-gif {
+          animation-play-state: paused;
+          /* This will show the static frame with mouth closed */
+        }
+
+        /* SPEAKING STATE - Alien Speaking (Mouth Open with Movement) */
+        .alien-character.speaking .alien-gif {
+          animation-play-state: running;
+          /* This will play the full animation with mouth movement */
+        }
+
+        /* THINKING STATE - Alien Thinking */
+        .alien-character.thinking .alien-gif {
+          animation: gif-think 2s ease-in-out infinite;
+        }
+
+        /* EXCITED STATE - Alien Excited */
+        .alien-character.excited .alien-gif {
+          animation: gif-bounce 0.5s ease-in-out infinite;
+        }
+
+        /* WALKING STATE - Alien Walking */
+        .alien-character.walking .alien-gif {
+          animation: gif-walk 0.8s ease-in-out infinite;
+        }
+
+        /* RESPONDING STATE - Alien Responding */
+        .alien-character.responding .alien-gif {
+          animation: gif-respond 1s ease-in-out;
+        }
+
+        /* Animation Keyframes for GIF */
+        @keyframes gif-think {
+          0%, 100% { transform: rotate(0deg); }
+          25% { transform: rotate(-8deg); }
+          75% { transform: rotate(8deg); }
+        }
+
+        @keyframes gif-bounce {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+
+        @keyframes gif-walk {
+          0%, 100% { transform: translateX(0px) rotate(0deg); }
+          50% { transform: translateX(3px) rotate(2deg); }
+        }
+
+        @keyframes gif-respond {
+          0% { transform: scale(1); }
+          25% { transform: scale(1.1); }
+          50% { transform: scale(1); }
+          75% { transform: scale(1.05); }
+          100% { transform: scale(1); }
+        }
+
+        /* Chat Bubble Animations */
+        .chat-bubble.show {
+          opacity: 1 !important;
+          transform: scale(1) !important;
+        }
+
+        .chat-bubble.typing::after {
+          content: '';
+          display: inline-block;
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          background: white;
+          animation: typing-dots 1.4s infinite;
+          margin-left: 5px;
+        }
+
+        @keyframes typing-dots {
+          0%, 20% { opacity: 0; }
+          50% { opacity: 1; }
+          100% { opacity: 0; }
+        }
+    </style>
+
+    <!-- Animated Background Canvas -->
+    <canvas id="background-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;"></canvas>
+    
+    <!-- Three.js Background Animation Script -->
+    <script type="module">
+      import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js';
+      
+      // Three.js background animation
+      const canvas = document.getElementById('background-canvas');
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
+      
+      renderer.setSize(innerWidth, innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      
+      // Create stars
+      const starGeo = new THREE.BufferGeometry();
+      const positions = new Float32Array(2000 * 3);
+      for(let i = 0; i < positions.length; i += 3) {
+        positions[i] = (Math.random() - 0.5) * 2000;
+        positions[i + 1] = (Math.random() - 0.5) * 2000;
+        positions[i + 2] = (Math.random() - 0.5) * 2000;
+      }
+      starGeo.setAttribute('position', new THREE.BufferAttribute(positions,3));
+      const starMat = new THREE.PointsMaterial({size:1.5, color:0xffffff});
+      const stars = new THREE.Points(starGeo, starMat);
+      scene.add(stars);
+      
+      camera.position.z = 500;
+      
+      function animate() {
+        requestAnimationFrame(animate);
+        stars.rotation.y += 0.0005;
+        stars.rotation.x += 0.0002;
+        renderer.render(scene, camera);
+      }
+      animate();
+      
+      window.addEventListener('resize', () => {
+        camera.aspect = innerWidth / innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(innerWidth, innerHeight);
+      });
+    </script>
+
+    <!-- Hero Section -->
+    <div class="hero-section" style="width:100vw;max-width:100%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;background:transparent;">
+      
+      <div class="hero-text" style="width:100%;text-align:center;z-index:3;color:#fff;text-shadow:2px 2px 8px #000;margin-bottom:32px;">
+                        <h1 style="font-size:2.8rem;font-family:'Orbitron',sans-serif;letter-spacing:2px;">Welcome to the universe of imagination</h1>
+                <p style="font-size:1.3rem;" id="typing-text">with immense possibilities of Artificial Intelligence, craft Agents, Automation and Augmented reality</p>
+      </div>
+      <div class="video-collage" style="display:flex;gap:32px;align-items:center;justify-content:center;width:100%;max-width:900px;">
+        <video src="assets/mahajanpadas.mp4" autoplay loop muted playsinline style="width:220px;height:390px;object-fit:cover;object-position:center;border-radius:18px;box-shadow:0 4px 24px #00ffee88;"></video>
+        <video src="assets/Mauryan era.mp4" autoplay loop muted playsinline style="width:220px;height:390px;object-fit:cover;object-position:center;border-radius:18px;box-shadow:0 4px 24px #00ffee88;"></video>
+        <video src="assets/Vedic Age AI video.mp4" autoplay loop muted playsinline style="width:220px;height:390px;object-fit:cover;object-position:center;border-radius:18px;box-shadow:0 4px 24px #00ffee88;"></video>
+        <video src="assets/AI_sample.mp4" autoplay loop muted playsinline style="width:220px;height:390px;object-fit:cover;object-position:center;border-radius:18px;box-shadow:0 4px 24px #00ffee88;"></video>
+      </div>
+    </div>
+
+    <!-- Projects Portal Section -->
+        <section class="projects-portal-section" style="position:relative !important;width:100vw !important;min-height:1200px !important;margin-top:50px !important;margin-bottom:100px !important;z-index:1 !important;color:white !important;font-size:24px !important;text-align:center !important;padding:50px !important;display:block !important;visibility:visible !important;opacity:1 !important;left:50%;transform:translateX(-50%);box-sizing:border-box;background-image:url('assets/ChatGPT%20Image%20Aug%205,%202025,%2004_46_21%20AM.png');background-size:cover;background-position:center;background-repeat:no-repeat;background-attachment:fixed;">
+
+      <h2 style="color:white;font-size:36px;margin-bottom:20px;text-align:center;position:relative;z-index:10;font-family:'Orbitron',sans-serif;">🚀 Active Projects Portal</h2>
+      
+      <!-- A/B Testing Projects Container (Neural Radial renders here) -->
+      <div class="project-cards-container" style="width:100%;min-height:760px;margin-top:20px;"></div>
+    </section>
+
+    <!-- PLANET SECTION - INDEPENDENT OF SIDEBAR -->
+    <div class="constellation-section" style="position:relative;width:100%;max-width:100%;min-height:800px;max-height:900px;margin:30px auto;padding:30px 20px;background:rgba(0,0,0,0.3);border-radius:20px;overflow:visible;z-index:1000;box-sizing:border-box;">
+        
+        <h2 class="constellation-title" style="color:white;font-size:36px;margin-bottom:20px;text-align:center;font-family:'Orbitron',sans-serif;">🌍 My World of Experience</h2>
+        
+        <!-- Planet Container with Triangular Layout -->
+        <div class="constellation-container" style="position:relative;height:700px;overflow:visible;display:block;transform:translateX(-10%) translateY(-5%);">
+            
+            <!-- Earth (AI & Automation) - Top Center -->
+            <div class="planet earth" data-category="ai" style="position:absolute;width:198px;height:198px;left:50%;top:25%;transform:translate(-50%,-50%);z-index:10;">
+                <img src="assets/earth.png" alt="Earth" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:50%;z-index:0;pointer-events:none;" />
+                <div class="planet-content" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1;text-align:center;color:white;">
+                    <h3 style="font-size:16px;margin:0;">🚀 AI & Automation</h3>
+                    </div>
+                    <div class="moon-system">
+                    <!-- AI Sales Moon - Top Right -->
+                    <div class="moon moon-1" data-project="ai-sales" data-tooltip="AI Sales Agent for E-commerce">
+                        <img src="assets/MOON.png" alt="AI Sales" />
+                            </div>
+                    <!-- AI Video Moon - Bottom Left -->
+                    <div class="moon moon-2" data-project="ai-video" data-tooltip="AI Video Generation Pipeline">
+                        <img src="assets/MOON.png" alt="AI Video" />
+                        </div>
+                    <!-- API Engine Moon - Right Center -->
+                    <div class="moon moon-3" data-project="ai-api" data-tooltip="End-to-End API Orchestration Framework">
+                        <img src="assets/MOON.png" alt="API" />
+                            </div>
+                        </div>
+                            </div>
+
+            <!-- Jupiter (PM Projects) - Bottom Left -->
+            <div class="planet jupiter" data-category="pm" style="position:absolute;width:218px;height:218px;left:35%;top:80%;transform:translate(-50%,-50%);z-index:10;">
+                <img src="assets/neptune1.jpeg" alt="Jupiter" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:50%;z-index:0;pointer-events:none;" />
+                <div class="planet-content" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1;text-align:center;color:white;">
+                    <h3 style="font-size:16px;margin:0;">PM Projects</h3>
+                        </div>
+                <div class="moon-system">
+                    <!-- Telecom Moon - Top Left -->
+                    <div class="moon moon-1" data-project="pm-telecom" data-tooltip="Dual-Track Telecom Rollout – Bell Canada">
+                        <img src="assets/MOON.png" alt="Telecom" />
+                            </div>
+                    <!-- HR-Suite Moon - Bottom Right -->
+                    <div class="moon moon-2" data-project="pm-hrsuite" data-tooltip="HR Suite Platform">
+                        <img src="assets/MOON.png" alt="HR Suite" />
+                        </div>
+                    <!-- Multi-Brand Moon - Left Center -->
+                    <div class="moon moon-3" data-project="pm-websites" data-tooltip="Multi-Brand Website Platform">
+                        <img src="assets/MOON.png" alt="Websites" />
+                    </div>
+                    <!-- EdTech Moon - Top Right -->
+                    <div class="moon moon-4" data-project="pm-edtech" data-tooltip="EdTech Learning Platform">
+                        <img src="assets/MOON.png" alt="EdTech" />
+                </div>
+                </div>
+            </div>
+
+                                                  <!-- Venus (Business Projects) - Bottom Right -->
+             <div class="planet saturn" data-category="business" style="position:absolute;width:238px;height:238px;left:65%;top:80%;transform:translate(-50%,-50%);z-index:10;">
+                 <img src="assets/Venus.jpeg" alt="Venus" style="position:absolute;top:50%;left:50%;width:100%;height:100%;object-fit:cover;border-radius:50%;z-index:0;pointer-events:none;transform:translate(-50%,-50%);" />
+                <div class="planet-content" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1;text-align:center;color:white;">
+                    <h3 style="font-size:16px;margin:0;">Business Projects</h3>
+                    </div>
+                    <div class="moon-system">
+                    <!-- KPI Playbook Moon -->
+                    <div class="moon moon-1" data-project="biz-kpi-playbook" data-tooltip="KPI Playbook Framework">
+                        <img src="assets/MOON.png" alt="KPI" />
+                            </div>
+                    <!-- eSIM DTH Launch Moon -->
+                    <div class="moon moon-2" data-project="biz-esim-dth-launch" data-tooltip="eSIM & DTH Launch Strategy">
+                        <img src="assets/MOON.png" alt="eSIM" />
+                        </div>
+                    <!-- GenAI Pilot Moon -->
+                    <div class="moon moon-3" data-project="biz-genai-pilot" data-tooltip="GenAI Pilot Program">
+                        <img src="assets/MOON.png" alt="GenAI" />
+                            </div>
+                    <!-- EdTech Expansion Moon -->
+                    <div class="moon moon-4" data-project="biz-edtech-expansion" data-tooltip="EdTech Market Expansion">
+                        <img src="assets/MOON.png" alt="EdTech" />
+                        </div>
+                    <!-- Green Build Moon -->
+                    <div class="moon moon-5" data-project="biz-green-build" data-tooltip="Green Building Initiative">
+                        <img src="assets/MOON.png" alt="Green" />
+                            </div>
+                        </div>
+                            </div>
+                        </div>
+                            </div>
+
+    <!-- DEDICATED CHATBOT SECTION -->
+    <div class="chatbot-section" style="width:100%;background:transparent;padding:40px 0;text-align:center;color:#fff;position:relative;z-index:1002;">
+
+      <div style="max-width:1200px;margin:0 auto;padding:0 20px;">
+        <h2 style="font-family:'Orbitron',sans-serif;font-size:2.5rem;color:#00ffee;margin-bottom:30px;">🤖 AI Assistant Hub</h2>
+                  <p style="font-size:1.2rem;max-width:800px;margin:0 auto 40px;line-height:1.6;color:#ccc;">Experience the future of interactive communication with our advanced AI assistant.</p>
+        
+        <!-- AI Assistant Section - Realistic LCD Screen -->
+        <div style="margin:40px auto;max-width:1200px;position:relative;">
+          <!-- Realistic LCD Screen Frame -->
+          <div style="background:linear-gradient(145deg,#2a2a2a,#1a1a1a);border-radius:15px;padding:40px;box-shadow:0 30px 100px rgba(0,0,0,0.8),inset 0 1px 0 rgba(255,255,255,0.1),inset 0 -1px 0 rgba(0,0,0,0.5);border:2px solid #333;position:relative;overflow:hidden;">
+            
+            <!-- Dense Galaxy Background -->
+            <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 30%,rgba(138,43,226,0.1) 0%,transparent 40%),radial-gradient(ellipse at 80% 70%,rgba(0,191,255,0.1) 0%,transparent 40%),radial-gradient(ellipse at 50% 50%,rgba(255,20,147,0.05) 0%,transparent 50%);pointer-events:none;"></div>
+            
+            <!-- Animated Stars Background -->
+            <div style="position:absolute;top:0;left:0;right:0;bottom:0;overflow:hidden;pointer-events:none;">
+              <div style="position:absolute;top:10%;left:15%;width:2px;height:2px;background:#fff;border-radius:50%;animation:twinkle 3s infinite;"></div>
+              <div style="position:absolute;top:25%;left:75%;width:1px;height:1px;background:#fff;border-radius:50%;animation:twinkle 4s infinite;animation-delay:1s;"></div>
+              <div style="position:absolute;top:45%;left:25%;width:1.5px;height:1.5px;background:#fff;border-radius:50%;animation:twinkle 5s infinite;animation-delay:2s;"></div>
+              <div style="position:absolute;top:65%;left:85%;width:2px;height:2px;background:#fff;border-radius:50%;animation:twinkle 3.5s infinite;animation-delay:0.5s;"></div>
+              <div style="position:absolute;top:80%;left:35%;width:1px;height:1px;background:#fff;border-radius:50%;animation:twinkle 4.5s infinite;animation-delay:1.5s;"></div>
+              <div style="position:absolute;top:15%;left:65%;width:1.5px;height:1.5px;background:#fff;border-radius:50%;animation:twinkle 3.8s infinite;animation-delay:0.8s;"></div>
+              <div style="position:absolute;top:55%;left:10%;width:1px;height:1px;background:#fff;border-radius:50%;animation:twinkle 4.2s infinite;animation-delay:1.2s;"></div>
+              <div style="position:absolute;top:35%;left:90%;width:2px;height:2px;background:#fff;border-radius:50%;animation:twinkle 3.2s infinite;animation-delay:0.2s;"></div>
+              <div style="position:absolute;top:70%;left:60%;width:1.5px;height:1.5px;background:#fff;border-radius:50%;animation:twinkle 4.8s infinite;animation-delay:1.8s;"></div>
+              <div style="position:absolute;top:20%;left:45%;width:1px;height:1px;background:#fff;border-radius:50%;animation:twinkle 3.6s infinite;animation-delay:0.6s;"></div>
+                        </div>
+            
+            <!-- Main Content Area - Randomly Positioned -->
+            <div style="position:relative;min-height:600px;">
+              
+              <!-- Randomly Positioned Content Boxes -->
+              
+              <!-- LEFT COLUMN -->
+              <!-- Digital Persona Introduction - Top Left (Increased by 30% Vertically) -->
+              <div style="position:absolute;top:30px;left:40px;width:320px;height:364px;background:linear-gradient(135deg,rgba(255,20,147,0.2),rgba(138,43,226,0.25));border-radius:20px;padding:28px;border:2px solid rgba(255,20,147,0.6);box-shadow:0 12px 35px rgba(255,20,147,0.4);overflow:hidden;">
+                <h4 style="color:#ff1493;margin:0 0 20px 0;font-family:'Orbitron',sans-serif;font-size:1.4em;text-shadow:0 0 20px rgba(255,20,147,0.7);display:flex;align-items:center;gap:12px;">
+                  <span style="font-size:1.5em;">🤖</span>
+                  <span class="typing-text" data-text="This is Not Just a Chatbot" data-speed="60"></span>
+                </h4>
+                <p style="color:#ffffff;margin-bottom:0;font-size:1.1em;line-height:1.6;font-weight:500;text-shadow:0 2px 4px rgba(0,0,0,0.6);overflow:hidden;">
+                  <span class="typing-text" data-text="It's your Digital Persona - an intelligent extension of yourself that communicates your vision, represents your brand, and handles everything you need with precision and personality." data-speed="30"></span>
+                </p>
+                    </div>
+              
+              <!-- Our Vision - Bottom Left (Increased Size + Digital Avatar Text) -->
+              <div style="position:absolute;bottom:10px;left:40px;width:320px;height:154px;background:linear-gradient(135deg,rgba(255,215,0,0.2),rgba(255,165,0,0.25));border-radius:16px;padding:22px;border-left:5px solid #ffd700;overflow:hidden;">
+                <h5 style="color:#ffd700;margin:0 0 12px 0;font-family:'Orbitron',sans-serif;font-size:1.2em;">🌟 Our Vision</h5>
+                <p style="color:#ffffff;margin:0 0 8px 0;font-size:1em;line-height:1.4;overflow:hidden;">
+                  <span class="typing-text" data-text="We believe AI should be as unique as you are! No more boring chatbots - let's create something extraordinary together!" data-speed="35"></span>
+                </p>
+                <p style="color:#ffffff;margin:0;font-size:0.9em;line-height:1.3;overflow:hidden;">
+                  <span class="typing-text" data-text="Which answers all the questions on your behalf to anyone." data-speed="40"></span>
+                </p>
+                </div>
+              
+              <!-- CENTER COLUMN -->
+              <!-- Customization Info - Center (Increased by 20% Vertically) -->
+              <div style="position:absolute;top:30px;left:50%;transform:translateX(-50%);width:300px;height:216px;background:linear-gradient(135deg,rgba(0,191,255,0.2),rgba(30,144,255,0.25));border-radius:20px;padding:25px;border:1px solid rgba(0,191,255,0.5);overflow:hidden;">
+                <h5 style="color:#00bfff;margin:0 0 18px 0;font-family:'Orbitron',sans-serif;font-size:1.2em;">🎨 Customization Magic</h5>
+                <p style="color:#ffffff;font-size:1em;line-height:1.5;margin:0;overflow:hidden;">
+                  Transform your AI avatar from quirky aliens to professional executives, match your brand colors & aesthetic, handle sales, support, education - you name it! Make them dance, wave, or even do backflips! Want a dancing penguin in a business suit? We can do that! 🐧✨
+                </p>
+            </div>
+              
+              <!-- RIGHT COLUMN -->
+              <!-- Universal Assistant Feature - Top Right -->
+              <div style="position:absolute;top:30px;right:40px;width:280px;height:180px;background:linear-gradient(135deg,rgba(50,205,50,0.2),rgba(34,139,34,0.25));border-radius:18px;padding:20px;border:1px solid rgba(50,205,50,0.5);overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,transparent,#32cd32,transparent);animation:slide 2s linear infinite;"></div>
+                <h5 style="color:#32cd32;margin:0 0 12px 0;font-size:1.1em;display:flex;align-items:center;gap:10px;">
+                  <span style="font-size:1.2em;">🚀</span>
+                  Universal Assistant
+                </h5>
+                <p style="color:#ffffff;margin:0;font-size:0.9em;line-height:1.4;overflow:hidden;">
+                  <span class="typing-text" data-text="From project management to creative brainstorming, from technical support to strategic planning - handles it all seamlessly." data-speed="25"></span>
+                </p>
+        </div>
+              
+
+              
+              <!-- Avatar Showcase Header - Bottom Right -->
+              <div style="position:absolute;bottom:40px;right:40px;width:280px;height:140px;text-align:center;background:linear-gradient(135deg,rgba(255,105,180,0.15),rgba(219,112,147,0.2));border-radius:18px;padding:18px;border:1px solid rgba(255,105,180,0.4);overflow:hidden;">
+                <h4 style="color:#ff69b4;margin:0 0 10px 0;font-family:'Orbitron',sans-serif;text-shadow:0 0 15px rgba(255,105,180,0.6);font-size:1.1em;">👽 Quirky Avatars</h4>
+                <p style="color:#ffffff;margin:0;font-size:0.9em;line-height:1.3;overflow:hidden;">
+                  <span class="typing-text" data-text="These are some of the examples of the avatars but you can create and customize ANYTHING you want! 🚀✨" data-speed="40"></span>
+                </p>
+            </div>
+              
+              <!-- Voice Amplifier Coming Soon - Below Quirky Avatars (Reduced Size) -->
+              <div style="position:absolute;bottom:200px;right:40px;width:200px;height:100px;background:rgba(255,102,0,0.15);border-radius:12px;padding:15px;border:1px solid rgba(255,102,0,0.4);overflow:hidden;">
+                <h5 style="color:#ff6600;margin:0 0 8px 0;font-size:0.9em;display:flex;align-items:center;gap:6px;">
+                  <span style="font-size:1em;">⏳</span>
+                  Voice Amplifier
+                </h5>
+                <p style="color:#e0e0e0;margin:0;font-size:0.8em;line-height:1.2;font-style:italic;overflow:hidden;">Feature Coming Soon...</p>
+        </div>
+              
+              <!-- Avatar GIFs - Positioned in Middle Blank Space Between Boxes -->
+              <img src="assets/20250805-0115-Cheerful-Blue-Al-unscreen.gif" alt="Cheerful Blue Alien" style="position:absolute;top:280px;left:380px;width:75px;height:auto;border-radius:12px;filter:drop-shadow(0 6px 12px rgba(0,191,255,0.5));" />
+              <img src="assets/20250805_0150_Astronaut's Playful Adventure_simple_compose_01k1vbwctzesjvhmjs14txk4ns.gif" alt="Astronaut Adventure" style="position:absolute;top:280px;right:350px;width:70px;height:auto;border-radius:12px;filter:drop-shadow(0 6px 12px rgba(0,191,255,0.5));" />
+              <img src="assets/20250808_1247_Post-Workout Selfie_simple_compose_01k248njcffzds8zvd0x3d9k6c.gif" alt="Post-Workout Selfie" style="position:absolute;top:400px;left:50%;transform:translateX(-50%);width:65px;height:auto;border-radius:12px;filter:drop-shadow(0 6px 12px rgba(0,191,255,0.5));" />
+              
+
+              
+
+              
+            </div>
+        </div>
+          
+
+
+    <!-- About Me section with horizontal layout and advanced interactive elements -->
+    <div class="about-section" style="width:100%;background:transparent;padding:60px 0;color:#fff;position:relative;z-index:1001;">
+
+      <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:0 20px;">
+        
+        <!-- Left Side: Profile and Info -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:25px;">
+          <!-- Simple Profile Image -->
+          <div style="width:280px;height:280px;border-radius:20px;overflow:hidden;box-shadow:0 0 40px rgba(0,255,238,0.4);border:3px solid rgba(0,255,238,0.6);">
+            <img src="assets/IMG_9590.jpg" alt="Ayush" style="width:100%;height:100%;object-fit:cover;" />
+          </div>
+          
+          <h2 style="font-family:'Orbitron',sans-serif;font-size:2.2rem;color:#00ffee;margin:0;text-align:center;">Ayush Shrivastava</h2>
+          <p style="font-size:1.15rem;max-width:400px;margin:0 auto;line-height:1.6;color:#ccc;text-align:center;">I build AI-powered products that think, talk, and convert. Passionate about automation, analytics, and building tools that make a difference.</p>
+        </div>
+        
+        <!-- Right Side: Advanced Interactive Contact Buttons -->
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <h3 style="font-family:'Orbitron',sans-serif;color:#00ffee;margin:0;text-align:center;font-size:1.5rem;">🚀 Connect & Collaborate</h3>
+          
+          <!-- Social Media Holographic Buttons -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+            <a href="https://www.linkedin.com/in/ayushshrivastava1292" target="_blank" class="holographic-btn linkedin-btn" style="position:relative;display:flex;align-items:center;gap:10px;justify-content:center;padding:12px 16px;background:linear-gradient(135deg,rgba(0,119,181,0.9),rgba(0,88,133,0.9));color:#fff;font-family:'Orbitron',monospace;font-weight:500;border:none;border-radius:12px;box-shadow:0 6px 20px rgba(0,119,181,0.4);font-size:0.85em;text-decoration:none;letter-spacing:0.5px;transition:all 0.3s ease;overflow:hidden;backdrop-filter:blur(10px);border:1px solid rgba(0,119,181,0.3);">
+              <div class="btn-glow" style="position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:left 0.5s ease;"></div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm15.5 11.268h-3v-5.604c0-1.337-.025-3.063-1.868-3.063-1.868 0-2.154 1.459-2.154 2.968v5.699h-3v-10h2.881v1.367h.041c.401-.761 1.379-1.563 2.838-1.563 3.036 0 3.6 2.001 3.6 4.601v5.595z"/>
+              </svg>
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://github.com/ayushshrivastava1292" target="_blank" class="holographic-btn github-btn" style="position:relative;display:flex;align-items:center;gap:10px;justify-content:center;padding:12px 16px;background:linear-gradient(135deg,rgba(36,41,46,0.9),rgba(24,27,30,0.9));color:#fff;font-family:'Orbitron',monospace;font-weight:500;border:none;border-radius:12px;box-shadow:0 6px 20px rgba(36,41,46,0.4);font-size:0.85em;text-decoration:none;letter-spacing:0.5px;transition:all 0.3s ease;overflow:hidden;backdrop-filter:blur(10px);border:1px solid rgba(36,41,46,0.3);">
+              <div class="btn-glow" style="position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:left 0.5s ease;"></div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+              <span>GitHub</span>
+            </a>
+            <a href="https://www.youtube.com/@Virtualr_eality" target="_blank" class="holographic-btn youtube-btn" style="position:relative;display:flex;align-items:center;gap:10px;justify-content:center;padding:12px 16px;background:linear-gradient(135deg,rgba(255,0,0,0.9),rgba(204,0,0,0.9));color:#fff;font-family:'Orbitron',monospace;font-weight:500;border:none;border-radius:12px;box-shadow:0 6px 20px rgba(255,0,0,0.4);font-size:0.85em;text-decoration:none;letter-spacing:0.5px;transition:all 0.3s ease;overflow:hidden;backdrop-filter:blur(10px);border:1px solid rgba(255,0,0,0.3);">
+              <div class="btn-glow" style="position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:left 0.5s ease;"></div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24">
+                <path d="M19.615 3.184c-1.049-.384-5.615-.384-5.615-.384s-4.566 0-5.615.384c-1.049.384-1.871 1.206-2.255 2.255-.384 1.049-.384 3.231-.384 3.231s0 2.182.384 3.231c.384 1.049 1.206 1.871 2.255 2.255 1.049.384 5.615.384 5.615.384s4.566 0 5.615-.384c1.049.384 1.871 1.206 2.255-2.255.384-1.049.384-3.231.384-3.231s0-2.182-.384-3.231c-.384-1.049-1.206-1.871-2.255-2.255zm-8.615 8.816v-5l5 2.5-5 2.5z"/>
+              </svg>
+              <span>YouTube</span>
+            </a>
+            <a href="https://wa.me/918770087774" target="_blank" class="holographic-btn whatsapp-btn" style="position:relative;display:flex;align-items:center;gap:10px;justify-content:center;padding:12px 16px;background:linear-gradient(135deg,rgba(37,211,102,0.9),rgba(18,140,126,0.9));color:#fff;font-family:'Orbitron',monospace;font-weight:500;border:none;border-radius:12px;box-shadow:0 6px 20px rgba(37,211,102,0.4);font-size:0.85em;text-decoration:none;letter-spacing:0.5px;transition:all 0.3s ease;overflow:hidden;backdrop-filter:blur(10px);border:1px solid rgba(37,211,102,0.3);">
+              <div class="btn-glow" style="position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:left 0.5s ease;"></div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24">
+                <path d="M12.004 2.003c-5.514 0-9.997 4.484-9.997 9.997 0 1.762.464 3.484 1.345 4.997l-1.409 5.151 5.293-1.389c1.464.801 3.104 1.241 4.768 1.241h.001c5.514 0 9.997-4.484 9.997-9.997s-4.483-9.997-9.997-9.997zm5.634 14.631c-.241.678-1.413 1.293-1.941 1.377-.495.078-1.123.111-1.809-.117-.417-.137-.954-.312-1.646-.611-2.897-1.252-4.792-4.152-4.941-4.349-.144-.197-1.181-1.574-1.181-3.004 0-1.429.749-2.134 1.017-2.426.267-.292.579-.365.772-.365.193 0 .386.002.555.01.179.008.418-.067.655.501.241.578.819 1.995.891 2.139.072.144.12.312.024.509-.096.197-.144.312-.287.478-.144.166-.303.37-.431.497-.144.144-.293.301-.126.593.166.292.739 1.217 1.587 1.97 1.09.973 2.008 1.273 2.3 1.417.292.144.46.12.632-.072.166-.193.717-.836.909-1.123.192-.287.384-.239.655-.144.271.096 1.719.812 2.011.96.292.144.484.216.555.335.072.12.072.695-.169 1.373z"/>
+              </svg>
+              <span>WhatsApp</span>
+            </a>
+          </div>
+          
+          <!-- Small Contact Buttons -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <a href="mailto:ayush.shrivastava.1292@gmail.com" class="contact-btn mail-btn" style="display:flex;align-items:center;justify-content:center;padding:8px 12px;background:linear-gradient(135deg,rgba(0,255,238,0.9),rgba(0,204,255,0.9));color:#111;font-family:'Orbitron',monospace;font-weight:500;border:none;border-radius:8px;box-shadow:0 3px 10px rgba(0,255,238,0.3);font-size:0.75em;text-decoration:none;transition:all 0.3s ease;border:1px solid rgba(0,255,238,0.3);">
+              📧 Email
+            </a>
+            <a href="assets/your_resume.pdf" class="contact-btn resume-btn" style="display:flex;align-items:center;justify-content:center;padding:8px 12px;background:linear-gradient(135deg,rgba(102,126,234,0.9),rgba(118,75,162,0.9));color:#fff;font-family:'Orbitron',monospace;font-weight:500;border:none;border-radius:8px;box-shadow:0 3px 10px rgba(102,126,234,0.4);font-size:0.75em;text-decoration:none;transition:all 0.3s ease;border:1px solid rgba(102,126,234,0.3);">
+              📄 Resume
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        
+
+        <script>
+    class AlienCharacter {
+      constructor() {
+        this.characterDiv = document.querySelector('.alien-character');
+        if (!this.characterDiv) {
+          console.warn('AlienCharacter: .alien-character element not found');
+          return;
+        }
+        
+        this.chatBubble = this.characterDiv.querySelector('.chat-bubble');
+        if (!this.chatBubble) {
+          console.warn('AlienCharacter: .chat-bubble element not found');
+          return;
+        }
+        
+        this.messageText = this.chatBubble.querySelector('.message-text');
+        if (!this.messageText) {
+          console.warn('AlienCharacter: .message-text element not found');
+          return;
+        }
+        
+        this.isAnimating = false;
+        this.sessionId = null; // For enhanced chatbot server
+        
+        // Make alien clickable for interaction
+        this.characterDiv.addEventListener('click', () => this.toggleChatbot());
+        
+        // Start in rest state (static, mouth closed)
+        this.characterDiv.classList.add('rest');
+        
+        // Initial greeting
+        setTimeout(() => {
+          this.showMessage("Hello! I'm your AI assistant. Click me or send a message! 👽✨");
+        }, 1000);
+      }
+      
+      setState(state) {
+        if (this.isAnimating) return; // Prevent overlapping animations
+        
+        // Remove all state classes
+        this.characterDiv.classList.remove('rest', 'speaking', 'walking', 'thinking', 'excited', 'responding');
+        
+        // Add current state class
+        this.characterDiv.classList.add(state);
+        this.isAnimating = true;
+        
+        // Update chat bubble message based on state
+        const stateMessages = {
+          'thinking': "Let me think about that... 🤔",
+          'excited': "That's fascinating! 🌟",
+          'responding': "Here's what I found! 📡",
+          'walking': "Exploring the digital realm... 🚶‍♂️",
+          'speaking': "I'm speaking now! 👽💬"
+        };
+        
+        if (stateMessages[state]) {
+          this.showMessage(stateMessages[state]);
+        }
+        
+        // Remove animation class after animation completes and return to rest
+        const animationDuration = {
+          'walking': 3000,
+          'thinking': 2000,
+          'excited': 2000,
+          'responding': 3000,
+          'speaking': 4000
+        };
+        
+        setTimeout(() => {
+          this.characterDiv.classList.remove(state);
+          this.characterDiv.classList.add('rest'); // Return to rest state (static, mouth closed)
+          this.isAnimating = false;
+        }, animationDuration[state] || 2000);
+      }
+      
+      showMessage(text) {
+        this.messageText.textContent = text;
+        this.chatBubble.classList.add('show');
+        
+        // Switch to speaking state when showing message
+        this.characterDiv.classList.remove('rest');
+        this.characterDiv.classList.add('speaking');
+        
+        // Keep bubble visible - don't auto-hide
+        // The bubble will stay visible until next question
+      }
+      
+      toggleChatbot() {
+        const chatbotWidget = document.getElementById('chatbot-widget');
+        if (chatbotWidget) {
+          if (chatbotWidget.style.display === 'none' || chatbotWidget.style.display === '') {
+            chatbotWidget.style.display = 'block';
+            // Hide any existing chat bubble when opening chat window
+          this.chatBubble.classList.remove('show');
+            this.showMessage("AI Terminal opened! Enter your query below! 💻");
+          } else {
+            chatbotWidget.style.display = 'none';
+            this.showMessage("Terminal closed! Click me again to open! 👋");
+          }
+        } else {
+          // Fallback to random reaction if widget not found
+          this.triggerRandomReaction();
+        }
+      }
+      
+      triggerRandomReaction() {
+        if (this.isAnimating) return;
+        
+        const reactions = ['thinking', 'excited', 'walking', 'responding'];
+        const randomReaction = reactions[Math.floor(Math.random() * reactions.length)];
+        
+        this.setState(randomReaction);
+      }
+      
+      // Method to be called from chatbot
+      respondToMessage(userMessage) {
+        this.setState('thinking');
+        
+        // Simulate AI processing
+        setTimeout(() => {
+          this.setState('responding');
+          
+          // Simple response logic
+          const responses = {
+            'hello': "Hello! I'm your AI assistant. How can I help you today? 🚀",
+            'help': "I can help you with project information, technical questions, or just chat! What would you like to know? 🤖",
+            'projects': "I can tell you about my AI projects, PM experience, or business initiatives. Which area interests you? 📊",
+            'default': "That's interesting! I'm here to help with any questions about my work or just to chat. What would you like to know? ✨"
+          };
+          
+          const lowerMessage = userMessage.toLowerCase();
+          let response = responses.default;
+          
+          if (lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
+            response = responses.hello;
+          } else if (lowerMessage.includes('help')) {
+            response = responses.help;
+          } else if (lowerMessage.includes('project')) {
+            response = responses.projects;
+          }
+          
+          this.showMessage(response);
+          }, 1500);
+      }
+    }
+
+    // Initialize Alien Character after DOM is loaded
+    let alien;
+    document.addEventListener('DOMContentLoaded', function() {
+      alien = new AlienCharacter();
+    });
+
+    // AI Terminal Input Handler
+    function handleTerminalInput(event) {
+      if (event.key === 'Enter') {
+        const input = document.getElementById('chatbot-input');
+        const message = input.value.trim();
+        
+        if (message) {
+          console.log('Terminal input:', message);
+          
+          // Clear input field
+          input.value = '';
+          
+          // Show thinking state
+          if (alien) {
+            alien.setState('thinking');
+          }
+          
+          // Send message to chatbot server
+          sendMessageToChatbot(message);
+        }
+      }
+    }
+
+    // Send message to chatbot server
+    async function sendMessageToChatbot(message) {
+      try {
+        console.log('🚀 Sending message to chatbot:', message);
+        console.log('📡 API endpoint: http://localhost:5001/api/chat');
+        
+        const requestBody = {
+          message: message,
+          config_name: 'ayush_porfolio'
+        };
+        console.log('📤 Request body:', JSON.stringify(requestBody, null, 2));
+        
+        const response = await fetch('http://localhost:5001/api/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+          },
+          body: JSON.stringify(requestBody)
+        });
+        
+        console.log('📥 Response status:', response.status);
+        console.log('📥 Response ok:', response.ok);
+        
+        if (response.ok) {
+          const data = await response.json();
+          console.log('🎯 Full chatbot response:', data);
+          
+          if (data.success) {
+            console.log('✅ Success! Response:', data.response);
+            console.log('🎭 Use case:', data.use_case);
+            console.log('🔧 Variables:', data.variables);
+          
+          // Show response in chat bubble
+          if (alien) {
+            alien.showMessage(data.response);
+            alien.setState('responding');
+          }
+          
+            // Send activity to dashboard for auto-population
+            sendActivityToDashboard(message, data.response, data.use_case, data.variables);
+          
+        } else {
+            console.error('❌ Chatbot error:', data.error);
+            if (alien) {
+              alien.showMessage('Sorry, I encountered an error. Please try again.');
+              alien.setState('excited');
+            }
+          }
+          
+        } else {
+          console.error('❌ HTTP error:', response.status);
+          const errorText = await response.text();
+          console.error('❌ Error response:', errorText);
+          if (alien) {
+            alien.showMessage('Sorry, I encountered an error. Please try again.');
+            alien.setState('excited');
+          }
+        }
+        
+      } catch (error) {
+        console.error('💥 Network error:', error);
+        if (alien) {
+          alien.showMessage('Network error. Please check your connection.');
+          alien.setState('excited');
+        }
+      }
+    }
+
+    // Send activity to dashboard for auto-population
+    async function sendActivityToDashboard(message, response, useCase, variables) {
+      try {
+        console.log('📤 Sending activity to dashboard...');
+        
+        const activityData = {
+          message: message,
+          response: response,
+          use_case: useCase,
+          variables: variables
+        };
+        
+        const dashboardResponse = await fetch('http://localhost:5001/api/website-activity', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(activityData)
+        });
+        
+        if (dashboardResponse.ok) {
+          console.log('✅ Activity sent to dashboard successfully');
+        } else {
+          console.log('⚠️ Dashboard activity logging failed');
+        }
+        
+      } catch (error) {
+        console.log('⚠️ Could not send activity to dashboard:', error.message);
+      }
+    }
+
+    // Moon interaction functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('🚀 DOM LOADED - SCRIPT IS RUNNING!');
+      console.log('🔍 Checking if JavaScript is working...');
+      console.log('🌙 Moons found:', document.querySelectorAll('.moon').length);
+      console.log('📅 Current time:', new Date().toLocaleTimeString());
+      
+      // Function to setup moon interactions
+      function setupMoonInteractions() {
+        // Add click event listeners to moons
+        const moons = document.querySelectorAll('.moon');
+        console.log('Found moons:', moons.length);
+        
+        moons.forEach((moon, index) => {
+          console.log(`Setting up moon ${index + 1}:`, moon.getAttribute('data-project'));
+          
+          // Remove existing event listeners to prevent duplicates
+          moon.removeEventListener('click', moonClickHandler);
+          moon.removeEventListener('mouseenter', moonMouseEnterHandler);
+          moon.removeEventListener('mouseleave', moonMouseLeaveHandler);
+          
+          // Add new event listeners
+          moon.addEventListener('click', moonClickHandler);
+          moon.addEventListener('mouseenter', moonMouseEnterHandler);
+          moon.addEventListener('mouseleave', moonMouseLeaveHandler);
+        });
+      }
+      
+      // Moon click handler
+      function moonClickHandler(e) {
+        e.stopPropagation();
+        const projectId = this.getAttribute('data-project');
+        console.log('Moon clicked:', projectId);
+        if (projectId) {
+          showProjectModal(projectId);
+        }
+      }
+      
+      // Moon mouse enter handler
+      function moonMouseEnterHandler() {
+        console.log('🟢 MOUSE ENTERED MOON:', this.getAttribute('data-project'));
+        
+        // Do not modify transform; it encodes radial translate from config
+        this.style.boxShadow = '0 0 20px rgba(0,255,238,0.6)';
+        
+        // Show tooltip
+        const tooltip = this.getAttribute('data-tooltip');
+        if (tooltip) {
+          console.log('🎈 Showing tooltip for:', tooltip);
+          showTooltip(this, tooltip);
+        } else {
+          console.log('⚠️ No tooltip data found for moon');
+        }
+      }
+      
+      // Moon mouse leave handler
+      function moonMouseLeaveHandler() {
+        console.log('🔴 MOUSE LEFT MOON:', this.getAttribute('data-project'));
+        
+        // Keep transform untouched to preserve position
+        this.style.boxShadow = '';
+        
+        // Hide tooltip
+        hideTooltip();
+      }
+
+      // Initial setup
+      setupMoonInteractions();
+      
+      // Re-setup after a short delay to ensure all elements are loaded
+      setTimeout(setupMoonInteractions, 500);
+      
+      // Also setup on window load
+      window.addEventListener('load', setupMoonInteractions);
+        
+
+        
+
+
+      // Modal functionality
+      const projectModal = document.getElementById('projectModal');
+      const closeModalBtn = projectModal ? projectModal.querySelector('.close-modal') : null;
+      
+      if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', () => {
+          projectModal.classList.remove('active');
+        });
+      }
+      
+      if (projectModal) {
+        projectModal.addEventListener('click', (e) => {
+          if (e.target === projectModal) {
+            projectModal.classList.remove('active');
+          }
+        });
+      }
+    });
+
+    // Tooltip functionality
+    function showTooltip(element, text) {
+      console.log('🎈 Creating tooltip with text:', text);
+      
+      // Remove existing tooltip
+      hideTooltip();
+      
+      const tooltip = document.createElement('div');
+      tooltip.className = 'moon-tooltip';
+      tooltip.textContent = text;
+      tooltip.style.cssText = `
+        position: fixed;
+        background: rgba(0,0,0,0.95);
+        color: #00ffee;
+        padding: 12px 16px;
+        border-radius: 8px;
+        font-size: 14px;
+            font-family: 'Orbitron', sans-serif;
+        white-space: nowrap;
+        z-index: 99999;
+        border: 2px solid #00ffee;
+        box-shadow: 0 8px 25px rgba(0,255,238,0.5);
+        pointer-events: none;
+        opacity: 1;
+        transform: translateY(0);
+        transition: all 0.3s ease;
+        font-weight: bold;
+        letter-spacing: 1px;
+      `;
+      
+      document.body.appendChild(tooltip);
+      console.log('✅ Tooltip element created and added to DOM');
+      
+      // Position tooltip above moon
+      const rect = element.getBoundingClientRect();
+      const tooltipRect = tooltip.getBoundingClientRect();
+      
+      const left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+      const top = rect.top - tooltipRect.height - 15;
+      
+      tooltip.style.left = left + 'px';
+      tooltip.style.top = top + 'px';
+      
+      console.log('📍 Tooltip positioned at:', { left, top });
+      console.log('🌙 Moon position:', { left: rect.left, top: rect.top });
+      console.log('📏 Tooltip dimensions:', { width: tooltipRect.width, height: tooltipRect.height });
+      
+      // Ensure tooltip is visible
+        tooltip.style.opacity = '1';
+        tooltip.style.transform = 'translateY(0)';
+      tooltip.style.zIndex = '99999';
+      
+      console.log('🎯 Tooltip should now be visible!');
+    }
+    
+    function hideTooltip() {
+      const existingTooltip = document.querySelector('.moon-tooltip');
+      if (existingTooltip) {
+        existingTooltip.remove();
+      }
+    }
+
+    // Function to show project modal
+    function showProjectModal(projectId) {
+      console.log('showProjectModal called with:', projectId);
+      
+      // Use the global projectData from projects.js
+      const project = window.projectData ? window.projectData[projectId] : null;
+      if (!project) {
+        console.error('Project not found:', projectId);
+        console.log('Available projects:', Object.keys(window.projectData || {}));
+        console.log('Window projectData:', window.projectData);
+        return;
+      }
+
+      console.log('Found project:', project);
+
+      const modal = document.getElementById('projectModal');
+      if (!modal) {
+        console.error('Modal not found');
+        return;
+      }
+      
+      const modalTitle = modal.querySelector('#modalProjectTitle');
+      const modalContent = modal.querySelector('#modalProjectContent');
+      
+      if (!modalTitle || !modalContent) {
+        console.error('Modal elements not found');
+        return;
+      }
+
+      modalTitle.textContent = project.title;
+      
+      let content = `<div class="project-details">`;
+      if (project.whatItIs) {
+        content += `<div class="section"><h3>What it is</h3><p>${project.whatItIs}</p></div>`;
+      }
+      if (project.keyFeatures) {
+        content += `<div class="section"><h3>Key Features</h3><ul>${project.keyFeatures.map(feature => `<li>${feature}</li>`).join('')}</ul></div>`;
+      }
+      if (project.techStack) {
+        content += `<div class="section"><h3>Tech Stack</h3><div class="tech-stack">${project.techStack.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}</div></div>`;
+      }
+      if (project.myRole) {
+        content += `<div class="section"><h3>My Role</h3><p>${project.myRole}</p></div>`;
+      }
+      if (project.myContributions) {
+        content += `<div class="section"><h3>My Contributions</h3><ul>${project.myContributions.map(contribution => `<li>${contribution}</li>`).join('')}</ul></div>`;
+      }
+      if (project.howItWorks) {
+        content += `<div class="section"><h3>How it works</h3><ul>${project.howItWorks.map(step => `<li>${step}</li>`).join('')}</ul></div>`;
+      }
+      if (project.impact) {
+        content += `<div class="section"><h3>${project.impact.title || 'Impact'}</h3>`;
+        if (project.impact.headers && project.impact.rows) {
+          content += `<table class="details-table"><thead><tr>${project.impact.headers.map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>`;
+          project.impact.rows.forEach(row => {
+            content += `<tr>${project.impact.headers.map(h => `<td>${row[h]}</td>`).join('')}</tr>`;
+          });
+          content += `</tbody></table>`;
+        }
+        content += `</div>`;
+      }
+      content += `</div>`;
+
+      modalContent.innerHTML = content;
+      modal.classList.add('active');
+      console.log('Modal should now be visible');
+    }
+
+    // Add moon animation
+    function animateMoons() {
+      const moons = document.querySelectorAll('.moon');
+      moons.forEach((moon, index) => {
+        const delay = index * 0.5;
+        moon.style.animation = `floatMoon 3s ease-in-out ${delay}s infinite alternate`;
+      });
+    }
+
+    // Initialize moon animations
+    document.addEventListener('DOMContentLoaded', animateMoons);
+
+    // Add moon animation keyframes
+    const moonStyle = document.createElement('style');
+    moonStyle.innerHTML = `
+      @keyframes floatMoon {
+        0% { transform: translateY(0) scale(1); }
+        100% { transform: translateY(-10px) scale(1.05); }
+      }
+      .tech-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .tech-tag {
+        background: rgba(0,255,238,0.1);
+        border: 1px solid rgba(0,255,238,0.3);
+        color: #00ffee;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+      }
+      .project-details .section {
+        margin-bottom: 20px;
+      }
+      .project-details h3 {
+        color: #00ffee;
+        margin-bottom: 10px;
+        font-family: 'Orbitron', sans-serif;
+      }
+      .project-details ul {
+        padding-left: 20px;
+      }
+      .project-details li {
+        margin-bottom: 5px;
+      }
+    `;
+    document.head.appendChild(moonStyle);
+    </script>
+
+    <!-- Planet Positioning System -->
+            <script src="projects/ui/planet-positioning.js"></script>
+
+            
+            
+
+
+            <!-- HARDCODED PLANET POSITIONS - LOCKED FOREVER! -->
+            <style>
+                /* ===== CSS VARIABLES FOR THEMES ===== */
+                :root {
+                    /* Default Ocean Blue Theme - Clean & Professional */
+                    --primary-color: #4facfe;
+                    --secondary-color: #00f2fe;
+                    --accent-color: #43e97b;
+                    --background-dark: rgba(0,0,0,0.9);
+                    --border-color: #4facfe;
+                    --text-primary: #ffffff;
+                    --text-secondary: #e0e0e0;
+                    --glow-color: rgba(79,172,254,0.3);
+                    --moon-bg: rgba(79,172,254,0.15);
+                    --moon-border: rgba(79,172,254,0.3);
+                    --moon-glow: rgba(79,172,254,0.2);
+                    
+                    /* Text Colors */
+                    --heading-color: #4facfe;
+                    --paragraph-color: #ffffff;
+                    --link-color: #4facfe;
+                    --link-hover: #43e97b;
+                    
+                    /* Card & Popup Colors */
+                    --card-bg: rgba(0,0,0,0.85);
+                    --card-border: rgba(79,172,254,0.25);
+                    --card-shadow: rgba(79,172,254,0.15);
+                    --popup-bg: rgba(0,0,0,0.92);
+                    --popup-border: rgba(79,172,254,0.3);
+                    --popup-shadow: rgba(79,172,254,0.2);
+                    
+                    /* Button Colors */
+                    --button-bg: rgba(79,172,254,0.15);
+                    --button-border: rgba(79,172,254,0.4);
+                    --button-text: #4facfe;
+                    --button-hover: rgba(79,172,254,0.25);
+                }
+                
+                /* ===== THEME DEFINITIONS ===== */
+                [data-theme="cyber"] {
+                    --primary-color: #4facfe;
+                    --secondary-color: #00f2fe;
+                    --accent-color: #43e97b;
+                    --border-color: #4facfe;
+                    --glow-color: rgba(79,172,254,0.3);
+                    --moon-bg: rgba(79,172,254,0.15);
+                    --moon-border: rgba(79,172,254,0.3);
+                    --moon-glow: rgba(79,172,254,0.2);
+                    
+                    --heading-color: #4facfe;
+                    --paragraph-color: #ffffff;
+                    --link-color: #4facfe;
+                    --link-hover: #43e97b;
+                    --card-bg: rgba(0,0,0,0.85);
+                    --card-border: rgba(79,172,254,0.25);
+                    --card-shadow: rgba(79,172,254,0.15);
+                    --popup-bg: rgba(0,0,0,0.92);
+                    --popup-border: rgba(79,172,254,0.3);
+                    --popup-shadow: rgba(79,172,254,0.2);
+                    --button-bg: rgba(79,172,254,0.15);
+                    --button-border: rgba(79,172,254,0.4);
+                    --button-text: #4facfe;
+                    --button-hover: rgba(79,172,254,0.25);
+                }
+                
+
+                
+
+                
+                [data-theme="white-radium"] {
+                    --primary-color: #000000;
+                    --secondary-color: #333333;
+                    --accent-color: #0066ff;
+                    --border-color: #000000;
+                    --glow-color: rgba(0,0,0,0.4);
+                    --moon-bg: rgba(0,0,0,0.2);
+                    --moon-border: rgba(0,0,0,0.4);
+                    --moon-glow: rgba(0,0,0,0.3);
+                    
+                    --heading-color: #000000;
+                    --paragraph-color: #000000;
+                    --link-color: #000000;
+                    --link-hover: #0066ff;
+                    --card-bg: rgba(255,255,255,0.95);
+                    --card-border: rgba(0,0,0,0.4);
+                    --card-shadow: rgba(0,0,0,0.3);
+                    --popup-bg: rgba(255,255,255,0.98);
+                    --popup-border: rgba(0,0,0,0.5);
+                    --popup-shadow: rgba(0,0,0,0.4);
+                    --button-bg: rgba(0,0,0,0.2);
+                    --button-border: rgba(0,0,0,0.5);
+                    --button-text: #000000;
+                    --button-hover: rgba(0,0,0,0.3);
+                }
+                
+                [data-theme="black-radium"] {
+                    --primary-color: #ffffff;
+                    --secondary-color: #cccccc;
+                    --accent-color: #00ffff;
+                    --border-color: #ffffff;
+                    --glow-color: rgba(255,255,255,0.4);
+                    --moon-bg: rgba(255,255,255,0.2);
+                    --moon-border: rgba(255,255,255,0.4);
+                    --moon-glow: rgba(255,255,255,0.3);
+                    
+                    --heading-color: #ffffff;
+                    --paragraph-color: #ffffff;
+                    --link-color: #ffffff;
+                    --link-hover: #00ffff;
+                    --card-bg: rgba(0,0,0,0.95);
+                    --card-border: rgba(255,255,255,0.4);
+                    --card-shadow: rgba(255,255,255,0.3);
+                    --popup-bg: rgba(0,0,0,0.98);
+                    --popup-border: rgba(255,255,255,0.5);
+                    --popup-shadow: rgba(255,255,255,0.4);
+                    --button-bg: rgba(255,255,255,0.2);
+                    --button-border: rgba(255,255,255,0.5);
+                    --button-text: #ffffff;
+                    --button-hover: rgba(255,255,255,0.3);
+                }
+                
+
+                
+
+                
+
+                
+                [data-theme="cyber-purple"] {
+                    --primary-color: #8a2be2;
+                    --secondary-color: #4b0082;
+                    --accent-color: #da70d6;
+                    --border-color: #8a2be2;
+                    --glow-color: rgba(138,43,226,0.6);
+                    --moon-bg: rgba(138,43,226,0.3);
+                    --moon-border: rgba(138,43,226,0.6);
+                    --moon-glow: rgba(138,43,226,0.5);
+                    
+                    --heading-color: #8a2be2;
+                    --paragraph-color: #ffffff;
+                    --link-color: #8a2be2;
+                    --link-hover: #da70d6;
+                    --card-bg: rgba(0,0,0,0.95);
+                    --card-border: rgba(138,43,226,0.6);
+                    --card-shadow: rgba(138,43,226,0.5);
+                    --popup-bg: rgba(0,0,0,0.98);
+                    --popup-border: rgba(138,43,226,0.7);
+                    --popup-shadow: rgba(138,43,226,0.6);
+                    --button-bg: rgba(138,43,226,0.3);
+                    --button-border: rgba(138,43,226,0.7);
+                    --button-text: #8a2be2;
+                    --button-hover: rgba(138,43,226,0.4);
+                }
+                
+                [data-theme="electric-blue"] {
+                    --primary-color: #00ffff;
+                    --secondary-color: #0080ff;
+                    --accent-color: #87ceeb;
+                    --border-color: #00ffff;
+                    --glow-color: rgba(0,255,255,0.6);
+                    --moon-bg: rgba(0,255,255,0.3);
+                    --moon-border: rgba(0,255,255,0.6);
+                    --moon-glow: rgba(0,255,255,0.5);
+                    
+                    --heading-color: #00ffff;
+                    --paragraph-color: #ffffff;
+                    --link-color: #00ffff;
+                    --link-hover: #87ceeb;
+                    --card-bg: rgba(0,0,0,0.95);
+                    --card-border: rgba(0,255,255,0.6);
+                    --card-shadow: rgba(0,255,255,0.5);
+                    --popup-bg: rgba(0,0,0,0.98);
+                    --popup-border: rgba(0,255,255,0.7);
+                    --popup-shadow: rgba(0,255,255,0.6);
+                    --button-bg: rgba(0,255,255,0.3);
+                    --button-border: rgba(0,255,255,0.7);
+                    --button-text: #00ffff;
+                    --button-hover: rgba(0,255,255,0.4);
+                }
+                
+                /* ===== PLANET POSITIONS - PERMANENTLY LOCKED ===== */
+                
+                /* 🌍 EARTH - AI & Automation - MOVED UP */
+                .planet.earth {
+                    position: absolute !important;
+                    width: 180px !important;
+                    height: 180px !important;
+                    left: 50% !important;
+                    top: 30% !important;
+                    transform: translate(-50%, -50%) !important;
+                    z-index: 10 !important;
+                    border: none !important;
+                    box-shadow: none !important;
+                }
+                
+                /* 🪐 JUPITER - PM Projects - BOTTOM LEFT */
+                .planet.jupiter {
+                    position: absolute !important;
+                    width: 180px !important;
+                    height: 180px !important;
+                    left: 25% !important;
+                    top: 70% !important;
+                    transform: translate(-50%, -50%) !important;
+                    z-index: 10 !important;
+                    border: none !important;
+                    box-shadow: none !important;
+                }
+                
+                /* 🪐 SATURN - Business Projects - BOTTOM RIGHT */
+                .planet.saturn {
+                    position: absolute !important;
+                    width: 180px !important;
+                    height: 180px !important;
+                    left: 75% !important;
+                    top: 70% !important;
+                    transform: translate(-50%, -50%) !important;
+                    z-index: 10 !important;
+                    border: none !important;
+                    box-shadow: none !important;
+                }
+                
+                /* ===== MOON POSITIONS - SIMPLE SYSTEM ===== */
+                
+                /* All moons use basic positioning */
+                .moon {
+                    position: absolute !important;
+                    width: 50px !important;
+                    height: 50px !important;
+                    z-index: 999 !important;
+                }
+                
+                /* Simple moon positioning around planets */
+                .planet.earth .moon:nth-child(1) { top: -80px; left: 50%; transform: translateX(-50%); }
+                .planet.earth .moon:nth-child(2) { top: 50%; left: -80px; transform: translateY(-50%); }
+                .planet.earth .moon:nth-child(3) { top: 50%; right: -80px; transform: translateY(-50%); }
+                
+                .planet.jupiter .moon:nth-child(1) { top: -80px; left: 50%; transform: translateX(-50%); }
+                .planet.jupiter .moon:nth-child(2) { top: 50%; left: -80px; transform: translateY(-50%); }
+                .planet.jupiter .moon:nth-child(3) { top: 50%; right: -80px; transform: translateY(-50%); }
+                .planet.jupiter .moon:nth-child(4) { bottom: -80px; left: 50%; transform: translateX(-50%); }
+                
+                .planet.saturn .moon:nth-child(1) { top: -80px; left: 50%; transform: translateX(-50%); }
+                .planet.saturn .moon:nth-child(2) { top: 50%; left: -80px; transform: translateY(-50%); }
+                .planet.saturn .moon:nth-child(3) { top: 50%; right: -80px; transform: translateY(-50%); }
+                .planet.saturn .moon:nth-child(4) { bottom: -80px; left: 50%; transform: translateX(-50%); }
+                .planet.saturn .moon:nth-child(5) { bottom: -80px; right: 50%; transform: translateX(50%); }
+                
+                /* ===== MOON SYSTEM CONTAINERS ===== */
+                .moon-system {
+                    position: absolute !important;
+                    left: 0 !important;
+                    top: 0 !important;
+                    width: 100% !important;
+                    height: 100% !important;
+                    transform: none !important;
+                }
+                
+                /* ===== MOON TOOLTIPS ===== */
+                .moon {
+                    position: relative !important;
+                    cursor: pointer !important;
+                }
+                
+                /* JavaScript tooltip styling */
+                .moon-tooltip {
+                    position: fixed !important;
+                    background: rgba(0,0,0,0.95) !important;
+                    color: #ffffff !important;
+                    padding: 8px 12px !important;
+                    border-radius: 6px !important;
+                    font-size: 12px !important;
+                    font-weight: 500 !important;
+                    white-space: nowrap !important;
+                    z-index: 10000 !important;
+                    border: 1px solid #00ffee !important;
+                    box-shadow: 0 4px 20px rgba(0,255,238,0.4) !important;
+                    pointer-events: none !important;
+                    font-family: 'Orbitron', sans-serif !important;
+                    letter-spacing: 0.5px !important;
+                    opacity: 1 !important;
+                    transition: all 0.3s ease !important;
+                    transform: translateY(0) !important;
+                }
+                
+                /* Moon hover effects */
+                .moon:hover {
+                    transform: scale(1.1) !important;
+                    transition: transform 0.3s ease !important;
+                }
+                
+                                 /* Simple profile image styling */
+                 .profile-image-container {
+                     /* Removed complex styling - now simple */
+                 }
+                
+                /* Moon base styling */
+                .moon {
+                    position: absolute !important;
+                    width: 50px !important;
+                    height: 50px !important;
+                    background: var(--moon-bg, rgba(0,255,238,0.2)) !important;
+                    border-radius: 50% !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    cursor: pointer !important;
+                    transition: all 0.3s ease !important;
+                    border: 2px solid var(--moon-border, rgba(0,255,238,0.4)) !important;
+                    z-index: 999 !important;
+                    box-shadow: 0 0 10px var(--moon-glow, rgba(0,255,238,0.3)) !important;
+                }
+                
+                .moon:hover {
+                    background: var(--moon-bg, rgba(0,255,238,0.4)) !important;
+                    border: 2px solid var(--moon-border, rgba(0,255,238,0.6)) !important;
+                    box-shadow: 0 0 20px var(--moon-glow, rgba(0,255,238,0.5)) !important;
+                    transform: scale(1.1) !important;
+                }
+                
+
+                
+                .moon img {
+                    width: 100% !important;
+                    height: 100% !important;
+                    object-fit: cover !important;
+                    border-radius: 50% !important;
+                }
+                
+                /* ===== FORCE OVERRIDE ANY JAVASCRIPT POSITIONING ===== */
+                .planet * {
+                    position: absolute !important;
+                }
+                
+                /* ===== RESPONSIVE SAFETY ===== */
+                @media (max-width: 768px) {
+                    .planet.earth { top: 15% !important; }
+                    .planet.jupiter { top: 75% !important; }
+                    .planet.saturn { top: 75% !important; }
+                }
+                
+                @media (max-width: 480px) {
+                    .planet.earth { top: 10% !important; }
+                    .planet.jupiter { top: 80% !important; }
+                    .planet.saturn { top: 80% !important; }
+                }
+            </style>
+
+            <!-- COLOR THEME JAVASCRIPT -->
+            <script>
+                // Color Theme Management System
+                class ColorThemeManager {
+                    constructor() {
+                        this.currentTheme = 'black-radium';
+                        this.themes = {
+                            'black-radium': { name: 'Black Radium', primary: '#ffffff', secondary: '#cccccc' }
+                        };
+                        
+                        this.init();
+                    }
+                    
+                    init() {
+                        this.loadSavedTheme();
+                        this.setupEventListeners();
+                        this.applyTheme(this.currentTheme);
+                    }
+                    
+                    setupEventListeners() {
+                        // No theme switching needed - only Black Radium theme
+                    }
+                    
+                    applyTheme(themeName) {
+                        this.currentTheme = themeName;
+                        document.documentElement.setAttribute('data-theme', themeName);
+                        console.log(`🎨 Black Radium theme applied`);
+                    }
+                    
+                    animateThemeChange() {
+                        // Smooth color transition for all elements
+                        document.body.style.transition = 'all 0.3s ease';
+                        setTimeout(() => {
+                            document.body.style.transition = '';
+                        }, 300);
+                    }
+                    
+                    saveTheme(themeName) {
+                        localStorage.setItem('selectedTheme', themeName);
+                    }
+                    
+                    loadSavedTheme() {
+                        const savedTheme = localStorage.getItem('selectedTheme');
+                        if (savedTheme && this.themes[savedTheme]) {
+                            this.currentTheme = savedTheme;
+                        }
+                    }
+                }
+                
+
+                
+                // Initialize theme manager when page loads
+                document.addEventListener('DOMContentLoaded', () => {
+                    window.colorThemeManager = new ColorThemeManager();
+                });
+            </script>
+
+            <!-- THEME ANIMATIONS -->
+            <style>
+                @keyframes themePulse {
+                    0% { transform: scale(1); }
+                    50% { transform: scale(1.05); }
+                    100% { transform: scale(1); }
+                }
+                
+
+                
+
+                
+
+                
+                /* ===== THEME-BASED TEXT & UI STYLES ===== */
+                
+                /* Headings */
+                h1, h2, h3, h4, h5, h6 {
+                    color: var(--heading-color) !important;
+                    transition: color 0.3s ease;
+                }
+                
+                /* Paragraphs and text */
+                p, span, div, li {
+                    color: var(--paragraph-color) !important;
+                    transition: color 0.3s ease;
+                }
+                
+                /* Links */
+                a {
+                    color: var(--link-color) !important;
+                    transition: color 0.3s ease;
+                }
+                
+                a:hover {
+                    color: var(--link-hover) !important;
+                }
+                
+                /* Cards and containers */
+                .card, .container, .section, .box {
+                    background: var(--card-bg) !important;
+                    border-color: var(--card-border) !important;
+                    box-shadow: 0 4px 20px var(--card-shadow) !important;
+                    transition: all 0.3s ease;
+                }
+                
+                /* Popups and modals */
+                .modal, .popup, .tooltip {
+                    background: var(--popup-bg) !important;
+                    border-color: var(--popup-border) !important;
+                    box-shadow: 0 8px 32px var(--popup-shadow) !important;
+                    transition: all 0.3s ease;
+                }
+                
+                /* Buttons */
+                button, .btn, input[type="submit"] {
+                    background: var(--button-bg) !important;
+                    border-color: var(--button-border) !important;
+                    color: var(--button-text) !important;
+                    transition: all 0.3s ease;
+                }
+                
+                button:hover, .btn:hover, input[type="submit"]:hover {
+                    background: var(--button-hover) !important;
+                }
+                
+                /* Form elements */
+                input, textarea, select {
+                    border-color: var(--border-color) !important;
+                    color: var(--text-primary) !important;
+                    transition: all 0.3s ease;
+                }
+                
+                /* Special elements */
+                .highlight, .accent {
+                    color: var(--accent-color) !important;
+                }
+                
+                /* Planet content text */
+                .planet-content h3 {
+                    color: var(--heading-color) !important;
+                }
+                
+                /* Smooth transitions for all elements */
+                * {
+                    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+                }
+            </style>
+
+                    <!-- VR Gallery System -->
+        <!-- Removed: vr-gallery.js (file deleted) -->
+        <script src="projects/ui/showcase-styles.js"></script>
+        <!-- Modular Project System -->
+        <script src="projects/components/projects-data.js"></script>
+        <script src="projects/components/project-status.js"></script>
+        <script src="projects/components/project-ui.js"></script>
+        <script src="projects/components/project-cards.js"></script>
+
+        <!-- A/B Testing System -->
+        <script src="tools/ab-testing.js"></script>
+
+        <script src="assets/js/main.js"></script>
+        <script src="projects/components/projects.js"></script>
+
+          <!-- END FLOATING CHATBOT -->
+
+      <!-- PROJECT MODAL -->
+      <div id="projectModal" class="modal">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h2 id="modalProjectTitle">Project Details</h2>
+                  <button class="close-modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                  <div id="modalProjectContent">
+                      <!-- Project details will be populated here -->
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <style>
+      /* Modal Styles */
+      .modal {
+          display: none;
+          position: fixed;
+          z-index: 10000;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.8);
+          backdrop-filter: blur(5px);
+      }
+
+      .modal.active {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+
+      .modal-content {
+          background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+          border: 2px solid #00ffee;
+          border-radius: 15px;
+          padding: 0;
+          max-width: 80%;
+          max-height: 80%;
+          overflow: hidden;
+          box-shadow: 0 10px 30px rgba(0, 255, 238, 0.3);
+          animation: modalSlideIn 0.3s ease-out;
+      }
+
+      @keyframes modalSlideIn {
+          from {
+              opacity: 0;
+              transform: scale(0.8) translateY(-20px);
+          }
+          to {
+              opacity: 1;
+              transform: scale(1) translateY(0);
+          }
+      }
+      
+      /* Terminal typing animations */
+      @keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+      }
+
+      .modal-header {
+          background: linear-gradient(90deg, #00ffee, #23283a);
+          padding: 15px 20px;
+          border-bottom: 1px solid #00ffee;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+
+      .modal-header h2 {
+          margin: 0;
+          color: #0f0f23;
+          font-family: 'Orbitron', monospace;
+          font-size: 1.2rem;
+      }
+
+      .close-modal {
+          background: none;
+          border: none;
+          font-size: 24px;
+          color: #0f0f23;
+          cursor: pointer;
+          padding: 0;
+          width: 30px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          transition: background-color 0.3s ease;
+      }
+
+      .close-modal:hover {
+          background-color: rgba(15, 15, 35, 0.2);
+      }
+
+      .modal-body {
+          padding: 20px;
+          color: #e8e8e8;
+          overflow-y: auto;
+          max-height: 60vh;
+      }
+
+      .modal-body h3 {
+          color: #00ffee;
+          margin-top: 0;
+      }
+
+      .modal-body p {
+          line-height: 1.6;
+          margin-bottom: 15px;
+      }
+
+      .modal-body ul {
+          padding-left: 20px;
+      }
+
+      .modal-body li {
+          margin-bottom: 8px;
+      }
+      </style>
+
+      <!-- FLOATING CHATBOT -->
+      <div class="floating-chatbot" style="position:fixed;bottom:20px;right:20px;z-index:99999;pointer-events:none;">
+        
+        <div id="chatbot-widget" style="display:none;position:fixed;bottom:20px;right:20px;width:400px;height:120px;background:linear-gradient(135deg,#2a2a2a,#1a1a1a);border-radius:15px;box-shadow:0 8px 32px rgba(0,0,0,0.5);backdrop-filter:blur(10px);border:2px solid #444;pointer-events:auto;z-index:999999;font-family:'Courier New',monospace;">
+          <div style="padding:10px 15px;border-bottom:1px solid #444;display:flex;align-items:center;gap:10px;justify-content:space-between;background:#333;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:8px;height:8px;background:#ff5f56;border-radius:50%;"></div>
+              <div style="width:8px;height:8px;background:#ffbd2e;border-radius:50%;"></div>
+              <div style="width:8px;height:8px;background:#27ca3f;border-radius:50%;"></div>
+              <span style="color:#ccc;font-size:12px;margin-left:10px;font-family:'Courier New',monospace;">AI_TERMINAL</span>
+            </div>
+            <!-- Close Button -->
+            <button onclick="document.getElementById('chatbot-widget').style.display='none'; alien.showMessage('Terminal closed! Click me again to open! 👋');" 
+                    style="background:none;border:none;color:#ccc;font-size:14px;cursor:pointer;padding:2px 6px;border-radius:3px;transition:all 0.3s ease;font-family:'Courier New',monospace;" 
+                    onmouseover="this.style.background='#555'" 
+                    onmouseout="this.style.background='none'">
+              [X]
+            </button>
+          </div>
+
+          <div style="padding:15px;background:#1a1a1a;border-radius:0 0 13px 13px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="color:#27ca3f;font-size:14px;font-family:'Courier New',monospace;">$</span>
+              <input type="text" id="chatbot-input" placeholder="Enter your query..." style="flex:1;background:transparent;border:none;color:#fff;font-family:'Courier New',monospace;font-size:14px;outline:none;padding:5px;" onkeypress="handleTerminalInput(event)">
+            </div>
+          </div>
+        </div>
+      </div>
+
+              <!-- DUAL AVATAR CHATBOT SYSTEM -->
+        <div class="dual-avatar-chatbot" style="position:fixed;bottom:140px;right:20px;z-index:999999;pointer-events:auto;cursor:pointer;">
+          <!-- Astronaut GIF -->
+          <img src="assets/20250805-0220-Cheerful-Cartoon-unscreen.gif" alt="Friendly Astronaut Assistant" 
+               style="width:auto;height:200px;filter:drop-shadow(0 8px 16px rgba(0,255,255,0.4)) contrast(1.2) brightness(1.1) saturate(1.1); mix-blend-mode: multiply; background: transparent; isolation: isolate;"
+               class="astronaut-gif" onclick="toggleAstronautChat()">
+          
+          <!-- Student Avatar GIF -->
+          <img src="../assets/20250812-1708-Modern-Student-P-unscreen (1).gif" alt="Modern Student Avatar" 
+               style="position:absolute;left:-120px;bottom:10px;width:auto;height:180px;filter:drop-shadow(0 6px 12px rgba(255,255,255,0.3)) contrast(1.1) brightness(1.05) saturate(1.05); mix-blend-mode: multiply; background: transparent; isolation: isolate;"
+               class="student-avatar" onclick="toggleDualChat()">
+          
+          <!-- Dual Avatar Chat Interface -->
+          <div id="dualChatInterface" style="display:none;position:absolute;bottom:220px;right:10px;background:linear-gradient(135deg,#000000,#1a1a1a);border-radius:20px;padding:20px;box-shadow:0 8px 32px rgba(0,0,0,0.5);max-width:350px;backdrop-filter:blur(10px);border:2px solid #333;opacity:0;transform:scale(0.8);transition:all 0.3s ease;">
+            
+            <!-- Chat Header -->
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:15px;padding-bottom:10px;border-bottom:1px solid #333;">
+              <div style="display:flex;gap:8px;">
+                <img src="assets/20250805-0220-Cheerful-Cartoon-unscreen.gif" alt="Astronaut" style="width:30px;height:30px;border-radius:50%;border:2px solid #00ffff;">
+                <img src="../assets/20250812-1708-Modern-Student-P-unscreen (1).gif" alt="Student" style="width:30px;height:30px;border-radius:50%;border:2px solid #ff6b6b;">
+              </div>
+              <span style="color:#ffffff;font-size:14px;font-weight:600;">Dual AI Assistants</span>
+              <button onclick="toggleDualChat()" style="background:none;border:none;color:#ffffff;font-size:18px;cursor:pointer;margin-left:auto;">×</button>
+            </div>
+            
+            <!-- Chat Messages -->
+            <div id="dualChatMessages" style="max-height:200px;overflow-y:auto;margin-bottom:15px;">
+              <div style="color:#00ffff;font-size:12px;margin-bottom:8px;">🚀 Astronaut: Hello! I'm your space exploration expert!</div>
+              <div style="color:#ff6b6b;font-size:12px;margin-bottom:8px;">👨‍🎓 Student: Hi! I'm your academic and research assistant!</div>
+            </div>
+            
+            <!-- Chat Input -->
+            <div style="display:flex;gap:8px;">
+              <input type="text" id="dualChatInput" placeholder="Ask us anything..." 
+                     style="flex:1;padding:8px 12px;border:1px solid #333;border-radius:15px;background:rgba(255,255,255,0.1);color:#ffffff;font-size:12px;outline:none;">
+              <button onclick="sendDualMessage()" style="background:#007bff;color:#ffffff;border:none;padding:8px 15px;border-radius:15px;font-size:12px;cursor:pointer;">Send</button>
+            </div>
+          </div>
+          
+          <!-- Initial Chat Bubble -->
+          <div class="chat-bubble" style="position:absolute;bottom:220px;right:10px;background:linear-gradient(135deg,#000000,#1a1a1a);border-radius:50px 50px 50px 15px;padding:15px 20px;box-shadow:0 8px 32px rgba(0,0,0,0.5);max-width:300px;backdrop-filter:blur(10px);border:2px solid #333;opacity:0;transform:scale(0.8);transition:all 0.3s ease;">
+            <div class="message-text" style="color:white;font-size:14px;line-height:1.4;">Click either of us to chat! 🚀✨👨‍🎓</div>      
+          </div>
+        </div>
+
+        <!-- Typing Animation Script -->
+        <script>
+          // Typing animation for hero subtitle
+          function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+              if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
+              }
+            }
+            
+            type();
+          }
+          
+          // Desktop typing effect for AI Assistant section - Simultaneous typing
+          function typeDesktopText() {
+            const typingElements = document.querySelectorAll('.typing-text');
+            
+            // Start typing in all elements simultaneously
+            typingElements.forEach((element) => {
+              const text = element.getAttribute('data-text');
+              const speed = parseInt(element.getAttribute('data-speed')) || 50;
+              
+              element.innerHTML = '';
+              let charIndex = 0;
+              
+              function typeChar() {
+                if (charIndex < text.length) {
+                  element.innerHTML += text.charAt(charIndex);
+                  charIndex++;
+                  setTimeout(typeChar, speed);
+                }
+              }
+              
+              // Start typing after a delay
+              setTimeout(typeChar, 1500);
+            });
+          }
+          
+          // Start typing animations when page loads
+          document.addEventListener('DOMContentLoaded', function() {
+            // Hero typing animation
+            const typingElement = document.getElementById('typing-text');
+            if (typingElement) {
+              const text = typingElement.textContent;
+              typeWriter(typingElement, text, 50);
+            }
+            
+            // Desktop typing animation
+            typeDesktopText();
+          });
+          
+          // Dual Avatar Chatbot Functionality
+          let currentSpeaker = 'astronaut'; // Track who's speaking
+          let messageCount = 0; // Track message count for turn-based responses
+          
+          function toggleAstronautChat() {
+            // Toggle astronaut terminal
+            if (typeof alien !== 'undefined' && alien.toggleChat) {
+              alien.toggleChat();
+            } else {
+              // Fallback if alien object not ready
+              const chatbotWidget = document.getElementById('chatbot-widget');
+              if (chatbotWidget.style.display === 'none') {
+                chatbotWidget.style.display = 'block';
+              } else {
+                chatbotWidget.style.display = 'none';
+              }
+            }
+          }
+          
+          function toggleDualChat() {
+            const chatInterface = document.getElementById('dualChatInterface');
+            const chatBubble = document.querySelector('.chat-bubble');
+            
+            if (chatInterface.style.display === 'none') {
+              chatInterface.style.display = 'block';
+              chatInterface.style.opacity = '1';
+              chatInterface.style.transform = 'scale(1)';
+              chatBubble.style.display = 'none';
+              
+              // Focus on input
+              document.getElementById('dualChatInput').focus();
+            } else {
+              chatInterface.style.display = 'none';
+              chatInterface.style.opacity = '0';
+              chatInterface.style.transform = 'scale(0.8)';
+              chatBubble.style.display = 'block';
+            }
+          }
+          
+          function sendDualMessage() {
+            const input = document.getElementById('dualChatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+              const messagesContainer = document.getElementById('dualChatMessages');
+              
+              // Add user message
+              const userMessage = document.createElement('div');
+              userMessage.style.color = '#ffffff';
+              userMessage.style.fontSize = '12px';
+              userMessage.style.marginBottom = '8px';
+              userMessage.style.textAlign = 'right';
+              userMessage.innerHTML = `👤 You: ${message}`;
+              messagesContainer.appendChild(userMessage);
+              
+              // Clear input
+              input.value = '';
+              
+              // Scroll to bottom
+              messagesContainer.scrollTop = messagesContainer.scrollHeight;
+              
+              // Simulate AI responses (taking turns)
+              setTimeout(() => {
+                respondAsAstronaut(message);
+              }, 1000);
+              
+              setTimeout(() => {
+                respondAsStudent(message);
+              }, 3000);
+            }
+          }
+          
+          function respondAsAstronaut(userMessage) {
+            const messagesContainer = document.getElementById('dualChatMessages');
+            const response = document.createElement('div');
+            response.style.color = '#00ffff';
+            response.style.fontSize = '12px';
+            response.style.marginBottom = '8px';
+            
+            // Astronaut responses based on user message
+            let astronautReply = '';
+            if (userMessage.toLowerCase().includes('space') || userMessage.toLowerCase().includes('planet') || userMessage.toLowerCase().includes('galaxy')) {
+              astronautReply = '🚀 Astronaut: Space exploration is my specialty! I can tell you about planets, stars, and cosmic wonders. What would you like to know about the universe?';
+            } else if (userMessage.toLowerCase().includes('hello') || userMessage.toLowerCase().includes('hi')) {
+              astronautReply = '🚀 Astronaut: Greetings from space! I\'m here to help with all your cosmic questions and adventures!';
+            } else {
+              astronautReply = '🚀 Astronaut: That\'s an interesting question! While I specialize in space exploration, I can help with various topics. Let me know what you\'d like to explore!';
+            }
+            
+            response.innerHTML = astronautReply;
+            messagesContainer.appendChild(response);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+          }
+          
+          function respondAsStudent(userMessage) {
+            const messagesContainer = document.getElementById('dualChatMessages');
+            const response = document.createElement('div');
+            response.style.color = '#ff6b6b';
+            response.style.fontSize = '12px';
+            response.style.marginBottom = '8px';
+            
+            // Student responses based on user message
+            let studentReply = '';
+            if (userMessage.toLowerCase().includes('study') || userMessage.toLowerCase().includes('learn') || userMessage.toLowerCase().includes('research')) {
+              studentReply = '👨‍🎓 Student: Learning and research are my passions! I can help you with academic topics, study strategies, and research methods. What would you like to explore?';
+            } else if (userMessage.toLowerCase().includes('hello') || userMessage.toLowerCase().includes('hi')) {
+              studentReply = '👨‍🎓 Student: Hello there! I\'m your academic assistant, ready to help with learning and research!';
+            } else {
+              studentReply = '👨‍🎓 Student: Great question! I focus on academic and research topics, but I\'m always eager to learn and help. What subject interests you?';
+            }
+            
+            response.innerHTML = studentReply;
+            messagesContainer.appendChild(response);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+          }
+          
+          // Handle Enter key in chat input
+          document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && document.getElementById('dualChatInput') === document.activeElement) {
+              sendDualMessage();
+            }
+          });
+          
+          // Astronaut Chatbot Functionality - Extend existing alien object
+          if (typeof alien !== 'undefined') {
+            // Add toggleChat method to existing alien object
+            alien.toggleChat = function() {
+              const chatbotWidget = document.getElementById('chatbot-widget');
+              if (chatbotWidget.style.display === 'none') {
+                chatbotWidget.style.display = 'block';
+                this.showMessage('Terminal opened! Ask me anything! 🚀');
+              } else {
+                chatbotWidget.style.display = 'none';
+                this.showMessage('Terminal closed! Click me again to open! 👋');
+              }
+            };
+          }
+          
+          // Handle terminal input
+          function handleTerminalInput(event) {
+            if (event.key === 'Enter') {
+              const input = document.getElementById('chatbot-input');
+              const query = input.value.trim();
+              
+              if (query) {
+                // Process the query and show response
+                const response = processAstronautQuery(query);
+                alien.showMessage(response);
+                input.value = '';
+              }
+            }
+          }
+          
+          // Process astronaut queries
+          function processAstronautQuery(query) {
+            const lowerQuery = query.toLowerCase();
+            
+            if (lowerQuery.includes('hello') || lowerQuery.includes('hi')) {
+              return 'Hello! I\'m your AI astronaut assistant! 🚀 How can I help you explore today?';
+            } else if (lowerQuery.includes('space') || lowerQuery.includes('planet')) {
+              return 'Space exploration is fascinating! 🌌 I can help you learn about planets, stars, and cosmic wonders!';
+            } else if (lowerQuery.includes('help')) {
+              return 'I\'m here to help! Ask me about space, technology, or anything else! 🛸';
+            } else if (lowerQuery.includes('weather') || lowerQuery.includes('temperature')) {
+              return 'I can\'t check Earth\'s weather from space! 🌍 But I can tell you about space weather and cosmic conditions!';
+            } else {
+              return 'Interesting question! 🤔 While I specialize in space topics, I\'m always learning and happy to help!';
+            }
+          }
+          
+
+        </script>
+
+        <!-- Mobile Phone Deep Dive Popup -->
+        <div id="deepDivePopup" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:999999;backdrop-filter:blur(10px);">
+            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90%;max-width:400px;background:#000;padding:0;overflow:hidden;border-radius:30px;box-shadow:0 25px 80px rgba(0,0,0,0.8),0 0 0 4px #ffffff;">
+                <!-- Mobile Phone Frame -->
+                <div style="position:relative;background:#000;border-radius:30px;padding:0;overflow:hidden;">
+                    <!-- Phone Notch -->
+                    <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:25px;background:#000;border-radius:0 0 15px 15px;z-index:10;"></div>
+                    
+                                         <!-- Mobile Screen -->
+                     <div style="background:#1e3a8a;min-height:600px;position:relative;">
+                        <!-- Mobile Status Bar -->
+                        <div style="background:#000;padding:8px 20px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#fff;font-family:'SF Pro Display',sans-serif;">
+                            <span>9:41</span>
+                            <div style="display:flex;gap:5px;align-items:center;">
+                                <div style="width:15px;height:8px;background:#fff;border-radius:2px;"></div>
+                                <div style="width:20px;height:8px;background:#fff;border-radius:2px;"></div>
+                                <div style="width:25px;height:8px;background:#fff;border-radius:2px;"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Mobile Header -->
+                        <div style="background:#000000;padding:20px;text-align:center;position:relative;">
+                            <h2 id="popupTitle" style="color:#ffffff;margin:0;font-family:'SF Pro Display',sans-serif;font-size:1.4em;font-weight:600;">Project Details</h2>
+                            <button onclick="closeDeepDive()" style="position:absolute;top:15px;right:15px;background:rgba(255,255,255,0.2);border:none;color:#ffffff;font-size:1.2em;cursor:pointer;padding:0;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:all 0.3s ease;">×</button>
+                        </div>
+                        
+                        <!-- Mobile Content -->
+                        <div id="popupContent" style="padding:20px;max-height:450px;overflow-y:auto;background:transparent;">
+                            <!-- Content will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            @keyframes pulse {
+                0%, 100% { opacity: 1; transform: scale(1); }
+                50% { opacity: 0.5; transform: scale(1.2); }
+            }
+        </style>
+
+        <!-- Deep Dive Popup Functions -->
+        <script>
+            function showDeepDive(projectId) {
+                const project = projectsData[projectId];
+                if (!project) return;
+                
+                const popup = document.getElementById('deepDivePopup');
+                const title = document.getElementById('popupTitle');
+                const content = document.getElementById('popupContent');
+                
+                title.textContent = project.title;
+                const techStack = project.tech ? project.tech.join(', ') : 'Not specified';
+                const features = project.features ? project.features.join(', ') : 'Not specified';
+
+                content.innerHTML = `
+                    <!-- Mobile App Style Content -->
+                    <div style="display:flex;flex-direction:column;gap:12px;">
+                        <!-- Project Overview Card -->
+                        <div style="background:#374151;border-radius:12px;padding:16px;box-shadow:0 4px 15px rgba(55,65,81,0.3);border:2px solid #4b5563;">
+                            <h3 style="color:#ffffff;margin:0 0 10px 0;font-size:1em;font-weight:600;font-family:'SF Pro Display',sans-serif;">📋 Project Overview</h3>
+                            <p style="color:#ffffff;margin:0;line-height:1.5;font-size:0.85em;font-family:'SF Pro Display',sans-serif;text-align:left;">${project.detailedDescription || project.description} No magic wands here - just good old-fashioned coding wizardry! 🧙‍♂️</p>
+                        </div>
+
+                        <!-- Technology Stack Card -->
+                        <div style="background:#1e40af;border-radius:12px;padding:16px;box-shadow:0 4px 15px rgba(30,64,175,0.3);border:2px solid #1d4ed8;">
+                            <h3 style="color:#ffffff;margin:0 0 10px 0;font-size:1em;font-weight:600;font-family:'SF Pro Display',sans-serif;">🛠️ Technology Stack</h3>
+                            <p style="color:#ffffff;margin:0;line-height:1.5;font-size:0.85em;font-family:'SF Pro Display',sans-serif;text-align:left;">Built with: ${techStack}. Because why reinvent the wheel when you can stack existing wheels? 🎯</p>
+                        </div>
+
+                        <!-- Key Features Card -->
+                        <div style="background:#5b21b6;border-radius:12px;padding:16px;box-shadow:0 4px 15px rgba(91,33,182,0.3);border:2px solid #7c3aed;">
+                            <h3 style="color:#ffffff;margin:0 0 10px 0;font-size:1em;font-weight:600;font-family:'SF Pro Display',sans-serif;">⭐ Key Features</h3>
+                            <p style="color:#ffffff;margin:0;line-height:1.5;font-size:0.85em;font-family:'SF Pro Display',sans-serif;text-align:left;">${features}. These aren't just features - they're the cool kids at the tech party! 🎉</p>
+                        </div>
+
+                        <!-- Project Goals Card -->
+                        <div style="background:#991b1b;border-radius:12px;padding:16px;box-shadow:0 4px 15px rgba(153,27,27,0.3);border:2px solid #dc2626;">
+                            <h3 style="color:#ffffff;margin:0 0 10px 0;font-size:1em;font-weight:600;font-family:'SF Pro Display',sans-serif;">🎯 Project Goals</h3>
+                            <p style="color:#ffffff;margin:0;line-height:1.5;font-size:0.85em;font-family:'SF Pro Display',sans-serif;text-align:left;">${project.goals || 'To create innovative solutions that enhance user experience and productivity through cutting-edge AI technology.'} Ambitious? Maybe. Achievable? Definitely! 💪</p>
+                        </div>
+
+                        <!-- Current Progress Card -->
+                        <div style="background:#0e7490;border-radius:12px;padding:16px;box-shadow:0 4px 15px rgba(14,116,144,0.3);border:2px solid #0891b2;">
+                            <h3 style="color:#ffffff;margin:0 0 10px 0;font-size:1em;font-weight:600;font-family:'SF Pro Display',sans-serif;">🚀 Current Progress</h3>
+                            <p style="color:#ffffff;margin:0;line-height:1.5;font-size:0.85em;font-family:'SF Pro Display',sans-serif;text-align:left;">${project.progress || 'Core functionality completed, actively working on advanced features and optimization.'} We're not just coding - we're coding with style! ✨</p>
+                        </div>
+
+                        <!-- Future Roadmap Card -->
+                        <div style="background:#15803d;border-radius:12px;padding:16px;box-shadow:0 4px 15px rgba(21,128,61,0.3);border:2px solid #16a34a;">
+                            <h3 style="color:#ffffff;margin:0 0 10px 0;font-size:1em;font-weight:600;font-family:'SF Pro Display',sans-serif;">🔮 Future Roadmap</h3>
+                            <p style="color:#ffffff;margin:0;line-height:1.5;font-size:0.85em;font-family:'SF Pro Display',sans-serif;text-align:left;">${project.roadmap || 'Planning to integrate additional AI capabilities, improve performance, and expand user base.'} The future is so bright, we might need sunglasses! 😎</p>
+                        </div>
+
+                        <!-- Innovation Highlights Card -->
+                        <div style="background:#c2410c;border-radius:12px;padding:16px;box-shadow:0 4px 15px rgba(194,65,12,0.3);border:2px solid #ea580c;">
+                            <h3 style="color:#ffffff;margin:0 0 10px 0;font-size:1em;font-weight:600;font-family:'SF Pro Display',sans-serif;">💡 Innovation Highlights</h3>
+                            <p style="color:#ffffff;margin:0;line-height:1.5;font-size:0.85em;font-family:'SF Pro Display',sans-serif;text-align:left;">${project.innovations || 'Pioneering new approaches in AI integration, user interface design, and automated workflow optimization.'} We're not just thinking outside the box - we're redesigning the box! 📦</p>
+                        </div>
+
+                        <!-- Project Controls Card -->
+                        <div style="background:#1f2937;border-radius:12px;padding:16px;box-shadow:0 4px 15px rgba(31,41,55,0.3);border:2px solid #374151;">
+                            <h3 style="color:#ffffff;margin:0 0 12px 0;font-size:1em;font-weight:600;font-family:'SF Pro Display',sans-serif;">🎛️ Project Controls</h3>
+                            
+                            <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:12px;">
+                                ${project.demoUrl && project.demoUrl !== '#' ? `<a href="${project.demoUrl}" target="_blank" style="background:#1e40af;color:#ffffff;border:none;padding:10px 18px;border-radius:20px;font-size:12px;text-decoration:none;transition:all 0.3s ease;text-align:center;font-family:'SF Pro Display',sans-serif;font-weight:500;">📚 Experience the Story</a>` : ''}
+                                ${project.codeUrl && project.codeUrl !== '#' ? `<a href="${project.codeUrl}" target="_blank" style="background:#15803d;color:#ffffff;border:none;padding:10px 18px;border-radius:20px;font-size:12px;text-decoration:none;transition:all 0.3s ease;text-align:center;font-family:'SF Pro Display',sans-serif;font-weight:500;">💻 View Code</a>` : ''}
+                            </div>
+
+                            <div style="background:#374151;border-radius:8px;padding:12px;border:1px solid #4b5563;">
+                                <h4 style="color:#ffffff;margin:0 0 10px 0;font-size:0.9em;font-weight:600;font-family:'SF Pro Display',sans-serif;">📊 Project Status</h4>
+                                <p style="color:#ffffff;margin:0;font-size:0.8em;font-family:'SF Pro Display',sans-serif;text-align:left;">${project.status} - This project is actively being developed and maintained. No coffee breaks allowed! ☕</p>
+                                <p style="color:#d1d5db;margin:8px 0 0 0;font-size:0.75em;font-family:'SF Pro Display',sans-serif;text-align:left;">Last Updated: ${project.lastUpdated || 'Recently'} - Fresh off the coding press! 🆕</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                popup.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeDeepDive() {
+                const popup = document.getElementById('deepDivePopup');
+                popup.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+
+            // Close popup when clicking outside
+            document.addEventListener('click', (e) => {
+                const popup = document.getElementById('deepDivePopup');
+                if (e.target === popup) {
+                    closeDeepDive();
+                }
+            });
+
+            // Close popup with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeDeepDive();
+                }
+            });
+        </script>
+
+  </body>
+</html> 
