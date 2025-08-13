@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles/main.css";
+import Chatbot from "./components/Chatbot";
 
 export default function App() {
   return (
@@ -23,6 +24,9 @@ export default function App() {
           <p className="text-gray-300">Interactive analytics and AI insights.</p>
         </div>
       </div>
+      
+      {/* AI Chatbot Integration */}
+      <Chatbot />
     </div>
   );
 } 

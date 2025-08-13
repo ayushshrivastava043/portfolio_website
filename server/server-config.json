@@ -1,0 +1,37 @@
+{
+  "servers": {
+    "website": {
+      "enabled": true,
+      "port": 4000,
+      "description": "Main website server - serves your main website files"
+    },
+    "aiAssistant": {
+      "enabled": false,
+      "port": 8000,
+      "description": "AI Assistant server with WebSocket support for real-time features"
+    },
+    "websocket": {
+      "enabled": false,
+      "port": 8001,
+      "description": "WebSocket-only server for real-time updates"
+    },
+    "simple": {
+      "enabled": false,
+      "port": 8080,
+      "description": "Simple HTTP server (alternative to main server)"
+    }
+  },
+  "global": {
+    "maxConnections": 100,
+    "timeout": 30000,
+    "keepAlive": true,
+    "compression": true,
+    "cors": true
+  },
+  "notes": {
+    "website": "Enable this for basic website serving",
+    "aiAssistant": "Enable this if you need WebSocket + HTTP for AI features",
+    "websocket": "Enable this for WebSocket-only real-time features",
+    "simple": "Enable this as an alternative simple server"
+  }
+} 

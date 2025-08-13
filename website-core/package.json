@@ -1,0 +1,30 @@
+{
+  "name": "website",
+  "version": "1.0.0",
+  "description": "A comprehensive collection of web projects, tools, and applications showcasing AI development, automation, and modern web technologies.",
+  "main": "main.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ../server/unified-server.js",
+    "server": "node ../backup/server.js",
+    "unified": "node ../server/unified-server.js",
+    "simple": "python3 ../backup/simple_server.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayushshrivastava043/portfolio_website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ayushshrivastava043/portfolio_website/issues"
+  },
+  "homepage": "https://github.com/ayushshrivastava043/portfolio_website#readme",
+  "dependencies": {
+    "ws": "^8.18.3"
+  }
+}
