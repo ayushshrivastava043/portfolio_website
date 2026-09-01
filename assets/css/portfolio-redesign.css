@@ -201,6 +201,13 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* ─── Dashboard ─── */
+.dashboard-section,
+.projects-portal-section {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+}
+
 .dashboard-section {
     position: relative !important;
     width: 100% !important;
@@ -209,7 +216,6 @@ h1, h2, h3, h4, h5, h6,
     margin: 2rem auto 3rem !important;
     padding: var(--space-2xl) var(--space-xl) !important;
     left: auto !important;
-    transform: none !important;
     background: var(--color-surface) !important;
     border: 1px solid var(--color-border-strong) !important;
     border-radius: var(--radius-lg) !important;
