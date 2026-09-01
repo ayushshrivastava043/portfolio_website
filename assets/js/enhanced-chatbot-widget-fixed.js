@@ -66,6 +66,7 @@
             
             // Initialize timeout tracking
             this.speechTimeout = null;
+            this.hideBubbleTimeout = null;
             this.knowledgeBase = null;
             this.knowledgeBaseLoading = null;
 
@@ -1177,6 +1178,11 @@
         
         showSpeechBubble(content, isTyping = false) {
             console.log('💬 Showing speech bubble:', content);
+
+            if (this.hideBubbleTimeout) {
+                clearTimeout(this.hideBubbleTimeout);
+                this.hideBubbleTimeout = null;
+            }
             
             // Clear any existing timeout when showing new bubble
             if (this.speechTimeout) {
@@ -1251,6 +1257,11 @@
         hideSpeechBubble() {
             console.log('🚫 Hiding speech bubble...');
             
+            if (this.hideBubbleTimeout) {
+                clearTimeout(this.hideBubbleTimeout);
+                this.hideBubbleTimeout = null;
+            }
+
             // Clear any existing timeout
             if (this.speechTimeout) {
                 clearTimeout(this.speechTimeout);
@@ -1272,8 +1283,9 @@
             console.log('🚫 Removed visible class from bubble');
             console.log('🚫 Bubble classes after removing visible:', bubble.className);
             
-            setTimeout(() => {
+            this.hideBubbleTimeout = setTimeout(() => {
                 bubble.style.display = 'none';
+                this.hideBubbleTimeout = null;
                 console.log('🚫 Speech bubble completely hidden - display set to none');
             }, 400);
         }
@@ -1359,6 +1371,19 @@
             return this.knowledgeBaseLoading;
         }
 
+        isKnownPortfolioQuestion(message) {
+            const msg = message.toLowerCase();
+            return /about ayush|bout ayush|who is ayush|tell me.*ayush|what can you.*ayush|skill|tech|expertise|project|built|portfolio|experience|hello|hi|hey/.test(msg);
+        }
+
+        looksIncompleteResponse(text) {
+            const t = String(text || '').trim();
+            if (!t) return true;
+            if (/oops|something went wrong|having trouble|try again|empty reply/i.test(t)) return true;
+            if (t.endsWith(',') || t.endsWith(' and') || t.endsWith(' or')) return true;
+            return t.length > 50 && !/[.!?]$/.test(t);
+        }
+
         async generateLocalResponse(message) {
             const kb = await this.loadKnowledgeBase();
             const msg = message.toLowerCase();
@@ -1389,6 +1414,14 @@
 
         async generateEnhancedResponse(message) {
             const useFallback = !window.CHATBOT_CONFIG || window.CHATBOT_CONFIG.useLocalFallback !== false;
+
+            // Instant complete answers for portfolio questions — no Render wait
+            if (useFallback && this.isKnownPortfolioQuestion(message)) {
+                const local = await this.generateLocalResponse(message);
+                console.log('⚡ Instant local KB response');
+                return local;
+            }
+
             try {
                 console.log('🤖 Enhanced generateResponse called with:', message);
                 console.log('🔍 About to fetch from enhanced endpoint:', this.config.enhancedEndpoint);
@@ -1434,7 +1467,14 @@
                 
                 const candidates = [data.response, data.reply, data.answer];
                 for (const c of candidates) {
-                    if (c != null && String(c).trim() !== '') return String(c).trim();
+                    if (c != null && String(c).trim() !== '') {
+                        const text = String(c).trim();
+                        if (this.looksIncompleteResponse(text) && useFallback) {
+                            console.warn('⚠️ API response incomplete, using local KB');
+                            return this.generateLocalResponse(message);
+                        }
+                        return text;
+                    }
                 }
                 if (data.status !== 'error' && data.message != null && String(data.message).trim() !== '')
                     return String(data.message).trim();
