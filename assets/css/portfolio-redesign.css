@@ -165,7 +165,7 @@ h1, h2, h3, h4, h5, h6,
     width: 100%;
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: var(--space-3xl) var(--space-xl);
+    padding: var(--space-xl) var(--space-lg);
     box-sizing: border-box;
 }
 
@@ -181,7 +181,7 @@ h1, h2, h3, h4, h5, h6,
     color: var(--color-text-muted);
     text-align: center;
     max-width: 640px;
-    margin: 0 auto var(--space-2xl);
+    margin: 0 auto var(--space-lg);
     line-height: var(--leading-normal);
 }
 
@@ -213,8 +213,8 @@ h1, h2, h3, h4, h5, h6,
     width: 100% !important;
     max-width: var(--max-width) !important;
     min-height: auto !important;
-    margin: 2rem auto 3rem !important;
-    padding: var(--space-2xl) var(--space-xl) !important;
+    margin: 1.25rem auto 1.5rem !important;
+    padding: var(--space-xl) var(--space-lg) !important;
     left: auto !important;
     background: var(--color-surface) !important;
     border: 1px solid var(--color-border-strong) !important;
@@ -237,8 +237,8 @@ h1, h2, h3, h4, h5, h6,
 .dashboard-card {
     display: flex;
     flex-direction: column;
-    min-height: 420px;
-    padding: var(--space-xl);
+    min-height: auto;
+    padding: var(--space-lg);
     cursor: default;
     overflow: hidden;
 }
@@ -434,8 +434,8 @@ h1, h2, h3, h4, h5, h6,
     position: relative !important;
     width: 100% !important;
     min-height: auto !important;
-    margin: var(--space-3xl) auto !important;
-    padding: var(--space-3xl) var(--space-xl) !important;
+    margin: var(--space-lg) auto !important;
+    padding: var(--space-xl) var(--space-lg) !important;
     left: auto !important;
     transform: none !important;
     font-size: var(--text-base) !important;
@@ -449,8 +449,8 @@ h1, h2, h3, h4, h5, h6,
 
 .project-cards-container {
     width: 100%;
-    min-height: 400px;
-    margin-top: var(--space-lg);
+    min-height: 0;
+    margin-top: var(--space-md);
     border-radius: var(--radius-md);
     overflow: hidden;
 }
@@ -461,8 +461,8 @@ h1, h2, h3, h4, h5, h6,
     width: 100% !important;
     max-width: var(--max-width) !important;
     min-height: auto !important;
-    margin: var(--space-3xl) auto !important;
-    padding: var(--space-2xl) var(--space-lg) !important;
+    margin: var(--space-lg) auto !important;
+    padding: var(--space-xl) var(--space-lg) !important;
     background: var(--color-surface) !important;
     border: 1px solid var(--color-border) !important;
     border-radius: var(--radius-lg) !important;
@@ -484,10 +484,11 @@ h1, h2, h3, h4, h5, h6,
 
 .constellation-container {
     position: relative !important;
-    height: 620px !important;
-    min-height: 620px !important;
+    height: auto !important;
+    min-height: 320px !important;
+    max-height: 380px !important;
     transform: none !important;
-    padding: var(--space-lg) !important;
+    padding: var(--space-md) !important;
     overflow: visible !important;
 }
 
@@ -568,8 +569,21 @@ h1, h2, h3, h4, h5, h6,
 
 /* ─── AI Assistant Hub (simplified) ─── */
 .chatbot-section {
-    padding: var(--space-3xl) var(--space-xl) !important;
+    padding: var(--space-xl) var(--space-lg) !important;
     background: transparent !important;
+}
+
+.chatbot-section--compact .chatbot-section__desc {
+    margin-bottom: var(--space-lg) !important;
+}
+
+.hub-panel--compact {
+    padding: var(--space-lg) !important;
+}
+
+.hub-grid--compact {
+    grid-template-columns: 1fr 1fr !important;
+    gap: var(--space-md) !important;
 }
 
 .chatbot-section__inner {
@@ -838,8 +852,9 @@ h1, h2, h3, h4, h5, h6,
     }
 
     .constellation-container {
-        height: 720px !important;
-        min-height: 720px !important;
+        height: auto !important;
+        min-height: 280px !important;
+        max-height: none !important;
     }
 }
 
@@ -876,8 +891,9 @@ h1, h2, h3, h4, h5, h6,
     }
 
     .constellation-container {
-        height: 900px !important;
-        min-height: 900px !important;
+        height: auto !important;
+        min-height: 260px !important;
+        max-height: none !important;
         padding: var(--space-sm) !important;
     }
 
@@ -962,4 +978,90 @@ h1, h2, h3, h4, h5, h6,
     .btn-ui {
         width: 100%;
     }
+}
+
+/* ─── Compact layout overrides (fix empty space from legacy style.css) ─── */
+.constellation-section {
+    min-height: auto !important;
+    perspective: none !important;
+}
+
+.constellation-container {
+    min-height: 320px !important;
+}
+
+/* style.css legacy fix via specificity */
+html body .constellation-section {
+    min-height: auto !important;
+    padding-top: var(--space-xl) !important;
+    padding-bottom: var(--space-xl) !important;
+}
+
+html body .constellation-container {
+    min-height: 320px !important;
+    height: auto !important;
+}
+
+html body .constellation-title {
+    margin-bottom: var(--space-lg) !important;
+}
+
+/* ─── Merged work overview ─── */
+.work-overview .work-block {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+}
+
+.work-overview .work-block:first-of-type {
+    margin-top: var(--space-md);
+    padding-top: 0;
+    border-top: none;
+}
+
+.work-block__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    color: var(--color-text);
+    margin: 0 0 var(--space-xs);
+    text-align: left;
+}
+
+.work-block__subtitle {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-md);
+    text-align: left;
+}
+
+.section-jump {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+}
+
+.section-jump a {
+    padding: 0.4rem 0.85rem;
+    font-size: var(--text-sm);
+    color: var(--color-primary);
+    background: var(--color-primary-dim);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+.section-jump a:hover {
+    background: rgba(56, 189, 248, 0.22);
+    color: #fff;
+}
+
+.work-overview .dashboard-grid {
+    gap: var(--space-md);
+}
+
+.hero-section .video-collage {
+    gap: var(--space-md) !important;
 }

@@ -10,8 +10,8 @@
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link href="assets/css/style.css?v=83" rel="stylesheet">
-    <link href="assets/css/portfolio-redesign.css?v=89" rel="stylesheet">
+    <link href="assets/css/style.css?v=90" rel="stylesheet">
+    <link href="assets/css/portfolio-redesign.css?v=90" rel="stylesheet">
     <link rel="preload" href="assets/20250821-1758-Relaxed-Chatbot--unscreen-ezgif.com-apng-to-gif-converter.gif" as="image" type="image/gif">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -45,15 +45,16 @@
             overflow-y: auto;
         }
         .hero-section {
-            width: 100vw;
+            width: 100%;
             max-width: 100%;
-            min-height: 60vh;
+            min-height: auto;
+            padding: 2rem 1rem 1rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             background: transparent;
         }
         .hero-section img {
@@ -869,12 +870,20 @@
         </div>
     </section>
 
-    <!-- Professional Experience -->
-    <section id="experience" class="projects-portal-section section-shell">
-        <h2 class="section-title">Professional Experience</h2>
-        <p class="section-subtitle">Reverse chronological — click "View full story" for deeper context</p>
-
-        <div class="dashboard-grid" style="grid-template-columns:1fr">
+    <!-- Work Overview (merged sections) -->
+    <section id="work" class="dashboard-section section-shell work-overview">
+        <h2 class="section-title">Experience &amp; Projects</h2>
+        <p class="section-subtitle">Professional roles, MBA consulting, technical builds, and skills</p>
+        <nav class="section-jump" aria-label="Jump to section">
+            <a href="#experience">Experience</a>
+            <a href="#consulting">Consulting</a>
+            <a href="#technical-projects">Projects</a>
+            <a href="#skills">Skills</a>
+        </nav>
+        <div id="experience" class="work-block">
+            <h3 class="work-block__title">Professional Experience</h3>
+            <p class="work-block__subtitle">Reverse chronological — click "View full story" for deeper context</p>
+<div class="dashboard-grid" style="grid-template-columns:1fr">
             <article class="ui-card dashboard-card" style="padding:var(--space-lg)">
                 <h3 class="dashboard-card__title">Verifast — Agentic AI Product</h3>
                 <ul class="dashboard-item__desc" style="margin:0.75rem 0;padding-left:1.25rem;line-height:1.7">
@@ -904,14 +913,11 @@
                 <p class="dashboard-item__desc" style="margin-top:0.5rem"><em>⚠️ Details pending — early-career e-learning role. Specific contributions to be added. Ask about Verifast or CGI for recent work.</em></p>
             </article>
         </div>
-    </section>
-
-    <!-- Consulting & MBA -->
-    <section id="consulting" class="projects-portal-section section-shell">
-        <h2 class="section-title">Consulting &amp; Strategy (MBA)</h2>
-        <p class="section-subtitle">Durham University Business School — client-facing deliverables</p>
-
-        <div class="dashboard-grid" style="grid-template-columns:1fr">
+        </div>
+        <div id="consulting" class="work-block">
+            <h3 class="work-block__title">Consulting &amp; Strategy (MBA)</h3>
+            <p class="work-block__subtitle">Durham University Business School — client-facing deliverables</p>
+<div class="dashboard-grid" style="grid-template-columns:1fr">
             <article class="ui-card dashboard-card" style="padding:var(--space-lg)">
                 <h3 class="dashboard-card__title">Salud.ai Consultancy Sprint</h3>
                 <ul class="dashboard-item__desc" style="margin:0.75rem 0;padding-left:1.25rem;line-height:1.7">
@@ -949,14 +955,11 @@
                 <p style="margin-top:0.75rem;line-height:1.8;font-size:var(--text-sm);color:var(--color-text-muted)">CGI agile sprint operations report · Tesla sustainability &amp; ethics essay · Patagonia supply chain (Applied Strategic Management) · Salud.ai management consultancy essay · Verifast PM assignment · Lyon IBC learning journal · Philippines country manager simulation</p>
             </details>
         </div>
-    </section>
-
-    <!-- Technical Projects -->
-    <section id="technical-projects" class="projects-portal-section section-shell">
-        <h2 class="section-title">Hands-on AI &amp; Technical Projects</h2>
-        <p class="section-subtitle">Built chapter-by-chapter for deep understanding — not demo scaffolding</p>
-
-        <div class="dashboard-grid">
+        </div>
+        <div id="technical-projects" class="work-block">
+            <h3 class="work-block__title">Hands-on AI &amp; Technical Projects</h3>
+            <p class="work-block__subtitle">Built chapter-by-chapter for deep understanding — not demo scaffolding</p>
+<div class="dashboard-grid">
             <div class="ui-card dashboard-card" style="padding:var(--space-lg)">
                 <h4 class="dashboard-item__title">Neo — Personal RAG Assistant</h4>
                 <p class="dashboard-item__desc">Flask, FAISS, Gemini/OpenAI fallback, multi-tenant. This portfolio chatbot uses the same KB-first pattern.</p>
@@ -982,14 +985,11 @@
                 <p class="dashboard-item__desc">Custom agent framework for building and deploying AI agents.</p>
             </div>
         </div>
-    </section>
-
-    <!-- Skills -->
-    <section id="skills" class="projects-portal-section section-shell">
-        <h2 class="section-title">Skills &amp; Tools</h2>
-        <p class="section-subtitle">Organised by domain</p>
-
-        <div class="dashboard-grid">
+        </div>
+        <div id="skills" class="work-block">
+            <h3 class="work-block__title">Skills &amp; Tools</h3>
+            <p class="work-block__subtitle">Organised by domain</p>
+<div class="dashboard-grid">
             <div class="ui-card dashboard-card" style="padding:var(--space-lg)">
                 <h4 class="dashboard-item__title">AI / Agentic</h4>
                 <p class="dashboard-item__desc" style="margin-top:0.5rem">LangGraph · RAG architecture · AWS Bedrock AgentCore · Agentic tool/action design · Retrieval pipelines · Prompt &amp; context engineering · FAISS</p>
@@ -1007,8 +1007,8 @@
                 <p class="dashboard-item__desc" style="margin-top:0.5rem">Flask · Python · Excel financial modeling · Jira · Trailhead</p>
             </div>
         </div>
+        </div>
     </section>
-
 
     <!-- PLANET SECTION -->
     <div class="constellation-section section-shell">
@@ -1084,50 +1084,27 @@
         </div>
     </div>
 
-    <!-- AI Assistant Hub -->
-    <div class="chatbot-section">
+    <!-- AI Assistant Hub (compact) -->
+    <div class="chatbot-section chatbot-section--compact">
       <div class="chatbot-section__inner">
-        <h2 class="chatbot-section__title">AI Assistant Hub</h2>
-        <p class="chatbot-section__desc">Experience the future of interactive communication with our advanced AI assistant.</p>
-
-        <div class="hub-panel">
-          <div class="hub-grid">
+        <h2 class="chatbot-section__title">Try the AI Assistant</h2>
+        <p class="chatbot-section__desc">Click the avatar bottom-left — ask about Verifast, CGI, MBA consulting, or technical projects.</p>
+        <div class="hub-panel hub-panel--compact">
+          <div class="hub-grid hub-grid--compact">
             <div class="hub-card">
-              <h4 class="hub-card__title"><span class="typing-text" data-text="This is Not Just a Chatbot" data-speed="60"></span></h4>
-              <p class="hub-card__text"><span class="typing-text" data-text="It's your Digital Persona - an intelligent extension of yourself that communicates your vision, represents your brand, and handles everything you need with precision and personality." data-speed="30"></span></p>
+              <h4 class="hub-card__title">KB-first portfolio bot</h4>
+              <p class="hub-card__text">Built with Flask, FAISS, and ChatbotBrain — accurate answers from my knowledge base, not guesses.</p>
             </div>
             <div class="hub-card">
-              <h4 class="hub-card__title">Customization Magic</h4>
-              <p class="hub-card__text">Transform your AI avatar from quirky aliens to professional executives, match your brand colors & aesthetic, handle sales, support, education - you name it! Make them dance, wave, or even do backflips! Want a dancing penguin in a business suit? We can do that! 🐧✨</p>
+              <h4 class="hub-card__title">Avatar + speech bubble UI</h4>
+              <p class="hub-card__text">Mouth-synced responses — the same pattern I ship for client-facing agentic assistants.</p>
             </div>
-            <div class="hub-card">
-              <h4 class="hub-card__title">Universal Assistant</h4>
-              <p class="hub-card__text"><span class="typing-text" data-text="From project management to creative brainstorming, from technical support to strategic planning - handles it all seamlessly." data-speed="25"></span></p>
-            </div>
-            <div class="hub-card">
-              <h4 class="hub-card__title">Our Vision</h4>
-              <p class="hub-card__text"><span class="typing-text" data-text="We believe AI should be as unique as you are! No more boring chatbots - let's create something extraordinary together!" data-speed="35"></span></p>
-              <p class="hub-card__text" style="margin-top:0.5rem"><span class="typing-text" data-text="Which answers all the questions on your behalf to anyone." data-speed="40"></span></p>
-            </div>
-            <div class="hub-card">
-              <h4 class="hub-card__title">Quirky Avatars</h4>
-              <p class="hub-card__text"><span class="typing-text" data-text="These are some of the examples of the avatars but you can create and customize ANYTHING you want! 🚀✨" data-speed="40"></span></p>
-            </div>
-            <div class="hub-card">
-              <h4 class="hub-card__title">Voice Amplifier</h4>
-              <p class="hub-card__text" style="font-style:italic">Feature Coming Soon...</p>
-            </div>
-          </div>
-          <div class="hub-avatars">
-            <img src="assets/20250805-0115-Cheerful-Blue-Al-unscreen.gif" alt="Cheerful Blue Alien" />
-            <img src="assets/20250805_0150_Astronaut's Playful Adventure_simple_compose_01k1vbwctzesjvhmjs14txk4ns.gif" alt="Astronaut Adventure" />
-            <img src="assets/20250808_1247_Post-Workout Selfie_simple_compose_01k248njcffzds8zvd0x3d9k6c.gif" alt="Post-Workout Selfie" />
           </div>
         </div>
       </div>
     </div>
     <!-- About Me section with horizontal layout and advanced interactive elements -->
-    <div class="about-section" style="width:100%;background:transparent;padding:60px 0;color:#fff;position:relative;z-index:1001;">
+    <div class="about-section" style="width:100%;background:transparent;padding:32px 0 40px;color:#fff;position:relative;z-index:1001;">
 
       <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:0 20px;">
         
