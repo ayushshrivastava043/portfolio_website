@@ -46,88 +46,84 @@ class ProjectUIHandler {
     }
 
     showProjectModal(projectId) {
+        // Delegate to global handler (projects.js / window.projectData)
+        if (typeof window.showProjectModal === 'function') {
+            window.showProjectModal(projectId);
+            return;
+        }
+
         const modal = document.getElementById('projectModal');
-        const modalBody = modal.querySelector('.modal-body');
-        const project = projectsData[projectId]; // Using projectsData from projects-data.js
-        
+        if (!modal) return;
+
+        const data = window.projectData || (typeof projectData !== 'undefined' ? projectData : null);
+        const project = data ? data[projectId] : null;
+
         if (!project) {
             console.error('Project not found:', projectId);
             return;
         }
 
-        // Build modal content
-        let content = `
-            <h2>${project.title}</h2>
-            ${project.subTitle ? `<h3>${project.subTitle}</h3>` : ''}
-            <p>${project.whatItIs}</p>
-        `;
+        const modalTitle = modal.querySelector('#modalProjectTitle');
+        const modalContent = modal.querySelector('#modalProjectContent');
+        if (!modalTitle || !modalContent) {
+            console.error('Modal elements not found');
+            return;
+        }
 
-        // Add how it works if it exists
+        modalTitle.textContent = project.title;
+
+        let content = `<div class="project-details">`;
+        if (project.subTitle) {
+            content += `<p class="project-subtitle">${project.subTitle}</p>`;
+        }
+        if (project.whatItIs) {
+            content += `<div class="section"><h3>What it is</h3><p>${project.whatItIs}</p></div>`;
+        }
+
+        if (project.myContributions && project.myContributions.length) {
+            content += `<div class="section"><h3>My Contributions</h3><ul>${project.myContributions.map(c => `<li>${c}</li>`).join('')}</ul></div>`;
+        }
         if (project.howItWorks && project.howItWorks.length) {
-            content += `
-                <h4>How It Works</h4>
-                <ul>
-                    ${project.howItWorks.map(step => `<li>${step}</li>`).join('')}
-                </ul>
-            `;
+            content += `<div class="section"><h3>How it works</h3><ul>${project.howItWorks.map(step => `<li>${step}</li>`).join('')}</ul></div>`;
         }
-
-        // Add key features if they exist
+        if (project.pipelineWorkflow && project.pipelineWorkflow.length) {
+            content += `<div class="section"><h3>Pipeline Workflow</h3><ul>${project.pipelineWorkflow.map(step => `<li>${step}</li>`).join('')}</ul></div>`;
+        }
         if (project.keyFeatures && project.keyFeatures.length) {
-            content += `
-                <h4>Key Features</h4>
-                <ul>
-                    ${project.keyFeatures.map(feature => `<li>${feature}</li>`).join('')}
-                </ul>
-            `;
+            content += `<div class="section"><h3>Key Features</h3><ul>${project.keyFeatures.map(f => `<li>${f}</li>`).join('')}</ul></div>`;
         }
-
-        // Add impact metrics if they exist
         if (project.impact) {
-            content += `
-                <h4>${project.impact.title}</h4>
-                <table>
-                    <tr>
-                        ${project.impact.headers.map(header => `<th>${header}</th>`).join('')}
-                    </tr>
-                    ${project.impact.rows.map(row => `
-                        <tr>
-                            ${Object.values(row).map(value => `<td>${value}</td>`).join('')}
-                        </tr>
-                    `).join('')}
-                </table>
-            `;
+            content += `<div class="section"><h3>${project.impact.title || 'Impact'}</h3>`;
+            if (project.impact.headers && project.impact.rows) {
+                content += `<table class="details-table"><thead><tr>${project.impact.headers.map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>`;
+                project.impact.rows.forEach(row => {
+                    content += `<tr>${project.impact.headers.map(h => `<td>${row[h]}</td>`).join('')}</tr>`;
+                });
+                content += `</tbody></table>`;
+            }
+            content += `</div>`;
         }
-
-        // Add tech stack if it exists
-        if (project.techStack && project.techStack.length) {
-            content += `
-                <h4>Tech Stack</h4>
-                <div class="tech-stack">
-                    ${project.techStack.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
-                </div>
-            `;
+        if (project.productionEfficiency) {
+            content += `<div class="section"><h3>${project.productionEfficiency.title || 'Production Efficiency'}</h3>`;
+            if (project.productionEfficiency.headers && project.productionEfficiency.rows) {
+                content += `<table class="details-table"><thead><tr>${project.productionEfficiency.headers.map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>`;
+                project.productionEfficiency.rows.forEach(row => {
+                    content += `<tr>${project.productionEfficiency.headers.map(h => `<td>${row[h]}</td>`).join('')}</tr>`;
+                });
+                content += `</tbody></table>`;
+            }
+            content += `</div>`;
         }
-
-        // Add my role if it exists
         if (project.myRole) {
-            content += `
-                <h4>My Role</h4>
-                <p>${project.myRole}</p>
-            `;
+            content += `<div class="section"><h3>My Role</h3><p>${project.myRole}</p></div>`;
         }
-
-        // Add action buttons
-        if (project.liveUrl || project.githubUrl) {
-            content += `
-                <div class="project-actions">
-                    ${project.liveUrl ? `<a href="${project.liveUrl}" target="_blank" class="btn btn-primary">Live Demo</a>` : ''}
-                    ${project.githubUrl ? `<a href="${project.githubUrl}" target="_blank" class="btn btn-secondary">View Code</a>` : ''}
-                </div>
-            `;
+        const stack = project.techStack || project.toolingStack;
+        if (stack && stack.length) {
+            content += `<div class="section"><h3>Tech Stack</h3><div class="tech-stack">${stack.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}</div></div>`;
         }
+        content += `</div>`;
 
-        modalBody.innerHTML = content;
+        modalContent.innerHTML = content;
         modal.classList.add('active');
     }
 

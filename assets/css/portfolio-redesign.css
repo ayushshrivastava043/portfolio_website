@@ -1,0 +1,834 @@
+/**
+ * Portfolio Redesign — minimal design system
+ * Typography: Sora (headings) + Albert Sans (body)
+ */
+
+:root {
+    /* Colors */
+    --color-bg: #0a0e17;
+    --color-bg-elevated: #111827;
+    --color-surface: #1a2234;
+    --color-surface-hover: #1f2940;
+    --color-border: rgba(255, 255, 255, 0.08);
+    --color-border-strong: rgba(255, 255, 255, 0.14);
+    --color-text: #e8edf5;
+    --color-text-muted: #94a3b8;
+    --color-primary: #38bdf8;
+    --color-primary-dim: rgba(56, 189, 248, 0.12);
+    --color-accent: #818cf8;
+    --color-success: #34d399;
+    --color-warning: #fbbf24;
+    --color-danger: #f87171;
+
+    /* Spacing */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+    --space-3xl: 4rem;
+
+    /* Layout */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.24);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.28);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.32);
+    --max-width: 1200px;
+    --font-heading: 'Sora', 'Albert Sans', system-ui, sans-serif;
+    --font-body: 'Albert Sans', system-ui, sans-serif;
+
+    /* Typography scale */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 2rem;
+    --leading-tight: 1.25;
+    --leading-normal: 1.6;
+}
+
+/* ─── Base typography ─── */
+body {
+    font-family: var(--font-body) !important;
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    color: var(--color-text);
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6,
+.section-title,
+.dashboard-card__title,
+.constellation-title,
+.chatbot-section__title {
+    font-family: var(--font-heading) !important;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: var(--leading-tight);
+}
+
+/* ─── Section shell ─── */
+.section-shell {
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--space-3xl) var(--space-xl);
+    box-sizing: border-box;
+}
+
+.section-title {
+    font-size: var(--text-3xl);
+    color: var(--color-text);
+    text-align: center;
+    margin: 0 0 var(--space-sm);
+}
+
+.section-subtitle {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto var(--space-2xl);
+    line-height: var(--leading-normal);
+}
+
+/* ─── Cards ─── */
+.ui-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.ui-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-border-strong);
+}
+
+/* ─── Dashboard ─── */
+.dashboard-section {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    margin: var(--space-3xl) auto !important;
+    padding: 0 !important;
+    left: auto !important;
+    transform: none !important;
+    background: transparent !important;
+    border: none !important;
+    font-size: var(--text-base) !important;
+    text-align: left !important;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+}
+
+.dashboard-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 420px;
+    padding: var(--space-xl);
+    cursor: default;
+    overflow: hidden;
+}
+
+.dashboard-card--dev { border-top: 3px solid var(--color-success); }
+.dashboard-card--achievements { border-top: 3px solid var(--color-danger); }
+.dashboard-card--upcoming { border-top: 3px solid var(--color-primary); }
+.dashboard-card--metrics { border-top: 3px solid var(--color-warning); }
+
+.dashboard-card__header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+}
+
+.dashboard-card__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-lg);
+    flex-shrink: 0;
+}
+
+.dashboard-card--dev .dashboard-card__icon { background: rgba(52, 211, 153, 0.15); color: var(--color-success); }
+.dashboard-card--achievements .dashboard-card__icon { background: rgba(248, 113, 113, 0.15); color: var(--color-danger); }
+.dashboard-card--upcoming .dashboard-card__icon { background: rgba(56, 189, 248, 0.15); color: var(--color-primary); }
+.dashboard-card--metrics .dashboard-card__icon { background: rgba(251, 191, 36, 0.15); color: var(--color-warning); }
+
+.dashboard-card__title {
+    margin: 0;
+    font-size: var(--text-xl);
+    color: var(--color-text);
+}
+
+.dashboard-card__subtitle {
+    margin: var(--space-xs) 0 0;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+}
+
+.dashboard-card__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.dashboard-item {
+    padding: var(--space-md);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+}
+
+.dashboard-item__title {
+    margin: 0 0 var(--space-sm);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.dashboard-item__desc {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+}
+
+.dashboard-card__footer {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border);
+    text-align: center;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text-muted);
+}
+
+/* Progress bars */
+.progress-bar {
+    margin-top: var(--space-md);
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-bar__fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    transition: width 0.6s ease;
+}
+
+.progress-bar__label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-sm);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+}
+
+.progress-bar__value {
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+/* Metric bars (Performance Metrics) */
+.metric-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.metric-row__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.metric-row__value {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.metric-row__trend {
+    font-size: var(--text-sm);
+    color: var(--color-success);
+    font-weight: 500;
+}
+
+.metric-row .progress-bar {
+    margin-top: 0;
+}
+
+/* Dashboard controls */
+.dashboard-controls {
+    margin-top: var(--space-2xl);
+    padding: var(--space-xl);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    text-align: center;
+}
+
+.dashboard-controls__title {
+    font-size: var(--text-xl);
+    color: var(--color-text);
+    margin: 0 0 var(--space-lg);
+}
+
+.dashboard-controls__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    justify-content: center;
+}
+
+.btn-ui {
+    padding: 0.625rem 1.25rem;
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-elevated);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s, border-color 0.2s;
+}
+
+.btn-ui:hover {
+    background: var(--color-surface-hover);
+    transform: translateY(-1px);
+    border-color: var(--color-primary);
+}
+
+.btn-ui--primary {
+    background: var(--color-primary-dim);
+    border-color: rgba(56, 189, 248, 0.35);
+    color: var(--color-primary);
+}
+
+/* ─── Projects portal ─── */
+.projects-portal-section {
+    position: relative !important;
+    width: 100% !important;
+    min-height: auto !important;
+    margin: var(--space-3xl) auto !important;
+    padding: var(--space-3xl) var(--space-xl) !important;
+    left: auto !important;
+    transform: none !important;
+    font-size: var(--text-base) !important;
+    background: var(--color-bg-elevated) !important;
+    border: 1px solid var(--color-border) !important;
+    border-radius: var(--radius-lg) !important;
+    box-sizing: border-box !important;
+}
+
+.project-cards-container {
+    width: 100%;
+    min-height: 400px;
+    margin-top: var(--space-lg);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+/* ─── Constellation / planets ─── */
+.constellation-section {
+    position: relative !important;
+    width: 100% !important;
+    max-width: var(--max-width) !important;
+    min-height: auto !important;
+    margin: var(--space-3xl) auto !important;
+    padding: var(--space-2xl) var(--space-lg) !important;
+    background: var(--color-surface) !important;
+    border: 1px solid var(--color-border) !important;
+    border-radius: var(--radius-lg) !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+    z-index: 1 !important;
+}
+
+.constellation-title {
+    font-size: var(--text-3xl) !important;
+    color: var(--color-text) !important;
+    margin-bottom: var(--space-lg) !important;
+    text-align: center;
+}
+
+.constellation-title::after {
+    background: linear-gradient(90deg, transparent, var(--color-primary), transparent) !important;
+}
+
+.constellation-container {
+    position: relative !important;
+    height: 620px !important;
+    min-height: 620px !important;
+    transform: none !important;
+    padding: var(--space-lg) !important;
+    overflow: visible !important;
+}
+
+.constellation-section .planet {
+    position: absolute !important;
+    transform: translate(-50%, -50%) !important;
+    width: 160px !important;
+    height: 160px !important;
+    margin: 0 !important;
+    box-shadow: var(--shadow-md) !important;
+}
+
+.constellation-section .planet > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.constellation-section .planet-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    width: 100%;
+    height: auto;
+    padding: 0;
+    pointer-events: none;
+}
+
+.constellation-section .planet-content h3 {
+    font-size: var(--text-sm) !important;
+    font-family: var(--font-heading) !important;
+    color: var(--color-text) !important;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8) !important;
+    margin: 0 !important;
+    opacity: 1 !important;
+}
+
+.constellation-section .moon-system {
+    width: 360px !important;
+    height: 360px !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+.constellation-section .planet:hover .moon-system {
+    transform: translate(-50%, -50%) scale(1.05) !important;
+}
+
+.constellation-section .moon {
+    width: 52px !important;
+    height: 52px !important;
+    box-shadow: var(--shadow-sm) !important;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.constellation-section .moon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.constellation-hint {
+    text-align: center;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--space-md);
+}
+
+/* ─── AI Assistant Hub (simplified) ─── */
+.chatbot-section {
+    padding: var(--space-3xl) var(--space-xl) !important;
+    background: transparent !important;
+}
+
+.chatbot-section__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+.chatbot-section__title {
+    font-size: var(--text-3xl);
+    color: var(--color-text);
+    text-align: center;
+    margin-bottom: var(--space-md);
+}
+
+.chatbot-section__desc {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto var(--space-2xl);
+    line-height: var(--leading-normal);
+}
+
+.hub-panel {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl);
+    box-shadow: var(--shadow-md);
+}
+
+.hub-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+}
+
+.hub-card {
+    padding: var(--space-lg);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    min-height: 140px;
+}
+
+.hub-card__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-primary);
+    margin: 0 0 var(--space-sm);
+}
+
+.hub-card__text {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+    margin: 0;
+}
+
+.hub-card--wide {
+    grid-column: span 3;
+}
+
+.hub-avatars {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    justify-content: center;
+    align-items: center;
+    margin-top: var(--space-xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+}
+
+.hub-avatars img {
+    width: 64px;
+    height: auto;
+    border-radius: var(--radius-md);
+    opacity: 0.85;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.hub-avatars img:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+/* ─── Modal ─── */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(4px);
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-lg);
+}
+
+.modal-content {
+    background: var(--color-surface) !important;
+    border: 1px solid var(--color-border-strong) !important;
+    border-radius: var(--radius-lg) !important;
+    max-width: 720px !important;
+    width: 100% !important;
+    max-height: 85vh !important;
+    overflow: hidden !important;
+    box-shadow: var(--shadow-lg) !important;
+    animation: modalIn 0.25s ease-out;
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: translateY(12px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-header {
+    background: var(--color-bg-elevated) !important;
+    border-bottom: 1px solid var(--color-border) !important;
+    padding: var(--space-lg) var(--space-xl) !important;
+}
+
+.modal-header h2 {
+    margin: 0 !important;
+    color: var(--color-text) !important;
+    font-family: var(--font-heading) !important;
+    font-size: var(--text-xl) !important;
+    font-weight: 600 !important;
+    line-height: var(--leading-tight) !important;
+}
+
+.close-modal {
+    color: var(--color-text-muted) !important;
+    font-size: 1.5rem !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: var(--radius-sm) !important;
+}
+
+.close-modal:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: var(--color-text) !important;
+}
+
+.modal-body {
+    padding: var(--space-xl) !important;
+    color: var(--color-text) !important;
+    overflow-y: auto !important;
+    max-height: calc(85vh - 80px) !important;
+}
+
+.modal-body h3,
+.project-details h3 {
+    color: var(--color-primary) !important;
+    font-family: var(--font-heading) !important;
+    font-size: var(--text-base) !important;
+    margin: var(--space-lg) 0 var(--space-sm) !important;
+}
+
+.modal-body h3:first-child,
+.project-details h3:first-child {
+    margin-top: 0 !important;
+}
+
+.modal-body p,
+.project-details p {
+    color: var(--color-text-muted) !important;
+    line-height: var(--leading-normal) !important;
+}
+
+.tech-tag {
+    background: var(--color-primary-dim) !important;
+    border: 1px solid rgba(56, 189, 248, 0.25) !important;
+    color: var(--color-primary) !important;
+    padding: 4px 10px !important;
+    border-radius: var(--radius-sm) !important;
+    font-size: var(--text-xs) !important;
+}
+
+.details-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    margin: var(--space-md) 0;
+}
+
+.details-table th,
+.details-table td {
+    border: 1px solid var(--color-border);
+    padding: 0.625rem 0.75rem;
+    text-align: left;
+}
+
+.details-table th {
+    background: rgba(56, 189, 248, 0.08);
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+/* ─── Hero & video collage ─── */
+.hero-text h1 {
+    font-family: var(--font-heading) !important;
+    font-size: clamp(1.75rem, 4vw, 2.5rem) !important;
+    letter-spacing: -0.02em !important;
+}
+
+.hero-text p {
+    font-size: var(--text-lg) !important;
+    line-height: var(--leading-normal) !important;
+    color: var(--color-text-muted);
+}
+
+.video-collage video {
+    border-radius: var(--radius-lg) !important;
+    box-shadow: var(--shadow-md) !important;
+    border: 1px solid var(--color-border) !important;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hub-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .hub-card--wide {
+        grid-column: span 2;
+    }
+
+    .constellation-container {
+        height: 720px !important;
+        min-height: 720px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-shell {
+        padding: var(--space-2xl) var(--space-md);
+    }
+
+    .dashboard-card {
+        min-height: auto;
+        padding: var(--space-lg);
+    }
+
+    .dashboard-grid {
+        gap: var(--space-md);
+    }
+
+    .hub-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hub-card--wide {
+        grid-column: span 1;
+    }
+
+    .hub-panel {
+        padding: var(--space-lg);
+    }
+
+    .constellation-section {
+        padding: var(--space-lg) var(--space-md) !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .constellation-container {
+        height: 900px !important;
+        min-height: 900px !important;
+        padding: var(--space-sm) !important;
+    }
+
+    .constellation-section .planet {
+        width: 120px !important;
+        height: 120px !important;
+    }
+
+    .constellation-section .moon {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    .constellation-section .moon-system {
+        width: 280px !important;
+        height: 280px !important;
+    }
+
+    .projects-portal-section {
+        padding: var(--space-xl) var(--space-md) !important;
+    }
+
+    .modal-content {
+        max-width: 100% !important;
+        max-height: 90vh !important;
+        margin: var(--space-md);
+    }
+
+    .video-collage {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: var(--space-md) !important;
+    }
+
+    .video-collage video {
+        width: 100% !important;
+        max-width: 280px !important;
+        height: auto !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .constellation-section .planet:hover .moon-system {
+        transform: translate(-50%, -50%) scale(0.72) !important;
+    }
+
+    .constellation-section .moon-system {
+        transform: translate(-50%, -50%) scale(0.72) !important;
+    }
+}
+
+@media (max-width: 375px) {
+    .section-title,
+    .constellation-title,
+    .chatbot-section__title {
+        font-size: var(--text-2xl);
+    }
+
+    .constellation-section .moon-system {
+        transform: translate(-50%, -50%) scale(0.58) !important;
+    }
+
+    .constellation-container {
+        height: 820px !important;
+        min-height: 820px !important;
+    }
+
+    .constellation-section .planet {
+        width: 100px !important;
+        height: 100px !important;
+    }
+
+    .constellation-section .moon {
+        width: 36px !important;
+        height: 36px !important;
+    }
+
+    .dashboard-controls__buttons {
+        flex-direction: column;
+    }
+
+    .btn-ui {
+        width: 100%;
+    }
+}

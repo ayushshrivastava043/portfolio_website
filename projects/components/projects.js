@@ -534,5 +534,6 @@ style.innerHTML = `
 `;
 document.head.appendChild(style);
 
-// Make projectData globally accessible
-window.projectData = projectData; 
+// Make projectData and showProjectModal globally accessible
+window.projectData = projectData;
+window.showProjectModal = showProjectModal; 

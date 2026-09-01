@@ -8,9 +8,10 @@
     <meta name="description" content="Your website description">
     <title>Ayush | AI Portfolio</title>
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600;700&family=Audiowide:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/portfolio-redesign.css" rel="stylesheet">
     <link rel="preload" href="assets/20250821-1758-Relaxed-Chatbot--unscreen-ezgif.com-apng-to-gif-converter.gif" as="image" type="image/gif">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
@@ -791,350 +792,279 @@
     </div>
 
     <!-- Dashboard Section -->
-    <section class="dashboard-section" style="position:relative !important;width:100vw !important;min-height:1200px !important;margin-top:80px !important;margin-bottom:80px !important;z-index:1 !important;color:white !important;font-size:24px !important;text-align:center !important;padding:80px 50px !important;display:block !important;visibility:visible !important;opacity:1 !important;left:50%;transform:translateX(-50%);box-sizing:border-box;background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);border-radius:20px;">
-        
-        <h2 style="color:white;font-size:36px;margin-bottom:30px;text-align:center;position:relative;z-index:10;font-family:'Orbitron',sans-serif;">📊 Dashboard</h2>
-        <p style="color:#e0e0e0;font-size:18px;margin-bottom:40px;text-align:center;max-width:800px;margin-left:auto;margin-right:auto;">Track my active works, ongoing projects, and real-time development progress</p>
-        
-        <!-- Dashboard Grid Container -->
-        <div class="dashboard-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:40px;max-width:1600px;margin:0 auto;padding:40px;">
-            
+    <section class="dashboard-section section-shell">
+        <h2 class="section-title">Dashboard</h2>
+        <p class="section-subtitle">Track my active works, ongoing projects, and real-time development progress</p>
+
+        <div class="dashboard-grid">
             <!-- Active Development Card -->
-            <div class="dashboard-card active-development" style="background:rgba(0,0,0,0.9);border-radius:25px;padding:40px;border:2px solid #00ff88;transition:all 0.3s ease;cursor:pointer;position:relative;overflow:hidden;min-height:400px;">
-                <div class="card-header" style="display:flex;align-items:center;gap:15px;margin-bottom:25px;">
-                    <div class="card-icon" style="font-size:40px;">🚀</div>
-                    <div class="card-info">
-                        <h3 style="margin:0;color:#00ff88;font-size:22px;">Active Development</h3>
-                        <p style="margin:5px 0 0 0;color:#ccc;font-size:14px;">Currently Working On</p>
+            <div class="dashboard-card ui-card dashboard-card--dev active-development">
+                <div class="dashboard-card__header">
+                    <div class="dashboard-card__icon" aria-hidden="true">◆</div>
+                    <div>
+                        <h3 class="dashboard-card__title">Active Development</h3>
+                        <p class="dashboard-card__subtitle">Currently Working On</p>
                     </div>
                 </div>
-                <div class="card-content" style="text-align:left;margin-bottom:20px;">
-                    <div class="work-item" style="margin-bottom:15px;padding:15px;background:rgba(0,255,136,0.1);border-radius:10px;border-left:4px solid #00ff88;">
-                        <h4 style="margin:0 0 8px 0;color:#00ff88;font-size:16px;">Enhanced Agentic Chatbot</h4>
-                        <p style="margin:0;color:#e0e0e0;font-size:14px;line-height:1.4;">LangGraph-powered AI assistant with multi-agent workflows, stateful conversations, and persistent memory</p>
-                        <div class="progress-bar" style="margin-top:10px;width:100%;height:6px;background:rgba(0,0,0,0.3);border-radius:3px;overflow:hidden;">
-                            <div class="progress-fill" style="width:85%;height:100%;background:linear-gradient(90deg, #00ff88, #00ffff);border-radius:3px;"></div>
+                <div class="dashboard-card__body">
+                    <div class="dashboard-item">
+                        <h4 class="dashboard-item__title">Enhanced Agentic Chatbot</h4>
+                        <p class="dashboard-item__desc">LangGraph-powered AI assistant with multi-agent workflows, stateful conversations, and persistent memory</p>
+                        <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar__fill" style="width:85%"></div>
                         </div>
-                        <span style="color:#00ff88;font-size:12px;margin-top:5px;display:block;">85% Complete</span>
-                    </div>
-                    <div class="work-item" style="margin-bottom:15px;padding:15px;background:rgba(0,255,136,0.1);border-radius:10px;border-left:4px solid #00ff88;">
-                        <h4 style="margin:0 0 8px 0;color:#00ff88;font-size:16px;">AI Video Generation Pipeline</h4>
-                        <p style="margin:0;color:#e0e0e0;font-size:14px;line-height:1.4;">Automated video creation system with AI-powered content generation and editing</p>
-                        <div class="progress-bar" style="margin-top:10px;width:100%;height:6px;background:rgba(0,0,0,0.3);border-radius:3px;overflow:hidden;">
-                            <div class="progress-fill" style="width:70%;height:100%;background:linear-gradient(90deg, #00ff88, #00ffff);border-radius:3px;"></div>
+                        <div class="progress-bar__label">
+                            <span>Progress</span>
+                            <span class="progress-bar__value">85% Complete</span>
                         </div>
-                        <span style="color:#00ff88;font-size:12px;margin-top:5px;display:block;">70% Complete</span>
+                    </div>
+                    <div class="dashboard-item">
+                        <h4 class="dashboard-item__title">AI Video Generation Pipeline</h4>
+                        <p class="dashboard-item__desc">Automated video creation system with AI-powered content generation and editing</p>
+                        <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar__fill" style="width:70%"></div>
+                        </div>
+                        <div class="progress-bar__label">
+                            <span>Progress</span>
+                            <span class="progress-bar__value">70% Complete</span>
+                        </div>
                     </div>
                 </div>
-                <div class="card-footer" style="text-align:center;">
-                    <span style="color:#00ff88;font-size:14px;font-weight:bold;">🟢 In Active Development</span>
-                </div>
+                <div class="dashboard-card__footer">In Active Development</div>
             </div>
 
             <!-- Recent Achievements Card -->
-            <div class="dashboard-card recent-achievements" style="background:rgba(0,0,0,0.9);border-radius:25px;padding:40px;border:2px solid #ff6b6b;transition:all 0.3s ease;cursor:pointer;position:relative;overflow:hidden;min-height:400px;">
-                <div class="card-header" style="display:flex;align-items:center;gap:15px;margin-bottom:25px;">
-                    <div class="card-icon" style="font-size:40px;">🏆</div>
-                    <div class="card-info">
-                        <h3 style="margin:0;color:#ff6b6b;font-size:22px;">Recent Achievements</h3>
-                        <p style="margin:5px 0 0 0;color:#ccc;font-size:14px;">Latest Accomplishments</p>
+            <div class="dashboard-card ui-card dashboard-card--achievements recent-achievements">
+                <div class="dashboard-card__header">
+                    <div class="dashboard-card__icon" aria-hidden="true">★</div>
+                    <div>
+                        <h3 class="dashboard-card__title">Recent Achievements</h3>
+                        <p class="dashboard-card__subtitle">Latest Accomplishments</p>
                     </div>
                 </div>
-                <div class="card-content" style="text-align:left;margin-bottom:20px;">
-                    <div class="achievement-item" style="margin-bottom:15px;padding:15px;background:rgba(255,107,107,0.1);border-radius:10px;border-left:4px solid #ff6b6b;">
-                        <h4 style="margin:0 0 8px 0;color:#ff6b6b;font-size:16px;">Portfolio Website Launch</h4>
-                        <p style="margin:0;color:#e0e0e0;font-size:14px;line-height:1.4;">Successfully deployed interactive portfolio with 3D avatar chatbot system</p>
-                        <span style="color:#ff6b6b;font-size:12px;margin-top:5px;display:block;">✅ Completed</span>
+                <div class="dashboard-card__body">
+                    <div class="dashboard-item">
+                        <h4 class="dashboard-item__title">Portfolio Website Launch</h4>
+                        <p class="dashboard-item__desc">Successfully deployed interactive portfolio with 3D avatar chatbot system</p>
+                        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar__fill" style="width:100%;background:var(--color-success)"></div>
+                        </div>
+                        <div class="progress-bar__label"><span>Status</span><span class="progress-bar__value">Completed</span></div>
                     </div>
-                    <div class="achievement-item" style="margin-bottom:15px;padding:15px;background:rgba(255,107,107,0.1);border-radius:10px;border-left:4px solid #ff6b6b;">
-                        <h4 style="margin:0 0 8px 0;color:#ff6b6b;font-size:16px;">LangGraph Integration</h4>
-                        <p style="margin:0;color:#e0e0e0;font-size:14px;line-height:1.4;">Implemented advanced AI workflows with stateful multi-agent system</p>
-                        <span style="color:#ff6b6b;font-size:12px;margin-top:5px;display:block;">✅ Completed</span>
+                    <div class="dashboard-item">
+                        <h4 class="dashboard-item__title">LangGraph Integration</h4>
+                        <p class="dashboard-item__desc">Implemented advanced AI workflows with stateful multi-agent system</p>
+                        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar__fill" style="width:100%;background:var(--color-success)"></div>
+                        </div>
+                        <div class="progress-bar__label"><span>Status</span><span class="progress-bar__value">Completed</span></div>
                     </div>
                 </div>
-                <div class="card-footer" style="text-align:center;">
-                    <span style="color:#ff6b6b;font-size:14px;font-weight:bold;">🎯 2 Achievements This Month</span>
-                </div>
+                <div class="dashboard-card__footer">2 Achievements This Month</div>
             </div>
 
             <!-- Upcoming Projects Card -->
-            <div class="dashboard-card upcoming-projects" style="background:rgba(0,0,0,0.9);border-radius:25px;padding:40px;border:2px solid #4ecdc4;transition:all 0.3s ease;cursor:pointer;position:relative;overflow:hidden;min-height:400px;">
-                <div class="card-header" style="display:flex;align-items:center;gap:15px;margin-bottom:25px;">
-                    <div class="card-icon" style="font-size:40px;">🔮</div>
-                    <div class="card-info">
-                        <h3 style="margin:0;color:#4ecdc4;font-size:22px;">Upcoming Projects</h3>
-                        <p style="margin:5px 0 0 0;color:#ccc;font-size:14px;">Next in Pipeline</p>
+            <div class="dashboard-card ui-card dashboard-card--upcoming upcoming-projects">
+                <div class="dashboard-card__header">
+                    <div class="dashboard-card__icon" aria-hidden="true">→</div>
+                    <div>
+                        <h3 class="dashboard-card__title">Upcoming Projects</h3>
+                        <p class="dashboard-card__subtitle">Next in Pipeline</p>
                     </div>
                 </div>
-                <div class="card-content" style="text-align:left;margin-bottom:20px;">
-                    <div class="project-item" style="margin-bottom:15px;padding:15px;background:rgba(78,205,196,0.1);border-radius:10px;border-left:4px solid #4ecdc4;">
-                        <h4 style="margin:0 0 8px 0;color:#4ecdc4;font-size:16px;">AI Sales Agent</h4>
-                        <p style="margin:0;color:#e0e0e0;font-size:14px;line-height:1.4;">E-commerce automation with intelligent customer interaction and sales optimization</p>
-                        <span style="color:#4ecdc4;font-size:12px;margin-top:5px;display:block;">📅 Starting Next Week</span>
+                <div class="dashboard-card__body">
+                    <div class="dashboard-item">
+                        <h4 class="dashboard-item__title">AI Sales Agent</h4>
+                        <p class="dashboard-item__desc">E-commerce automation with intelligent customer interaction and sales optimization</p>
+                        <div class="progress-bar" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar__fill" style="width:15%"></div>
+                        </div>
+                        <div class="progress-bar__label"><span>Timeline</span><span class="progress-bar__value">Starting Next Week</span></div>
                     </div>
-                    <div class="project-item" style="margin-bottom:15px;padding:15px;background:rgba(78,205,196,0.1);border-radius:10px;border-left:4px solid #4ecdc4;">
-                        <h4 style="margin:0 0 8px 0;color:#4ecdc4;font-size:16px;">API Orchestration Framework</h4>
-                        <p style="margin:0;color:#e0e0e0;font-size:14px;line-height:1.4;">End-to-end API management system with intelligent routing and monitoring</p>
-                        <span style="color:#4ecdc4;font-size:12px;margin-top:5px;display:block;">📅 Planning Phase</span>
+                    <div class="dashboard-item">
+                        <h4 class="dashboard-item__title">API Orchestration Framework</h4>
+                        <p class="dashboard-item__desc">End-to-end API management system with intelligent routing and monitoring</p>
+                        <div class="progress-bar" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar__fill" style="width:5%"></div>
+                        </div>
+                        <div class="progress-bar__label"><span>Timeline</span><span class="progress-bar__value">Planning Phase</span></div>
                     </div>
                 </div>
-                <div class="card-footer" style="text-align:center;">
-                    <span style="color:#4ecdc4;font-size:14px;font-weight:bold;">🚀 2 Projects Queued</span>
-                </div>
+                <div class="dashboard-card__footer">2 Projects Queued</div>
             </div>
 
             <!-- Performance Metrics Card -->
-            <div class="dashboard-card performance-metrics" style="background:rgba(0,0,0,0.9);border-radius:25px;padding:40px;border:2px solid #f39c12;transition:all 0.3s ease;cursor:pointer;position:relative;overflow:hidden;min-height:400px;">
-                <div class="card-header" style="display:flex;align-items:center;gap:15px;margin-bottom:25px;">
-                    <div class="card-icon" style="font-size:40px;">📈</div>
-                    <div class="card-info">
-                        <h3 style="margin:0;color:#f39c12;font-size:22px;">Performance Metrics</h3>
-                        <p style="margin:5px 0 0 0;color:#ccc;font-size:14px;">Real-time Stats</p>
+            <div class="dashboard-card ui-card dashboard-card--metrics performance-metrics">
+                <div class="dashboard-card__header">
+                    <div class="dashboard-card__icon" aria-hidden="true">▲</div>
+                    <div>
+                        <h3 class="dashboard-card__title">Performance Metrics</h3>
+                        <p class="dashboard-card__subtitle">Real-time Stats</p>
                     </div>
                 </div>
-                <div class="card-content" style="text-align:left;margin-bottom:20px;">
-                    <div class="metric-item" style="margin-bottom:15px;padding:15px;background:rgba(243,156,18,0.1);border-radius:10px;border-left:4px solid #f39c12;">
-                        <h4 style="margin:0 0 8px 0;color:#f39c12;font-size:16px;">Code Quality Score</h4>
-                        <div style="display:flex;align-items:center;gap:10px;">
-                            <div class="metric-value" style="font-size:24px;font-weight:bold;color:#f39c12;">94%</div>
-                            <div class="metric-trend" style="color:#00ff88;font-size:14px;">↗ +2%</div>
+                <div class="dashboard-card__body">
+                    <div class="dashboard-item metric-row">
+                        <div class="metric-row__header">
+                            <h4 class="dashboard-item__title" style="margin:0">Code Quality Score</h4>
+                            <div>
+                                <span class="metric-row__value">94%</span>
+                                <span class="metric-row__trend">↗ +2%</span>
+                            </div>
+                        </div>
+                        <div class="progress-bar" role="progressbar" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar__fill" style="width:94%"></div>
                         </div>
                     </div>
-                    <div class="metric-item" style="margin-bottom:15px;padding:15px;background:rgba(243,156,18,0.1);border-radius:10px;border-left:4px solid #f39c12;">
-                        <h4 style="margin:0 0 8px 0;color:#f39c12;font-size:16px;">Project Completion Rate</h4>
-                        <div style="display:flex;align-items:center;gap:10px;">
-                            <div class="metric-value" style="font-size:24px;font-weight:bold;color:#f39c12;">87%</div>
-                            <div class="metric-trend" style="color:#00ff88;font-size:14px;">↗ +5%</div>
+                    <div class="dashboard-item metric-row">
+                        <div class="metric-row__header">
+                            <h4 class="dashboard-item__title" style="margin:0">Project Completion Rate</h4>
+                            <div>
+                                <span class="metric-row__value">87%</span>
+                                <span class="metric-row__trend">↗ +5%</span>
+                            </div>
+                        </div>
+                        <div class="progress-bar" role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar__fill" style="width:87%"></div>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer" style="text-align:center;">
-                    <span style="color:#f39c12;font-size:14px;font-weight:bold;">📊 Updated Daily</span>
-                </div>
+                <div class="dashboard-card__footer">Updated Daily</div>
             </div>
         </div>
 
-        <!-- Dashboard Control Panel -->
-        <div class="dashboard-control-panel" style="margin-top:60px;padding:40px;background:rgba(0,0,0,0.8);backdrop-filter:blur(10px);border-radius:20px;max-width:1000px;margin-left:auto;margin-right:auto;border:1px solid rgba(255,255,255,0.1);">
-            <h3 style="color:#00ff88;font-size:24px;margin-bottom:20px;text-align:center;">🎛️ Dashboard Controls</h3>
-            <div class="control-buttons" style="display:flex;flex-wrap:wrap;gap:15px;justify-content:center;">
-                <button onclick="refreshDashboard()" style="padding:15px 25px;background:linear-gradient(45deg, #00ff88, #00ffff);color:#000;border:none;border-radius:10px;font-weight:bold;cursor:pointer;transition:all 0.3s ease;font-size:16px;">🔄 Refresh Data</button>
-                <button onclick="exportDashboard()" style="padding:15px 25px;background:linear-gradient(45deg, #4ecdc4, #44a08d);color:#000;border:none;border-radius:10px;font-weight:bold;cursor:pointer;transition:all 0.3s ease;font-size:16px;">📊 Export Report</button>
-                <button onclick="toggleNotifications()" style="padding:15px 25px;background:linear-gradient(45deg, #f39c12, #e67e22);color:#000;border:none;border-radius:10px;font-weight:bold;cursor:pointer;transition:all 0.3s ease;font-size:16px;">🔔 Notifications</button>
+        <div class="dashboard-controls">
+            <h3 class="dashboard-controls__title">Dashboard Controls</h3>
+            <div class="dashboard-controls__buttons">
+                <button type="button" class="btn-ui btn-ui--primary" onclick="refreshDashboard()">Refresh Data</button>
+                <button type="button" class="btn-ui" onclick="exportDashboard()">Export Report</button>
+                <button type="button" class="btn-ui" onclick="toggleNotifications()">Notifications</button>
             </div>
         </div>
     </section>
 
     <!-- Projects Portal Section -->
-        <section class="projects-portal-section" style="position:relative !important;width:100vw !important;min-height:1200px !important;margin-top:100px !important;margin-bottom:100px !important;z-index:1 !important;color:white !important;font-size:24px !important;text-align:center !important;padding:50px !important;display:block !important;visibility:visible !important;opacity:1 !important;left:50%;transform:translateX(-50%);box-sizing:border-box;background-image:url('assets/ChatGPT%20Image%20Aug%205,%202025,%2004_46_21%20AM.png');background-size:cover;background-position:center;background-repeat:no-repeat;">
-
-      <h2 style="color:white;font-size:36px;margin-bottom:20px;text-align:center;position:relative;z-index:10;font-family:'Orbitron',sans-serif;">🚀 Active Projects Portal</h2>
-      
-      <!-- A/B Testing Projects Container (Neural Radial renders here) -->
-      <div class="project-cards-container" style="width:100%;min-height:760px;margin-top:20px;"></div>
+    <section class="projects-portal-section section-shell">
+      <h2 class="section-title">Active Projects Portal</h2>
+      <div class="project-cards-container"></div>
     </section>
 
 
-    <!-- PLANET SECTION - INDEPENDENT OF SIDEBAR -->
-    <div class="constellation-section" style="position:relative;width:100%;max-width:100%;min-height:800px;max-height:900px;margin:30px auto;padding:30px 20px;background:rgba(0,0,0,0.3);border-radius:20px;overflow:visible;z-index:1000;box-sizing:border-box;">
-        
-        <h2 class="constellation-title" style="color:white;font-size:36px;margin-bottom:20px;text-align:center;font-family:'Orbitron',sans-serif;">🌍 My World of Experience</h2>
-        
-        <!-- Planet Container with Triangular Layout -->
-        <div class="constellation-container" style="position:relative;height:700px;overflow:visible;display:block;transform:translateX(-10%) translateY(-5%);">
-            
-            <!-- Earth (AI & Automation) - Top Center -->
-            <div class="planet earth" data-category="ai" style="position:absolute;width:198px;height:198px;left:50%;top:25%;transform:translate(-50%,-50%);z-index:10;">
-                <img src="assets/earth.png" alt="Earth" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:50%;z-index:0;pointer-events:none;" />
-                <div class="planet-content" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1;text-align:center;color:white;">
-                    <h3 style="font-size:16px;margin:0;">🚀 AI & Automation</h3>
-                    </div>
-                    <div class="moon-system">
-                    <!-- AI Sales Moon - Top Right -->
+    <!-- PLANET SECTION -->
+    <div class="constellation-section section-shell">
+        <h2 class="constellation-title section-title">My World of Experience</h2>
+        <p class="constellation-hint">Hover a planet to reveal projects — click a moon for details</p>
+
+        <div class="constellation-container">
+            <!-- Earth (AI & Automation) -->
+            <div class="planet earth" data-category="ai">
+                <img src="assets/earth.png" alt="Earth" />
+                <div class="planet-content">
+                    <h3>AI & Automation</h3>
+                </div>
+                <div class="moon-system">
                     <div class="moon moon-1" data-project="ai-sales" data-tooltip="AI Sales Agent for E-commerce">
                         <img src="assets/MOON.png" alt="AI Sales" />
-                            </div>
-                    <!-- AI Video Moon - Bottom Left -->
+                    </div>
                     <div class="moon moon-2" data-project="ai-video" data-tooltip="AI Video Generation Pipeline">
                         <img src="assets/MOON.png" alt="AI Video" />
-                        </div>
-                    <!-- API Engine Moon - Right Center -->
+                    </div>
                     <div class="moon moon-3" data-project="ai-api" data-tooltip="End-to-End API Orchestration Framework">
                         <img src="assets/MOON.png" alt="API" />
-                            </div>
-                        </div>
-                            </div>
+                    </div>
+                </div>
+            </div>
 
-            <!-- Jupiter (PM Projects) - Bottom Left -->
-            <div class="planet jupiter" data-category="pm" style="position:absolute;width:218px;height:218px;left:35%;top:80%;transform:translate(-50%,-50%);z-index:10;">
-                <img src="assets/neptune1.jpeg" alt="Jupiter" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:50%;z-index:0;pointer-events:none;" />
-                <div class="planet-content" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1;text-align:center;color:white;">
-                    <h3 style="font-size:16px;margin:0;">PM Projects</h3>
-                        </div>
+            <!-- Jupiter (PM Projects) -->
+            <div class="planet jupiter" data-category="pm">
+                <img src="assets/neptune1.jpeg" alt="Jupiter" />
+                <div class="planet-content">
+                    <h3>PM Projects</h3>
+                </div>
                 <div class="moon-system">
-                    <!-- Telecom Moon - Top Left -->
                     <div class="moon moon-1" data-project="pm-telecom" data-tooltip="Dual-Track Telecom Rollout – Bell Canada">
                         <img src="assets/MOON.png" alt="Telecom" />
-                            </div>
-                    <!-- HR-Suite Moon - Bottom Right -->
+                    </div>
                     <div class="moon moon-2" data-project="pm-hrsuite" data-tooltip="HR Suite Platform">
                         <img src="assets/MOON.png" alt="HR Suite" />
-                        </div>
-                    <!-- Multi-Brand Moon - Left Center -->
+                    </div>
                     <div class="moon moon-3" data-project="pm-websites" data-tooltip="Multi-Brand Website Platform">
                         <img src="assets/MOON.png" alt="Websites" />
                     </div>
-                    <!-- EdTech Moon - Top Right -->
                     <div class="moon moon-4" data-project="pm-edtech" data-tooltip="EdTech Learning Platform">
                         <img src="assets/MOON.png" alt="EdTech" />
-                </div>
+                    </div>
                 </div>
             </div>
 
-                                                  <!-- Venus (Business Projects) - Bottom Right -->
-             <div class="planet saturn" data-category="business" style="position:absolute;width:238px;height:238px;left:65%;top:80%;transform:translate(-50%,-50%);z-index:10;">
-                 <img src="assets/Venus.jpeg" alt="Venus" style="position:absolute;top:50%;left:50%;width:100%;height:100%;object-fit:cover;border-radius:50%;z-index:0;pointer-events:none;transform:translate(-50%,-50%);" />
-                <div class="planet-content" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1;text-align:center;color:white;">
-                    <h3 style="font-size:16px;margin:0;">Business Projects</h3>
-                    </div>
-                    <div class="moon-system">
-                    <!-- KPI Playbook Moon -->
+            <!-- Venus (Business Projects) -->
+            <div class="planet saturn" data-category="business">
+                <img src="assets/Venus.jpeg" alt="Venus" />
+                <div class="planet-content">
+                    <h3>Business Projects</h3>
+                </div>
+                <div class="moon-system">
                     <div class="moon moon-1" data-project="biz-kpi-playbook" data-tooltip="KPI Playbook Framework">
                         <img src="assets/MOON.png" alt="KPI" />
-                            </div>
-                    <!-- eSIM DTH Launch Moon -->
+                    </div>
                     <div class="moon moon-2" data-project="biz-esim-dth-launch" data-tooltip="eSIM & DTH Launch Strategy">
                         <img src="assets/MOON.png" alt="eSIM" />
-                        </div>
-                    <!-- GenAI Pilot Moon -->
+                    </div>
                     <div class="moon moon-3" data-project="biz-genai-pilot" data-tooltip="GenAI Pilot Program">
                         <img src="assets/MOON.png" alt="GenAI" />
-                            </div>
-                    <!-- EdTech Expansion Moon -->
+                    </div>
                     <div class="moon moon-4" data-project="biz-edtech-expansion" data-tooltip="EdTech Market Expansion">
                         <img src="assets/MOON.png" alt="EdTech" />
-                        </div>
-                    <!-- Green Build Moon -->
+                    </div>
                     <div class="moon moon-5" data-project="biz-green-build" data-tooltip="Green Building Initiative">
                         <img src="assets/MOON.png" alt="Green" />
-                            </div>
-                        </div>
-                            </div>
-                        </div>
-                            </div>
-
-    <!-- DEDICATED CHATBOT SECTION -->
-    <div class="chatbot-section" style="width:100%;background:transparent;padding:40px 0;text-align:center;color:#fff;position:relative;z-index:1002;">
-
-      <div style="max-width:1200px;margin:0 auto;padding:0 20px;">
-        <h2 style="font-family:'Orbitron',sans-serif;font-size:2.5rem;color:#00ffee;margin-bottom:30px;">🤖 AI Assistant Hub</h2>
-                  <p style="font-size:1.2rem;max-width:800px;margin:0 auto 40px;line-height:1.6;color:#ccc;">Experience the future of interactive communication with our advanced AI assistant.</p>
-        
-        <!-- AI Assistant Section - Realistic LCD Screen -->
-        <div style="margin:40px auto;max-width:1200px;position:relative;">
-          <!-- Realistic LCD Screen Frame -->
-          <div style="background:linear-gradient(145deg,#2a2a2a,#1a1a1a);border-radius:15px;padding:40px;box-shadow:0 30px 100px rgba(0,0,0,0.8),inset 0 1px 0 rgba(255,255,255,0.1),inset 0 -1px 0 rgba(0,0,0,0.5);border:2px solid #333;position:relative;overflow:hidden;">
-            
-            <!-- Dense Galaxy Background -->
-            <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 30%,rgba(138,43,226,0.1) 0%,transparent 40%),radial-gradient(ellipse at 80% 70%,rgba(0,191,255,0.1) 0%,transparent 40%),radial-gradient(ellipse at 50% 50%,rgba(255,20,147,0.05) 0%,transparent 50%);pointer-events:none;"></div>
-            
-            <!-- Animated Stars Background -->
-            <div style="position:absolute;top:0;left:0;right:0;bottom:0;overflow:hidden;pointer-events:none;">
-              <div style="position:absolute;top:10%;left:15%;width:2px;height:2px;background:#fff;border-radius:50%;animation:twinkle 3s infinite;"></div>
-              <div style="position:absolute;top:25%;left:75%;width:1px;height:1px;background:#fff;border-radius:50%;animation:twinkle 4s infinite;animation-delay:1s;"></div>
-              <div style="position:absolute;top:45%;left:25%;width:1.5px;height:1.5px;background:#fff;border-radius:50%;animation:twinkle 5s infinite;animation-delay:2s;"></div>
-              <div style="position:absolute;top:65%;left:85%;width:2px;height:2px;background:#fff;border-radius:50%;animation:twinkle 3.5s infinite;animation-delay:0.5s;"></div>
-              <div style="position:absolute;top:80%;left:35%;width:1px;height:1px;background:#fff;border-radius:50%;animation:twinkle 4.5s infinite;animation-delay:1.5s;"></div>
-              <div style="position:absolute;top:15%;left:65%;width:1.5px;height:1.5px;background:#fff;border-radius:50%;animation:twinkle 3.8s infinite;animation-delay:0.8s;"></div>
-              <div style="position:absolute;top:55%;left:10%;width:1px;height:1px;background:#fff;border-radius:50%;animation:twinkle 4.2s infinite;animation-delay:1.2s;"></div>
-              <div style="position:absolute;top:35%;left:90%;width:2px;height:2px;background:#fff;border-radius:50%;animation:twinkle 3.2s infinite;animation-delay:0.2s;"></div>
-              <div style="position:absolute;top:70%;left:60%;width:1.5px;height:1.5px;background:#fff;border-radius:50%;animation:twinkle 4.8s infinite;animation-delay:1.8s;"></div>
-              <div style="position:absolute;top:20%;left:45%;width:1px;height:1px;background:#fff;border-radius:50%;animation:twinkle 3.6s infinite;animation-delay:0.6s;"></div>
-                        </div>
-            
-            <!-- Main Content Area - Randomly Positioned -->
-            <div style="position:relative;min-height:600px;">
-              
-              <!-- Randomly Positioned Content Boxes -->
-              
-              <!-- LEFT COLUMN -->
-              <!-- Digital Persona Introduction - Top Left (Increased by 30% Vertically) -->
-              <div style="position:absolute;top:30px;left:40px;width:320px;height:364px;background:linear-gradient(135deg,rgba(255,20,147,0.2),rgba(138,43,226,0.25));border-radius:20px;padding:28px;border:2px solid rgba(255,20,147,0.6);box-shadow:0 12px 35px rgba(255,20,147,0.4);overflow:hidden;">
-                <h4 style="color:#ff1493;margin:0 0 20px 0;font-family:'Orbitron',sans-serif;font-size:1.4em;text-shadow:0 0 20px rgba(255,20,147,0.7);display:flex;align-items:center;gap:12px;">
-                  <span style="font-size:1.5em;">🤖</span>
-                  <span class="typing-text" data-text="This is Not Just a Chatbot" data-speed="60"></span>
-                </h4>
-                <p style="color:#ffffff;margin-bottom:0;font-size:1.1em;line-height:1.6;font-weight:500;text-shadow:0 2px 4px rgba(0,0,0,0.6);overflow:hidden;">
-                  <span class="typing-text" data-text="It's your Digital Persona - an intelligent extension of yourself that communicates your vision, represents your brand, and handles everything you need with precision and personality." data-speed="30"></span>
-                </p>
                     </div>
-              
-              <!-- Our Vision - Bottom Left (Increased Size + Digital Avatar Text) -->
-              <div style="position:absolute;bottom:10px;left:40px;width:320px;height:154px;background:linear-gradient(135deg,rgba(255,215,0,0.2),rgba(255,165,0,0.25));border-radius:16px;padding:22px;border-left:5px solid #ffd700;overflow:hidden;">
-                <h5 style="color:#ffd700;margin:0 0 12px 0;font-family:'Orbitron',sans-serif;font-size:1.2em;">🌟 Our Vision</h5>
-                <p style="color:#ffffff;margin:0 0 8px 0;font-size:1em;line-height:1.4;overflow:hidden;">
-                  <span class="typing-text" data-text="We believe AI should be as unique as you are! No more boring chatbots - let's create something extraordinary together!" data-speed="35"></span>
-                </p>
-                <p style="color:#ffffff;margin:0;font-size:0.9em;line-height:1.3;overflow:hidden;">
-                  <span class="typing-text" data-text="Which answers all the questions on your behalf to anyone." data-speed="40"></span>
-                </p>
                 </div>
-              
-              <!-- CENTER COLUMN -->
-              <!-- Customization Info - Center (Increased by 20% Vertically) -->
-              <div style="position:absolute;top:30px;left:50%;transform:translateX(-50%);width:300px;height:216px;background:linear-gradient(135deg,rgba(0,191,255,0.2),rgba(30,144,255,0.25));border-radius:20px;padding:25px;border:1px solid rgba(0,191,255,0.5);overflow:hidden;">
-                <h5 style="color:#00bfff;margin:0 0 18px 0;font-family:'Orbitron',sans-serif;font-size:1.2em;">🎨 Customization Magic</h5>
-                <p style="color:#ffffff;font-size:1em;line-height:1.5;margin:0;overflow:hidden;">
-                  Transform your AI avatar from quirky aliens to professional executives, match your brand colors & aesthetic, handle sales, support, education - you name it! Make them dance, wave, or even do backflips! Want a dancing penguin in a business suit? We can do that! 🐧✨
-                </p>
-            </div>
-              
-              <!-- RIGHT COLUMN -->
-              <!-- Universal Assistant Feature - Top Right -->
-              <div style="position:absolute;top:30px;right:40px;width:280px;height:180px;background:linear-gradient(135deg,rgba(50,205,50,0.2),rgba(34,139,34,0.25));border-radius:18px;padding:20px;border:1px solid rgba(50,205,50,0.5);overflow:hidden;">
-                <div style="position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,transparent,#32cd32,transparent);animation:slide 2s linear infinite;"></div>
-                <h5 style="color:#32cd32;margin:0 0 12px 0;font-size:1.1em;display:flex;align-items:center;gap:10px;">
-                  <span style="font-size:1.2em;">🚀</span>
-                  Universal Assistant
-                </h5>
-                <p style="color:#ffffff;margin:0;font-size:0.9em;line-height:1.4;overflow:hidden;">
-                  <span class="typing-text" data-text="From project management to creative brainstorming, from technical support to strategic planning - handles it all seamlessly." data-speed="25"></span>
-                </p>
-        </div>
-              
-
-              
-              <!-- Avatar Showcase Header - Bottom Right -->
-              <div style="position:absolute;bottom:40px;right:40px;width:280px;height:140px;text-align:center;background:linear-gradient(135deg,rgba(255,105,180,0.15),rgba(219,112,147,0.2));border-radius:18px;padding:18px;border:1px solid rgba(255,105,180,0.4);overflow:hidden;">
-                <h4 style="color:#ff69b4;margin:0 0 10px 0;font-family:'Orbitron',sans-serif;text-shadow:0 0 15px rgba(255,105,180,0.6);font-size:1.1em;">👽 Quirky Avatars</h4>
-                <p style="color:#ffffff;margin:0;font-size:0.9em;line-height:1.3;overflow:hidden;">
-                  <span class="typing-text" data-text="These are some of the examples of the avatars but you can create and customize ANYTHING you want! 🚀✨" data-speed="40"></span>
-                </p>
-            </div>
-              
-              <!-- Voice Amplifier Coming Soon - Below Quirky Avatars (Reduced Size) -->
-              <div style="position:absolute;bottom:200px;right:40px;width:200px;height:100px;background:rgba(255,102,0,0.15);border-radius:12px;padding:15px;border:1px solid rgba(255,102,0,0.4);overflow:hidden;">
-                <h5 style="color:#ff6600;margin:0 0 8px 0;font-size:0.9em;display:flex;align-items:center;gap:6px;">
-                  <span style="font-size:1em;">⏳</span>
-                  Voice Amplifier
-                </h5>
-                <p style="color:#e0e0e0;margin:0;font-size:0.8em;line-height:1.2;font-style:italic;overflow:hidden;">Feature Coming Soon...</p>
-        </div>
-              
-              <!-- Avatar GIFs - Positioned in Middle Blank Space Between Boxes -->
-              <img src="assets/20250805-0115-Cheerful-Blue-Al-unscreen.gif" alt="Cheerful Blue Alien" style="position:absolute;top:280px;left:380px;width:75px;height:auto;border-radius:12px;filter:drop-shadow(0 6px 12px rgba(0,191,255,0.5));" />
-              <img src="assets/20250805_0150_Astronaut's Playful Adventure_simple_compose_01k1vbwctzesjvhmjs14txk4ns.gif" alt="Astronaut Adventure" style="position:absolute;top:280px;right:350px;width:70px;height:auto;border-radius:12px;filter:drop-shadow(0 6px 12px rgba(0,191,255,0.5));" />
-              <img src="assets/20250808_1247_Post-Workout Selfie_simple_compose_01k248njcffzds8zvd0x3d9k6c.gif" alt="Post-Workout Selfie" style="position:absolute;top:400px;left:50%;transform:translateX(-50%);width:65px;height:auto;border-radius:12px;filter:drop-shadow(0 6px 12px rgba(0,191,255,0.5));" />
-              
-
-              
-
-              
             </div>
         </div>
-          
+    </div>
 
+    <!-- AI Assistant Hub -->
+    <div class="chatbot-section">
+      <div class="chatbot-section__inner">
+        <h2 class="chatbot-section__title">AI Assistant Hub</h2>
+        <p class="chatbot-section__desc">Experience the future of interactive communication with our advanced AI assistant.</p>
 
+        <div class="hub-panel">
+          <div class="hub-grid">
+            <div class="hub-card">
+              <h4 class="hub-card__title"><span class="typing-text" data-text="This is Not Just a Chatbot" data-speed="60"></span></h4>
+              <p class="hub-card__text"><span class="typing-text" data-text="It's your Digital Persona - an intelligent extension of yourself that communicates your vision, represents your brand, and handles everything you need with precision and personality." data-speed="30"></span></p>
+            </div>
+            <div class="hub-card">
+              <h4 class="hub-card__title">Customization Magic</h4>
+              <p class="hub-card__text">Transform your AI avatar from quirky aliens to professional executives, match your brand colors & aesthetic, handle sales, support, education - you name it! Make them dance, wave, or even do backflips! Want a dancing penguin in a business suit? We can do that! 🐧✨</p>
+            </div>
+            <div class="hub-card">
+              <h4 class="hub-card__title">Universal Assistant</h4>
+              <p class="hub-card__text"><span class="typing-text" data-text="From project management to creative brainstorming, from technical support to strategic planning - handles it all seamlessly." data-speed="25"></span></p>
+            </div>
+            <div class="hub-card">
+              <h4 class="hub-card__title">Our Vision</h4>
+              <p class="hub-card__text"><span class="typing-text" data-text="We believe AI should be as unique as you are! No more boring chatbots - let's create something extraordinary together!" data-speed="35"></span></p>
+              <p class="hub-card__text" style="margin-top:0.5rem"><span class="typing-text" data-text="Which answers all the questions on your behalf to anyone." data-speed="40"></span></p>
+            </div>
+            <div class="hub-card">
+              <h4 class="hub-card__title">Quirky Avatars</h4>
+              <p class="hub-card__text"><span class="typing-text" data-text="These are some of the examples of the avatars but you can create and customize ANYTHING you want! 🚀✨" data-speed="40"></span></p>
+            </div>
+            <div class="hub-card">
+              <h4 class="hub-card__title">Voice Amplifier</h4>
+              <p class="hub-card__text" style="font-style:italic">Feature Coming Soon...</p>
+            </div>
+          </div>
+          <div class="hub-avatars">
+            <img src="assets/20250805-0115-Cheerful-Blue-Al-unscreen.gif" alt="Cheerful Blue Alien" />
+            <img src="assets/20250805_0150_Astronaut's Playful Adventure_simple_compose_01k1vbwctzesjvhmjs14txk4ns.gif" alt="Astronaut Adventure" />
+            <img src="assets/20250808_1247_Post-Workout Selfie_simple_compose_01k248njcffzds8zvd0x3d9k6c.gif" alt="Post-Workout Selfie" />
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- About Me section with horizontal layout and advanced interactive elements -->
     <div class="about-section" style="width:100%;background:transparent;padding:60px 0;color:#fff;position:relative;z-index:1001;">
 
@@ -1420,8 +1350,8 @@
         e.stopPropagation();
         const projectId = this.getAttribute('data-project');
         console.log('Moon clicked:', projectId);
-        if (projectId) {
-          showProjectModal(projectId);
+        if (projectId && typeof window.showProjectModal === 'function') {
+          window.showProjectModal(projectId);
         }
       }
       
@@ -2333,18 +2263,14 @@
           // Dashboard control functions
           function refreshDashboard() {
             console.log('🔄 Refreshing dashboard data...');
-            // Add loading animation
             const cards = document.querySelectorAll('.dashboard-card');
             cards.forEach(card => {
               card.style.opacity = '0.7';
-              card.style.transform = 'scale(0.98)';
             });
             
-            // Simulate data refresh
             setTimeout(() => {
               cards.forEach(card => {
                 card.style.opacity = '1';
-                card.style.transform = 'scale(1)';
               });
               console.log('✅ Dashboard refreshed successfully!');
             }, 1000);
