@@ -2649,7 +2649,7 @@
          </script>
             <!-- Chatbot config + widget -->
             <script src="assets/js/chatbot-config.js"></script>
-            <script src="assets/js/enhanced-chatbot-widget-proper.js?v=79" onload="console.log('✅ Enhanced Agentic Chatbot loaded')" onerror="console.error('❌ Failed to load enhanced chatbot script!')"></script>
+            <script src="assets/js/enhanced-chatbot-widget-fixed.js?v=80" onload="console.log('✅ Enhanced Agentic Chatbot loaded')" onerror="console.error('❌ Failed to load enhanced chatbot script!')"></script>
         <script>
             console.log('🔍 Debug: After script tag, checking EnhancedAgenticChatbotWidget availability...');
             console.log('🔍 Debug: typeof EnhancedAgenticChatbotWidget =', typeof EnhancedAgenticChatbotWidget);
@@ -2666,8 +2666,10 @@
                     window.enhancedChatbotWidget = new EnhancedAgenticChatbotWidget({
                         avatarType: 'assistant',
                         avatarName: "Ayush's AI Assistant",
-                        avatarImage: 'assets/relaxed-chatbot-final.gif', // RESTORED ORIGINAL AVATAR
+                        avatarImage: 'assets/relaxed-chatbot-final.gif',
                         avatarColor: '#00ffee',
+                        welcomeMessage: "Hello! I'm Ayush's AI Assistant. Ask me about his projects, skills, or experience!",
+                        placeholderText: 'Type your message...',
                         position: 'bottom-right',
                         offsetX: 120,
                         offsetY: 20,
