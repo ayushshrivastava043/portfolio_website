@@ -14,5 +14,7 @@
         apiUrl: isLocal ? 'http://localhost:4010/chat' : productionApiUrl,
         knowledgeBaseUrl: 'assets/data/knowledge_base.json',
         useLocalFallback: true,
+        // KB brain handles portfolio Q&A locally; API/Gemini only if true
+        useApiForChat: false,
     };
 })();

@@ -1,5 +1,5 @@
 // Service Worker for caching chatbot assets
-const CACHE_NAME = 'chatbot-cache-v2';
+const CACHE_NAME = 'chatbot-cache-v3';
 const urlsToCache = [
   'assets/20250821-1758-Relaxed-Chatbot--unscreen-ezgif.com-apng-to-gif-converter.gif',
   'assets/js/chatbot-widget.js',
@@ -19,7 +19,7 @@ self.addEventListener('install', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = event.request.url;
   // Never cache versioned widget scripts — always fetch latest
-  if (url.includes('enhanced-chatbot-widget') || url.includes('chatbot-config')) {
+  if (url.includes('enhanced-chatbot-widget') || url.includes('chatbot-config') || url.includes('chatbot-brain')) {
     return;
   }
   if (url.includes('chatbot') || url.includes('gif')) {

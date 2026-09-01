@@ -2,57 +2,81 @@
   "about_ayush": {
     "name": "Ayush Shrivastava",
     "profession": "AI Product Manager & GenAI Strategist",
-    "bio": "Specializes in building AI-powered products that think, talk, and convert. Works on automation, analytics, and tools that make a difference.",
+    "bio": "Builds AI-powered products that think, talk, and convert — agentic chatbots, workflow automation, and GenAI tools for real business impact.",
     "location": "",
     "education": "",
-    "interests": ["AI/ML", "Product Management", "GenAI", "Automation", "Innovation"]
+    "interests": ["AI/ML", "Product Management", "GenAI", "Automation", "Agentic AI"]
+  },
+  "contact": {
+    "email": "",
+    "linkedin": "https://www.linkedin.com/in/ayushshrivastava043",
+    "github": "https://github.com/ayushshrivastava043"
   },
   "skills": [
     "AI Product Management",
     "GenAI Strategy",
+    "Agentic AI & LangGraph",
     "Machine Learning",
     "Python",
     "Flask",
-    "LangGraph",
-    "OpenAI Integration",
+    "RAG Systems",
+    "OpenAI & Gemini Integration",
     "Workflow Automation"
   ],
   "projects": [
     {
       "name": "Neo Agentic Chatbot System",
-      "description": "Advanced conversational AI with RAG (Retrieval-Augmented Generation) for accurate and relevant responses",
-      "tech": ["LangGraph", "OpenAI", "RAG", "Python"]
+      "description": "Conversational AI with RAG, avatar UI, and LangGraph-style agent workflows",
+      "tech": ["LangGraph", "OpenAI", "RAG", "Python", "Flask"]
     },
     {
       "name": "Visual Workflow Generator",
-      "description": "Drag-and-drop AI workflow diagrams interface",
+      "description": "Drag-and-drop AI workflow diagrams for product and engineering teams",
       "tech": ["JavaScript", "AI", "Workflow Design"]
     },
     {
       "name": "Universal Avatar Generator",
-      "description": "Portable chatbot avatar system for creating engaging user experiences",
-      "tech": ["AI", "Avatar System", "Chatbot"]
+      "description": "Portable 3D chatbot avatar system embeddable on any website",
+      "tech": ["JavaScript", "AI", "Chatbot UI"]
     },
     {
       "name": "AI Portal Integration",
-      "description": "Seamlessly integrating AI capabilities into existing platforms",
-      "tech": ["Flask", "AI Integration", "Web Development"]
+      "description": "Full-stack portal integrating AI assistants, dashboards, and deployment pipelines",
+      "tech": ["Flask", "React", "AI Integration"]
+    },
+    {
+      "name": "MyAgentcore",
+      "description": "Custom agent framework for building and deploying AI agents",
+      "tech": ["Python", "Agentic AI"]
     }
   ],
   "experience": [
     {
       "role": "AI Product Manager & GenAI Strategist",
       "company": "",
-      "description": "Building AI-powered products, automation solutions, and GenAI strategies"
+      "description": "Leads end-to-end AI product development — from strategy and prototyping to deployment of chatbots, automation, and GenAI features."
     }
   ],
+  "faqs": [
+    {
+      "keywords": ["langgraph", "agentic", "agent"],
+      "answer": "Ayush builds agentic AI systems using LangGraph-style workflows — multi-step reasoning, tool use, and RAG for accurate portfolio and product chatbots."
+    },
+    {
+      "keywords": ["rag", "retrieval"],
+      "answer": "Ayush uses RAG (Retrieval-Augmented Generation) so chatbots answer from a curated knowledge base instead of guessing — that's how this assistant works too."
+    },
+    {
+      "keywords": ["hire", "available", "looking for"],
+      "answer": "Ayush is open to AI Product Manager and GenAI roles. Check the Contact section or LinkedIn to get in touch."
+    }
+  ],
+  "templates": {
+    "greeting": "Hey! I'm Ayush's AI assistant. Ask me about his projects, skills, experience, or how to reach him.",
+    "fallback": "I'm Ayush's portfolio assistant. Try: What does Ayush do? | What are his skills? | What projects has he built?"
+  },
   "personal": {
-    "friends": [
-      {
-        "name": "Patty",
-        "relationship": "friend"
-      }
-    ],
+    "friends": [{ "name": "Patty", "relationship": "friend" }],
     "interests": [],
     "hobbies": []
   },
@@ -60,7 +84,6 @@
     "tone": "casual",
     "formality": "friendly",
     "response_length": "short",
-    "personality": "conversational and human-like"
+    "personality": "helpful and accurate"
   }
 }
-

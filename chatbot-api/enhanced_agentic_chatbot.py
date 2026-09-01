@@ -184,8 +184,8 @@ def looks_incomplete(text):
     return trailing in bad_endings or len(text) > 40
 
 
-def kb_fast_response(message):
-    """Instant answers from knowledge base — no Gemini round-trip."""
+def brain_answer(message):
+    """Intent-based answers from knowledge base — mirrors assets/js/chatbot-brain.js."""
     if not KNOWLEDGE_BASE:
         return None
 
@@ -193,64 +193,79 @@ def kb_fast_response(message):
     about = KNOWLEDGE_BASE.get('about_ayush', {})
     skills = KNOWLEDGE_BASE.get('skills', [])
     projects = KNOWLEDGE_BASE.get('projects', [])
+    templates = KNOWLEDGE_BASE.get('templates', {})
 
-    if any(g in msg for g in ('hello', 'hi', 'hey', 'hola', 'wassup', 'sup', 'yo')) or "what's up" in msg or 'whats up' in msg:
-        return (
-            "Hey! I'm Ayush's AI assistant. Ask me about his projects, skills, "
-            "or experience — happy to help!"
-        )
+    for faq in KNOWLEDGE_BASE.get('faqs', []):
+        if any(k.lower() in msg for k in faq.get('keywords', [])):
+            return faq.get('answer')
 
+    def about_block():
+        name = about.get('name', 'Ayush Shrivastava')
+        profession = about.get('profession', 'AI Product Manager & GenAI Strategist')
+        bio = about.get('bio', '')
+        names = ', '.join(p.get('name', '') for p in projects[:3] if p.get('name'))
+        parts = [f"{name} is an {profession}.", bio]
+        if names:
+            parts.append(f"Notable work includes {names}.")
+        return ' '.join(p for p in parts if p).strip()
+
+    # Greeting
+    if msg in ('hi', 'hey', 'hello', 'hola', 'yo', 'sup', 'wassup') or "what's up" in msg or 'whats up' in msg:
+        return templates.get('greeting', "Hey! I'm Ayush's AI assistant. Ask about his projects, skills, or experience.")
+
+    # What does Ayush do
     if 'ayush' in msg and any(p in msg for p in ('what does', 'what do', 'does he do', 'does ayush do', ' his work', ' his job')):
         name = about.get('name', 'Ayush Shrivastava')
         profession = about.get('profession', 'AI Product Manager & GenAI Strategist')
         bio = about.get('bio', '')
-        project_names = ', '.join(p.get('name', '') for p in projects[:3] if p.get('name'))
+        names = ', '.join(p.get('name', '') for p in projects[:3] if p.get('name'))
         parts = [f"{name} is an {profession}.", bio]
-        if project_names:
-            parts.append(f"He builds things like {project_names}.")
-        return ' '.join(p for p in parts if p).strip()
-
-    about_ayush = (
-        'about ayush' in msg
-        or 'bout ayush' in message.lower()
-        or ('ayush' in msg and any(p in msg for p in ('who is', 'who are', 'tell me', 'what can you', 'about', 'about him')))
-    )
-    if about_ayush:
-        name = about.get('name', 'Ayush Shrivastava')
-        profession = about.get('profession', 'AI Product Manager & GenAI Strategist')
-        bio = about.get('bio', '')
-        project_names = ', '.join(p.get('name', '') for p in projects[:3] if p.get('name'))
-        parts = [
-            f"{name} is an {profession}.",
-            bio,
-        ]
-        if project_names:
-            parts.append(f"Notable work includes {project_names}.")
+        if names:
+            parts.append(f"He builds products like {names}.")
         return ' '.join(p for p in parts if p).strip()
 
     if any(p in msg for p in ('skill', 'tech', 'expertise', 'stack', 'technologies')):
-        if skills:
-            return f"Ayush's key skills include {', '.join(skills[:8])}."
-        return "Ayush works across AI product management, GenAI, Python, and workflow automation."
+        return f"Ayush's key skills include {', '.join(skills)}." if skills else "Ayush works across AI product management and GenAI."
 
-    if any(p in msg for p in ('project', 'built', 'portfolio', 'work on', 'created')):
+    if any(p in msg for p in ('project', 'built', 'portfolio', 'showcase', 'demo')):
         if projects:
-            lines = []
-            for p in projects[:4]:
-                name = p.get('name', '')
-                desc = p.get('description', '')
-                if name:
-                    lines.append(f"{name}: {desc}" if desc else name)
-            return ' Here are some highlights: ' + '; '.join(lines) + '.'
-        return "Ayush has built agentic chatbots, visual workflow tools, and AI portal integrations."
+            return ' | '.join(
+                f"{p.get('name')} — {p.get('description', '')}".strip(' —')
+                for p in projects if p.get('name')
+            )
+        return "Ayush has built agentic chatbots, workflow tools, and AI portal integrations."
 
-    if any(p in msg for p in ('experience', 'job', 'role', 'career', 'background')):
+    if any(p in msg for p in ('experience', 'career', 'background', 'resume', 'cv')):
         exp = KNOWLEDGE_BASE.get('experience', [])
         if exp:
             e = exp[0]
             return f"{e.get('role', 'AI Product Manager')}. {e.get('description', '')}".strip()
-        return f"{about.get('name', 'Ayush')} is an {about.get('profession', 'AI Product Manager')}."
+        return about_block()
 
+    if any(p in msg for p in ('contact', 'email', 'linkedin', 'reach', 'hire', 'available', 'connect')):
+        c = KNOWLEDGE_BASE.get('contact', {})
+        parts = []
+        if c.get('email'):
+            parts.append(f"Email: {c['email']}")
+        if c.get('linkedin'):
+            parts.append(f"LinkedIn: {c['linkedin']}")
+        if c.get('github'):
+            parts.append(f"GitHub: {c['github']}")
+        if parts:
+            return f"You can reach Ayush here — {'. '.join(parts)}."
+        return "Check the Contact section on this portfolio, or connect via LinkedIn."
+
+    if any(p in msg for p in ('who is', 'about ayush', 'tell me', 'what can you', 'introduce')) or 'ayush' in msg:
+        return about_block()
+
+    return templates.get('fallback')
+
+
+def kb_fast_response(message):
+    """Alias for brain_answer; returns None only when KB empty."""
+    result = brain_answer(message)
+    if result:
+        return result
     return None
 
 
@@ -371,10 +386,15 @@ def chat():
         if data.get('reload_kb', False):
             load_knowledge_base()
         
-        # Fast path: common questions answered instantly from KB
-        ai_response = kb_fast_response(message)
-        if not ai_response:
+        # Fast path: intent brain answers instantly from KB
+        ai_response = brain_answer(message)
+        if not ai_response and os.environ.get('USE_GEMINI_CHAT', 'false').lower() == 'true':
             ai_response = get_gemini_response(message)
+        elif not ai_response:
+            ai_response = KNOWLEDGE_BASE.get('templates', {}).get(
+                'fallback',
+                "I'm Ayush's portfolio assistant. Ask about his projects, skills, or experience."
+            )
         
         return jsonify({
             'status': 'success',

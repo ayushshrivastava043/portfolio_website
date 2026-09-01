@@ -1113,26 +1113,31 @@
         
         createMouthSyncedSpeech(message) {
             console.log('🧠 Smart mouth-synced speech system activated for:', message);
-            
             this.hideSpeechBubble();
-            
-            setTimeout(() => {
+
+            setTimeout(async () => {
                 const mouthPosition = this.calculateMouthPosition();
                 this.positionSpeechContainer(mouthPosition);
                 this.activateMouthIndicator();
+
+                const useBrain = window.ChatbotBrain && (!window.CHATBOT_CONFIG || window.CHATBOT_CONFIG.useApiForChat !== true);
+                if (useBrain) {
+                    const kb = await this.loadKnowledgeBase();
+                    const { intent, text } = window.ChatbotBrain.answer(message, kb);
+                    console.log('⚡ Brain intent:', intent);
+                    this.speakResponse(text);
+                    return;
+                }
+
                 this.showSpeechBubble('Enhanced AI is thinking...', true);
-                
-                // Fetch immediately — no artificial 1.5s delay
-                (async () => {
-                    try {
-                        const response = await this.generateEnhancedResponse(message);
-                        console.log('✅ AI response received:', response);
-                        this.speakResponse(response);
-                    } catch (error) {
-                        console.error('❌ Error getting AI response:', error);
-                        this.speakResponse('I apologize, but I\'m having trouble processing your request right now. Please try again in a moment.');
-                    }
-                })();
+                try {
+                    const response = await this.generateEnhancedResponse(message);
+                    console.log('✅ AI response received:', response);
+                    this.speakResponse(response);
+                } catch (error) {
+                    console.error('❌ Error getting AI response:', error);
+                    this.speakResponse('Sorry, something went wrong. Try asking about Ayush\'s projects or skills.');
+                }
             }, 80);
         }
         
@@ -1221,6 +1226,12 @@
         
         speakResponse(response) {
             console.log('🗣️ Avatar speaking:', response);
+
+            const bubble = this.elements.speechBubble;
+            bubble.style.display = 'block';
+            bubble.style.opacity = '1';
+            bubble.style.visibility = 'visible';
+            bubble.classList.add('visible');
             
             if (this.speechTimeout) {
                 clearTimeout(this.speechTimeout);
@@ -1436,15 +1447,20 @@
         }
 
         async generateEnhancedResponse(message) {
-            const useFallback = !window.CHATBOT_CONFIG || window.CHATBOT_CONFIG.useLocalFallback !== false;
+            const kb = await this.loadKnowledgeBase();
 
-            // Instant complete answers for portfolio questions — no Render wait
-            if (useFallback && this.isKnownPortfolioQuestion(message)) {
-                const local = await this.generateLocalResponse(message);
-                console.log('⚡ Instant local KB response');
-                return local;
+            if (window.ChatbotBrain) {
+                const { intent, text } = window.ChatbotBrain.answer(message, kb);
+                if (intent !== 'general') {
+                    console.log('⚡ Brain intent:', intent);
+                    return text;
+                }
+                if (!window.CHATBOT_CONFIG || window.CHATBOT_CONFIG.useApiForChat !== true) {
+                    return text;
+                }
             }
 
+            const useFallback = !window.CHATBOT_CONFIG || window.CHATBOT_CONFIG.useLocalFallback !== false;
             try {
                 console.log('🤖 Enhanced generateResponse called with:', message);
                 console.log('🔍 About to fetch from enhanced endpoint:', this.config.enhancedEndpoint);
