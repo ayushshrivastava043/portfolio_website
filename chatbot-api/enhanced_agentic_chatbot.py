@@ -12,40 +12,20 @@ import json
 import requests
 from datetime import datetime
 
-# Try to import Google Generative AI
-try:
-    import google.generativeai as genai
-    GEMINI_LIBRARY_AVAILABLE = True
-except ImportError:
-    GEMINI_LIBRARY_AVAILABLE = False
-    print("⚠️  google-generativeai library not installed. Install with: pip install google-generativeai")
+# Gemini via REST API (avoids google-generativeai protobuf issues on Python 3.14)
+GEMINI_MODEL = 'gemini-3.6-flash'
+GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
 
-# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Initialize Flask app
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*", "methods": ["GET", "POST", "OPTIONS"]}})
 
-# Get Google Gemini API key from environment
-GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
-
-# Initialize Gemini client if library is available
-gemini_client = None
-GEMINI_MODEL = 'gemini-3.6-flash'
-if GEMINI_API_KEY and GEMINI_LIBRARY_AVAILABLE:
-    try:
-        genai.configure(api_key=GEMINI_API_KEY)
-        gemini_client = genai.GenerativeModel(GEMINI_MODEL)
-        logger.info(f"✅ Google Gemini API configured with model: {GEMINI_MODEL}")
-    except Exception as e:
-        logger.error(f"Failed to initialize Gemini client: {e}")
-        gemini_client = None
-elif not GEMINI_API_KEY:
-    logger.warning("⚠️  GEMINI_API_KEY not set.")
+if GEMINI_API_KEY:
+    logger.info(f"✅ Gemini REST API configured with model: {GEMINI_MODEL}")
 else:
-    logger.warning("⚠️  google-generativeai library not available.")
+    logger.warning("⚠️  GEMINI_API_KEY not set.")
 
 # Load knowledge base from file
 KNOWLEDGE_BASE = {}
@@ -171,23 +151,7 @@ User: {message}
 
 You (respond naturally, be friendly and casual, don't always redirect to work topics):"""
     
-    # Try using the library first
-    if gemini_client:
-        try:
-            response = gemini_client.generate_content(
-                conversation_prompt,
-                generation_config={
-                    "temperature": 0.9,  # Higher temperature for more creative, natural responses
-                    "top_k": 40,
-                    "top_p": 0.95,
-                    "max_output_tokens": 512,
-                }
-            )
-            return response.text.strip()
-        except Exception as e:
-            logger.warning(f"Gemini library error, trying REST API: {e}")
-    
-    # Fallback to REST API - use v1beta with correct model
+    # Call Gemini REST API
     try:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={GEMINI_API_KEY}"
         payload = {
@@ -276,8 +240,8 @@ def chat():
             'response': ai_response,
             'timestamp': datetime.now().isoformat(),
             'metadata': {
-                'model': GEMINI_MODEL if gemini_client else 'not_configured',
-                'gemini_enabled': bool(gemini_client),
+                'model': GEMINI_MODEL if GEMINI_API_KEY else 'not_configured',
+                'gemini_enabled': bool(GEMINI_API_KEY),
                 'knowledge_base_loaded': bool(KNOWLEDGE_BASE)
             }
         })
