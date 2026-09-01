@@ -61,7 +61,7 @@
                 // Advanced Options (Original System)
                 autoOpen: options.autoOpen || false,
                 typingSpeed: options.typingSpeed || 50,
-                bubbleTimeout: options.bubbleTimeout || 4000
+                bubbleTimeout: options.bubbleTimeout || 15000
             };
             
             const configTime = performance.now();
@@ -234,7 +234,7 @@
             return `
                 /* EXACT ORIGINAL 3D AVATAR SYSTEM STYLES */
                 .chatbot-avatar-container {
-                    z-index: 999999;
+                    z-index: 1000000 !important;
                     pointer-events: auto;
                     cursor: pointer;
                     transition: all 0.3s ease;
@@ -313,30 +313,27 @@
                 
                 /* LANGGRAPH ENHANCEMENT INDICATOR - REMOVED to avoid covering avatar */
                 
-                /* TYPING BOX - STATE-OF-THE-ART FIXED POSITIONING */
+                /* TYPING BOX - positioned via JS near avatar */
                 .chatbot-typing-box {
                     position: fixed !important;
-                    left: 20px !important;
-                    bottom: calc(40vh - 264px) !important;
-                    transform: none !important;
-                    background: linear-gradient(135deg, #000000, #1a1a1a);
-                    border-radius: 20px;
-                    padding: 15px 20px;
-                    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-                    width: 300px;
+                    background: linear-gradient(135deg, rgba(0, 20, 30, 0.97), rgba(0, 40, 50, 0.95));
+                    border-radius: 16px;
+                    padding: 12px 16px;
+                    box-shadow: 0 8px 32px rgba(0, 255, 238, 0.25);
+                    width: min(300px, calc(100vw - 32px));
                     backdrop-filter: blur(10px);
-                    border: 2px solid #333;
+                    border: 2px solid #00ffee;
                     opacity: 0;
                     transition: opacity 0.3s ease;
                     display: none;
                     gap: 8px;
                     align-items: center;
-                    z-index: 999999;
+                    z-index: 1000002 !important;
                 }
                 
                 .chatbot-typing-box.active {
                     opacity: 1;
-                    transform: none !important;
+                    display: flex !important;
                 }
                 
                 .chatbot-input {
@@ -415,28 +412,28 @@
                     display: block;
                 }
                 
-                /* CHAT BUBBLES - ENHANCED WITH DIFFERENT SIZES AND SHAPES */
+                /* CHAT BUBBLES - positioned via JS near avatar */
                 .chatbot-bubble {
-                    position: fixed;
-                    top: calc(60vh - 80px);
-                    left: 10px;
-                    max-width: 350px;
+                    position: fixed !important;
+                    max-width: min(320px, calc(100vw - 32px));
                     min-height: 40px;
                     height: auto;
-                    padding: 18px 24px;
-                    background: linear-gradient(135deg, #000000, #1a1a1a);
-                    border: 2px solid #333;
-                    color: white;
+                    padding: 16px 20px;
+                    background: linear-gradient(135deg, rgba(0, 20, 30, 0.97), rgba(0, 40, 50, 0.95)) !important;
+                    border: 2px solid #00ffee !important;
+                    color: #ffffff !important;
                     font-size: 14px;
-                    line-height: 1.4;
-                    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-                    opacity: 1;
-                    transition: all 0.3s ease;
+                    line-height: 1.5;
+                    box-shadow: 0 8px 32px rgba(0, 255, 238, 0.35);
+                    opacity: 1 !important;
+                    transition: opacity 0.3s ease, transform 0.3s ease;
                     word-wrap: break-word;
-                    z-index: 999997;
-                    display: block;
+                    z-index: 1000001 !important;
+                    display: block !important;
+                    visibility: visible !important;
                     overflow: visible;
-                    border-radius: 20px;
+                    border-radius: 16px;
+                    pointer-events: auto;
                 }
                 
                 /* SIMPLE BUBBLE APPEARANCE ANIMATION */
@@ -455,7 +452,7 @@
                 .chatbot-bubble.visible {
                     transform: scale(1) !important;
                     opacity: 1 !important;
-                    top: calc(60vh - 80px) !important;
+                    visibility: visible !important;
                 }
                 
                 /* BUBBLE TEXT - START FROM BOTTOM */
@@ -914,8 +911,13 @@
                     this.elements.container.style.left = `${this.config.offsetX}px`;
                     this.elements.container.style.right = 'auto';
                     this.elements.container.style.bottom = 'auto';
-                    console.log('🔄 Repositioned enhanced chatbot to 60% down from top (10% below) on LEFT side');
                 }
+                if (this.elements.typingBox && this.elements.typingBox.style.display !== 'none') {
+                    this.positionNearAvatar(this.elements.typingBox, 'typing');
+                }
+                document.querySelectorAll('.chatbot-bubble.response-bubble').forEach(b => {
+                    this.positionNearAvatar(b, 'bubble');
+                });
             });
             
             const totalEventsTime = performance.now();
@@ -949,9 +951,10 @@
                 welcomeBubble.style.display = 'none';
                 welcomeBubble.classList.add('hidden');
                 
-                // Show typing box with higher z-index
+                // Show typing box near avatar
                 typingBox.style.display = 'flex';
-                typingBox.style.zIndex = '999999';
+                typingBox.style.zIndex = '1000002';
+                this.positionNearAvatar(typingBox, 'typing');
                 setTimeout(() => typingBox.classList.add('active'), 50);
                 
                 // Focus input and ensure it's clickable
@@ -1007,65 +1010,60 @@
             }
         }
         
+        positionNearAvatar(el, placement = 'bubble') {
+            const avatar = this.elements.avatar;
+            if (!avatar || !el) return;
+
+            const rect = avatar.getBoundingClientRect();
+            const maxW = Math.min(320, window.innerWidth - 32);
+            el.style.position = 'fixed';
+            el.style.maxWidth = maxW + 'px';
+            el.style.right = 'auto';
+            el.style.bottom = 'auto';
+
+            if (placement === 'typing') {
+                el.style.width = maxW + 'px';
+                el.style.left = Math.max(16, Math.min(rect.left, window.innerWidth - maxW - 16)) + 'px';
+                el.style.top = Math.min(window.innerHeight - 70, rect.bottom + 12) + 'px';
+                return;
+            }
+
+            // Response bubble — above and beside avatar
+            el.style.left = Math.max(16, rect.left + rect.width + 12) + 'px';
+            el.style.top = Math.max(16, rect.top - 10) + 'px';
+
+            if (rect.left + rect.width + 12 + maxW > window.innerWidth - 16) {
+                el.style.left = Math.max(16, rect.left - maxW - 12) + 'px';
+            }
+        }
+
+        clearResponseBubbles() {
+            document.querySelectorAll('.chatbot-bubble.response-bubble').forEach(b => b.remove());
+        }
+
         createResponseBubble(message) {
             console.log('🚀 Enhanced createResponseBubble called with:', message);
-            const container = this.elements.bubbleContainer;
-            console.log('🔍 Enhanced Bubble container:', container);
-            
-            // Advanced comic-style size and shape selection
-            const sizes = ['size-medium'];
-            const shapes = [
-                'shape-speech'
-            ];
-            
-            // Comic-style effects
-            const effects = ['comic-shine'];
-            
-            const randomSize = sizes[Math.floor(Math.random() * sizes.length)];
-            const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
-            const randomEffect = effects[Math.floor(Math.random() * effects.length)];
-            
+
+            this.clearResponseBubbles();
+
             const bubble = document.createElement('div');
-            bubble.className = 'chatbot-bubble response-bubble enhanced-response-bubble';
-            bubble.classList.add(randomSize);
-            bubble.classList.add(randomShape);
-            bubble.classList.add(randomEffect);
-            bubble.style.zIndex = '999997';
-            // Let CSS handle positioning naturally
-            
-            console.log('🎨 Applied bubble classes:', {
-                size: randomSize,
-                shape: randomShape,
-                effect: randomEffect,
-                allClasses: bubble.className
-            });
-            
-            // Add typing indicator first
-            bubble.innerHTML = '<div class="bubble-text typing-indicator">🤖 Enhanced AI is thinking...</div>';
-            container.appendChild(bubble);
-            console.log('✅ Comic-Style Bubble added with size:', randomSize, 'shape:', randomShape, 'effect:', randomEffect);
-            console.log('🔍 Bubble classes:', bubble.className);
-            
-            // Animate in
-            setTimeout(() => bubble.classList.add('active'), 50);
-            
-            // Add fallback class to ensure visibility
-            setTimeout(() => {
-                bubble.classList.add('visible');
-            }, 100);
-            
-            // Get enhanced AI response with LangGraph features
+            bubble.className = 'chatbot-bubble response-bubble enhanced-response-bubble size-medium shape-speech';
+            bubble.style.zIndex = '1000001';
+            bubble.innerHTML = '<div class="bubble-text typing-indicator">🤖 Thinking...</div>';
+
+            document.body.appendChild(bubble);
+            this.positionNearAvatar(bubble, 'bubble');
+            bubble.classList.add('visible', 'active');
+
             setTimeout(async () => {
-                console.log('🔍 About to call enhanced generateResponse...');
                 try {
                     const response = await this.generateEnhancedResponse(message);
-                    console.log('✅ Enhanced generateResponse returned:', response);
                     this.typeEnhancedResponse(bubble, response);
                 } catch (error) {
                     console.error('❌ Error getting enhanced AI response:', error);
-                    this.typeEnhancedResponse(bubble, 'I apologize, but I\'m having trouble processing your request right now. Please try again in a moment. 🤖');
+                    this.typeEnhancedResponse(bubble, 'Sorry, something went wrong. Please try again.');
                 }
-            }, 1000);
+            }, 300);
         }
         
         typeEnhancedResponse(bubble, response) {
