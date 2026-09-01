@@ -61,7 +61,7 @@
                 // Advanced Options (Original System)
                 autoOpen: options.autoOpen || false,
                 typingSpeed: options.typingSpeed || 50,
-                bubbleTimeout: options.bubbleTimeout || 5000
+                bubbleTimeout: options.bubbleTimeout || 8000
             };
             
             // Initialize timeout tracking
@@ -1501,20 +1501,16 @@
         showWelcomeFromMouth() {
             console.log('👋 Showing welcome message from avatar\'s mouth');
             
-            // Wait for avatar to be fully loaded
             setTimeout(() => {
                 const mouthPosition = this.calculateMouthPosition();
                 this.positionSpeechContainer(mouthPosition);
                 this.showSpeechBubble(this.config.welcomeMessage);
                 
-                // Hide after 5 seconds using managed timeout
-                console.log('👋 Setting welcome message timeout for 5 seconds');
                 this.speechTimeout = setTimeout(() => {
-                    console.log('👋 Welcome message timeout reached, hiding bubble');
                     this.hideSpeechBubble();
                     this.speechTimeout = null;
-                }, 5000);
-            }, 1000);
+                }, this.config.bubbleTimeout || 8000);
+            }, 500);
         }
         
         // Public API methods

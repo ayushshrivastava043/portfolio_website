@@ -75,6 +75,80 @@ main.page-content,
     position: relative !important;
 }
 
+/* ─── Page shell ─── */
+main.page-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    display: block;
+}
+
+/* ─── Hero ─── */
+.hero-section {
+    position: relative !important;
+    z-index: 2 !important;
+    flex-shrink: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    padding: 3rem 1.5rem 2rem !important;
+    overflow: visible !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 2rem !important;
+    background: transparent !important;
+}
+
+.hero-text {
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+    color: var(--color-text);
+    margin: 0 auto;
+}
+
+.hero-text h1 {
+    font-family: var(--font-heading) !important;
+    font-size: clamp(1.75rem, 4vw, 2.5rem) !important;
+    letter-spacing: -0.02em !important;
+    margin: 0 0 1rem !important;
+    line-height: 1.25 !important;
+    color: var(--color-text) !important;
+}
+
+.hero-text p {
+    font-size: var(--text-lg) !important;
+    line-height: var(--leading-normal) !important;
+    color: var(--color-text-muted) !important;
+    margin: 0 !important;
+}
+
+.video-collage {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 1rem !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 960px !important;
+    margin: 0 auto !important;
+}
+
+.video-collage video {
+    width: 180px !important;
+    height: 280px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: var(--shadow-md) !important;
+    border: 1px solid var(--color-border) !important;
+}
+
 h1, h2, h3, h4, h5, h6,
 .section-title,
 .dashboard-card__title,
@@ -130,26 +204,22 @@ h1, h2, h3, h4, h5, h6,
 .dashboard-section {
     position: relative !important;
     width: 100% !important;
-    max-width: 100% !important;
+    max-width: var(--max-width) !important;
     min-height: auto !important;
-    margin: var(--space-3xl) auto !important;
-    padding: var(--space-3xl) var(--space-xl) !important;
+    margin: 2rem auto 3rem !important;
+    padding: var(--space-2xl) var(--space-xl) !important;
     left: auto !important;
     transform: none !important;
-    background: var(--color-bg-elevated) !important;
-    border: 1px solid var(--color-border) !important;
+    background: var(--color-surface) !important;
+    border: 1px solid var(--color-border-strong) !important;
     border-radius: var(--radius-lg) !important;
     font-size: var(--text-base) !important;
     text-align: left !important;
-    z-index: 5 !important;
+    z-index: 10 !important;
     flex-shrink: 0 !important;
     isolation: isolate;
-}
-
-.hero-section {
-    position: relative !important;
-    z-index: 1 !important;
-    flex-shrink: 0 !important;
+    scroll-margin-top: 2rem;
+    box-shadow: var(--shadow-lg);
 }
 
 .dashboard-grid {
@@ -697,6 +767,32 @@ h1, h2, h3, h4, h5, h6,
     background: rgba(56, 189, 248, 0.08);
     color: var(--color-primary);
     font-weight: 600;
+}
+
+/* ─── Chatbot widget fixes ─── */
+#enhanced-agentic-chatbot-widget,
+.chatbot-avatar-container,
+.chatbot-speech-container {
+    z-index: 10000000 !important;
+    pointer-events: auto !important;
+}
+
+.chatbot-speech-bubble.visible {
+    opacity: 1 !important;
+    display: block !important;
+    visibility: visible !important;
+    z-index: 10000001 !important;
+}
+
+.chatbot-typing-box {
+    z-index: 10000002 !important;
+    left: 20px !important;
+    bottom: 24px !important;
+    top: auto !important;
+}
+
+.chatbot-mouth-indicator {
+    display: none !important;
 }
 
 /* ─── Hero & video collage ─── */
