@@ -44,8 +44,8 @@
                 enableFeedbackLoops: options.enableFeedbackLoops !== false,
                 
                 // API Configuration
-                enhancedEndpoint: options.enhancedEndpoint || 'http://localhost:5001/chat',
-                fallbackEndpoint: options.fallbackEndpoint || 'http://localhost:5003/chat/send',
+                enhancedEndpoint: options.enhancedEndpoint || (window.CHATBOT_CONFIG && window.CHATBOT_CONFIG.apiUrl) || 'http://localhost:4010/chat',
+                fallbackEndpoint: options.fallbackEndpoint || (window.CHATBOT_CONFIG && window.CHATBOT_CONFIG.apiUrl) || 'http://localhost:4010/chat',
                 
                 // Functionality (Original System)
                 welcomeMessage: options.welcomeMessage || 'Hello! I\'m your Enhanced Agentic AI Assistant powered by LangGraph. How can I help you today? 🚀',
@@ -66,6 +66,14 @@
             
             const configTime = performance.now();
             console.log('🚀 [PERF] Config setup completed in:', configTime - startTime, 'ms');
+
+            this.knowledgeBase = null;
+            this.knowledgeBaseLoading = null;
+            
+            // Preload knowledge base for GitHub Pages fallback
+            if (window.CHATBOT_CONFIG && window.CHATBOT_CONFIG.useLocalFallback) {
+                this.loadKnowledgeBase();
+            }
             
             // Initialize the widget
             this.init();
@@ -1092,43 +1100,96 @@
             typeWord();
         }
         
+        async loadKnowledgeBase() {
+            if (this.knowledgeBase) return this.knowledgeBase;
+            if (this.knowledgeBaseLoading) return this.knowledgeBaseLoading;
+
+            const kbUrl = (window.CHATBOT_CONFIG && window.CHATBOT_CONFIG.knowledgeBaseUrl) || 'assets/data/knowledge_base.json';
+            this.knowledgeBaseLoading = fetch(kbUrl)
+                .then(res => res.ok ? res.json() : {})
+                .catch(() => ({}))
+                .then(data => {
+                    this.knowledgeBase = data;
+                    this.knowledgeBaseLoading = null;
+                    return data;
+                });
+
+            return this.knowledgeBaseLoading;
+        }
+
+        async generateLocalResponse(message) {
+            const kb = await this.loadKnowledgeBase();
+            const msg = message.toLowerCase();
+            const about = kb.about_ayush || {};
+            const skills = kb.skills || [];
+            const projects = kb.projects || [];
+
+            if (/hello|hi|hey|good (morning|afternoon|evening)/.test(msg)) {
+                return "Hey! I'm Ayush's AI assistant. Ask me about his projects, skills, or experience!";
+            }
+            if (/who (is|are)|about ayush|tell me about/.test(msg)) {
+                return `${about.name || 'Ayush Shrivastava'} is an ${about.profession || 'AI Product Manager'}. ${about.bio || ''}`.trim();
+            }
+            if (/skill|tech|expertise|stack/.test(msg)) {
+                return skills.length
+                    ? `Ayush's key skills include ${skills.slice(0, 6).join(', ')}. Want details on any project?`
+                    : "Ayush works across AI, product management, and automation.";
+            }
+            if (/project|built|work|portfolio/.test(msg)) {
+                if (!projects.length) return "Ayush has built AI chatbots, workflow tools, and avatar systems.";
+                const list = projects.slice(0, 3).map(p => p.name).join(', ');
+                return `Some highlights: ${list}. Ask about any one for more detail!`;
+            }
+            if (/neo|agentic|chatbot/.test(msg)) {
+                const p = projects.find(x => /neo|agentic|chatbot/i.test(x.name || ''));
+                return p ? `${p.name}: ${p.description}` : "Ayush built an agentic chatbot with RAG and LangGraph.";
+            }
+            if (/contact|email|reach|hire|collaborate|linkedin/.test(msg)) {
+                return "You can reach Ayush via the Connect section below — email, LinkedIn, or WhatsApp!";
+            }
+            if (/resume|cv/.test(msg)) {
+                return "Download Ayush's resume from the Connect & Collaborate section on this page!";
+            }
+            return "I'm Ayush's portfolio assistant! Try asking about his projects, skills, or experience.";
+        }
+
         async generateEnhancedResponse(message) {
-            // Enhanced AI integration with LangGraph
+            const endpoint = this.config.enhancedEndpoint || this.config.fallbackEndpoint;
+            const useFallback = !window.CHATBOT_CONFIG || window.CHATBOT_CONFIG.useLocalFallback !== false;
+
             try {
                 console.log('🤖 Enhanced generateResponse called with:', message);
-                console.log('🔍 About to fetch from enhanced endpoint:', this.config.enhancedEndpoint);
-                
-                const response = await fetch(this.config.enhancedEndpoint, {
+                console.log('🔍 Fetching from:', endpoint);
+
+                const response = await fetch(endpoint, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ 
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
                         message,
                         user_id: 'website_user',
                         session_id: `session_${Date.now()}`
                     })
                 });
-                
-                console.log('🔍 Enhanced Fetch response status:', response.status);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
+
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
                 const data = await response.json();
                 console.log('🤖 Enhanced Received response:', data);
-                
-                // Show LangGraph features if available
-                if (data.langgraph_features) {
-                    this.showLangGraphFeatures(data);
+
+                if (data.langgraph_features) this.showLangGraphFeatures(data);
+
+                const candidates = [data.response, data.reply, data.answer];
+                for (const c of candidates) {
+                    if (c != null && String(c).trim()) return String(c).trim();
                 }
-                
-                return data.response || data.message || 'Enhanced response received!';
-                
+                if (data.status !== 'error' && data.message != null && String(data.message).trim()) {
+                    return String(data.message).trim();
+                }
+                throw new Error('Empty API response');
             } catch (error) {
-                console.error('❌ Enhanced AI response error:', error);
-                return 'I apologize, but I\'m having trouble connecting to my enhanced brain right now. Please make sure the enhanced chatbot server is running! 🤖';
+                console.warn('❌ API unavailable, using local knowledge base:', error);
+                if (useFallback) return this.generateLocalResponse(message);
+                return "I'm having trouble connecting right now. Please try again in a moment!";
             }
         }
         

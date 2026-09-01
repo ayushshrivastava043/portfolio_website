@@ -1,0 +1,14 @@
+# Enhanced Agentic Chatbot - Python Dependencies
+# Core Flask and Web Framework
+Flask==2.3.3
+Werkzeug==2.3.7
+flask-cors==4.0.0
+
+# AI and Machine Learning
+google-generativeai==0.3.2
+
+# Utilities
+requests==2.31.0
+gunicorn==21.2.0
+
+

@@ -1,0 +1,66 @@
+{
+  "about_ayush": {
+    "name": "Ayush Shrivastava",
+    "profession": "AI Product Manager & GenAI Strategist",
+    "bio": "Specializes in building AI-powered products that think, talk, and convert. Works on automation, analytics, and tools that make a difference.",
+    "location": "",
+    "education": "",
+    "interests": ["AI/ML", "Product Management", "GenAI", "Automation", "Innovation"]
+  },
+  "skills": [
+    "AI Product Management",
+    "GenAI Strategy",
+    "Machine Learning",
+    "Python",
+    "Flask",
+    "LangGraph",
+    "OpenAI Integration",
+    "Workflow Automation"
+  ],
+  "projects": [
+    {
+      "name": "Neo Agentic Chatbot System",
+      "description": "Advanced conversational AI with RAG (Retrieval-Augmented Generation) for accurate and relevant responses",
+      "tech": ["LangGraph", "OpenAI", "RAG", "Python"]
+    },
+    {
+      "name": "Visual Workflow Generator",
+      "description": "Drag-and-drop AI workflow diagrams interface",
+      "tech": ["JavaScript", "AI", "Workflow Design"]
+    },
+    {
+      "name": "Universal Avatar Generator",
+      "description": "Portable chatbot avatar system for creating engaging user experiences",
+      "tech": ["AI", "Avatar System", "Chatbot"]
+    },
+    {
+      "name": "AI Portal Integration",
+      "description": "Seamlessly integrating AI capabilities into existing platforms",
+      "tech": ["Flask", "AI Integration", "Web Development"]
+    }
+  ],
+  "experience": [
+    {
+      "role": "AI Product Manager & GenAI Strategist",
+      "company": "",
+      "description": "Building AI-powered products, automation solutions, and GenAI strategies"
+    }
+  ],
+  "personal": {
+    "friends": [
+      {
+        "name": "Patty",
+        "relationship": "friend"
+      }
+    ],
+    "interests": [],
+    "hobbies": []
+  },
+  "conversation_style": {
+    "tone": "casual",
+    "formality": "friendly",
+    "response_length": "short",
+    "personality": "conversational and human-like"
+  }
+}
+
