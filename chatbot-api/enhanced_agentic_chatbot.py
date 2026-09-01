@@ -13,8 +13,10 @@ import requests
 from datetime import datetime
 
 # Gemini via REST API (avoids google-generativeai protobuf issues on Python 3.14)
-GEMINI_MODEL = 'gemini-3.6-flash'
+# gemini-2.0-flash is faster and more reliable for short chat than 3.6-thinking models
+GEMINI_MODEL = os.environ.get('GEMINI_MODEL', 'gemini-2.0-flash')
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
+GEMINI_TIMEOUT = int(os.environ.get('GEMINI_TIMEOUT', '18'))
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -122,7 +124,10 @@ def build_context_from_knowledge_base():
     if not KNOWLEDGE_BASE:
         return "You are Ayush's friendly AI assistant. Be casual and conversational."
     
-    context_parts = ["You're Ayush's friendly AI assistant. Talk naturally and casually, like chatting with a friend. Keep responses short (1-3 sentences) unless they ask for details."]
+    context_parts = [
+        "You're Ayush's friendly AI assistant. Talk naturally and casually, like chatting with a friend.",
+        "Always finish with a complete sentence. Use 2-4 sentences for 'about Ayush' or project questions.",
+    ]
     
     # Add about information
     if "about_ayush" in KNOWLEDGE_BASE:
@@ -163,6 +168,94 @@ def build_context_from_knowledge_base():
     
     return "\n".join(context_parts)
 
+
+def looks_incomplete(text):
+    """Detect mid-sentence cutoffs from Gemini."""
+    if not text or not text.strip():
+        return True
+    text = text.strip()
+    if text[-1] in '.!?':
+        return False
+    trailing = text.rsplit(None, 1)[-1].lower() if text.split() else ''
+    bad_endings = (
+        'and', 'or', 'the', 'a', 'an', 'to', 'in', 'with', 'like', 'for', 'of',
+        'is', 'are', 'who', 'that', 'creative', 'super', 'really', 'just',
+    )
+    return trailing in bad_endings or len(text) > 40
+
+
+def kb_fast_response(message):
+    """Instant answers from knowledge base — no Gemini round-trip."""
+    if not KNOWLEDGE_BASE:
+        return None
+
+    msg = message.lower().strip().replace('mea ', 'me ').replace('bout ', 'about ')
+    about = KNOWLEDGE_BASE.get('about_ayush', {})
+    skills = KNOWLEDGE_BASE.get('skills', [])
+    projects = KNOWLEDGE_BASE.get('projects', [])
+
+    if any(g in msg for g in ('hello', 'hi', 'hey', 'hola')):
+        return (
+            "Hey! I'm Ayush's AI assistant. Ask me about his projects, skills, "
+            "or experience — happy to help!"
+        )
+
+    about_ayush = (
+        'about ayush' in msg
+        or 'bout ayush' in message.lower()
+        or ('ayush' in msg and any(p in msg for p in ('who is', 'who are', 'tell me', 'what can you', 'about', 'about him')))
+    )
+    if about_ayush:
+        name = about.get('name', 'Ayush Shrivastava')
+        profession = about.get('profession', 'AI Product Manager & GenAI Strategist')
+        bio = about.get('bio', '')
+        project_names = ', '.join(p.get('name', '') for p in projects[:3] if p.get('name'))
+        parts = [
+            f"{name} is an {profession}.",
+            bio,
+        ]
+        if project_names:
+            parts.append(f"Notable work includes {project_names}.")
+        return ' '.join(p for p in parts if p).strip()
+
+    if any(p in msg for p in ('skill', 'tech', 'expertise', 'stack', 'technologies')):
+        if skills:
+            return f"Ayush's key skills include {', '.join(skills[:8])}."
+        return "Ayush works across AI product management, GenAI, Python, and workflow automation."
+
+    if any(p in msg for p in ('project', 'built', 'portfolio', 'work on', 'created')):
+        if projects:
+            lines = []
+            for p in projects[:4]:
+                name = p.get('name', '')
+                desc = p.get('description', '')
+                if name:
+                    lines.append(f"{name}: {desc}" if desc else name)
+            return ' Here are some highlights: ' + '; '.join(lines) + '.'
+        return "Ayush has built agentic chatbots, visual workflow tools, and AI portal integrations."
+
+    if any(p in msg for p in ('experience', 'job', 'role', 'career', 'background')):
+        exp = KNOWLEDGE_BASE.get('experience', [])
+        if exp:
+            e = exp[0]
+            return f"{e.get('role', 'AI Product Manager')}. {e.get('description', '')}".strip()
+        return f"{about.get('name', 'Ayush')} is an {about.get('profession', 'AI Product Manager')}."
+
+    return None
+
+
+def extract_gemini_text(data):
+    """Join all text parts; return (text, finish_reason)."""
+    candidates = data.get('candidates') or []
+    if not candidates:
+        return '', None
+    candidate = candidates[0]
+    parts = candidate.get('content', {}).get('parts', [])
+    text = ''.join(p.get('text', '') for p in parts if p.get('text')).strip()
+    finish = candidate.get('finishReason')
+    return text, finish
+
+
 def get_gemini_response(message):
     """Get AI response using Google Gemini API"""
     if not GEMINI_API_KEY:
@@ -188,28 +281,37 @@ You (respond naturally, be friendly and casual, don't always redirect to work to
                 }]
             }],
             "generationConfig": {
-                "temperature": 0.9,
+                "temperature": 0.8,
                 "topK": 40,
                 "topP": 0.95,
-                "maxOutputTokens": 512,
+                "maxOutputTokens": 1024,
             }
         }
-        
-        response = requests.post(url, json=payload, timeout=30)
-        
+
+        response = requests.post(url, json=payload, timeout=GEMINI_TIMEOUT)
+
         if response.status_code == 200:
             data = response.json()
-            if 'candidates' in data and len(data['candidates']) > 0:
-                content = data['candidates'][0].get('content', {})
-                parts = content.get('parts', [])
-                if parts and len(parts) > 0:
-                    return parts[0].get('text', 'Hmm, let me think about that...').strip()
+            text, finish = extract_gemini_text(data)
+            if text and not looks_incomplete(text):
+                return text
+            if text:
+                logger.warning(f"Gemini truncated response (finish={finish}): {text[:80]}...")
+            fallback = kb_fast_response(message)
+            if fallback:
+                return fallback
+            if text:
+                return text.rstrip(',;: ') + '.'
+            return "Hmm, let me think about that..."
         else:
             logger.error(f"Gemini API error: {response.status_code} - {response.text}")
-            return "Oops, something went wrong. Try again?"
     except Exception as e:
         logger.error(f"Gemini API error: {e}")
-        return "Sorry, I'm having trouble right now. Can you try again?"
+
+    fallback = kb_fast_response(message)
+    if fallback:
+        return fallback
+    return "Sorry, I'm having trouble right now. Can you try again?"
 
 @app.route('/health', methods=['GET'])
 def health_check():
@@ -220,7 +322,7 @@ def health_check():
         'port': 4010,
         'version': '1.0.0',
         'gemini_configured': bool(GEMINI_API_KEY),
-        'model': 'gemini-pro'
+        'model': GEMINI_MODEL
     })
 
 @app.route('/init', methods=['POST'])
@@ -239,7 +341,7 @@ def status():
         'status': 'ready',
         'message': 'Enhanced Agentic Chatbot is ready',
         'gemini_configured': bool(GEMINI_API_KEY),
-        'model': 'gemini-pro'
+        'model': GEMINI_MODEL
     })
 
 @app.route('/chat', methods=['POST'])
@@ -259,8 +361,10 @@ def chat():
         if data.get('reload_kb', False):
             load_knowledge_base()
         
-        # Get AI response from Gemini
-        ai_response = get_gemini_response(message)
+        # Fast path: common questions answered instantly from KB
+        ai_response = kb_fast_response(message)
+        if not ai_response:
+            ai_response = get_gemini_response(message)
         
         return jsonify({
             'status': 'success',

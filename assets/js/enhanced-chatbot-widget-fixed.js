@@ -60,8 +60,8 @@
                 
                 // Advanced Options (Original System)
                 autoOpen: options.autoOpen || false,
-                typingSpeed: options.typingSpeed || 50,
-                bubbleTimeout: options.bubbleTimeout || 8000
+                typingSpeed: options.typingSpeed || 25,
+                bubbleTimeout: options.bubbleTimeout || 12000
             };
             
             // Initialize timeout tracking
@@ -69,9 +69,9 @@
             this.knowledgeBase = null;
             this.knowledgeBaseLoading = null;
 
-            if (window.CHATBOT_CONFIG && window.CHATBOT_CONFIG.useLocalFallback) {
-                this.loadKnowledgeBase();
-            }
+            // Preload KB + warm Render API so first message is faster
+            this.loadKnowledgeBase();
+            this.prewarmBackend();
             
             const configTime = performance.now();
             console.log('🚀 [PERF] Config setup completed in:', configTime - startTime, 'ms');
@@ -511,8 +511,9 @@
                 }
                 
                 .chatbot-speech-bubble.visible {
-                    opacity: 1;
-                    transform: scale(1) translateY(0);
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                    transform: scale(1) translateY(0) !important;
                     animation: classicCloudFloat 3s ease-in-out infinite;
                 }
                 
@@ -1112,26 +1113,16 @@
         createMouthSyncedSpeech(message) {
             console.log('🧠 Smart mouth-synced speech system activated for:', message);
             
-            // Hide any existing speech bubble first
             this.hideSpeechBubble();
             
-            // Wait a moment for the hide animation to complete before showing new bubble
             setTimeout(() => {
-                // Calculate avatar mouth position
                 const mouthPosition = this.calculateMouthPosition();
-                console.log('📍 Avatar mouth position calculated:', mouthPosition);
-                
-                // Position speech container at avatar's mouth
                 this.positionSpeechContainer(mouthPosition);
-                
-                // Show mouth indicator (avatar is "speaking")
                 this.activateMouthIndicator();
-                
-                // Show typing indicator in speech bubble
                 this.showSpeechBubble('Enhanced AI is thinking...', true);
                 
-                // Get AI response and speak it
-                setTimeout(async () => {
+                // Fetch immediately — no artificial 1.5s delay
+                (async () => {
                     try {
                         const response = await this.generateEnhancedResponse(message);
                         console.log('✅ AI response received:', response);
@@ -1140,8 +1131,8 @@
                         console.error('❌ Error getting AI response:', error);
                         this.speakResponse('I apologize, but I\'m having trouble processing your request right now. Please try again in a moment.');
                     }
-                }, 1500);
-            }, 500); // Wait 500ms for hide animation to complete
+                })();
+            }, 80);
         }
         
         calculateMouthPosition() {
@@ -1202,7 +1193,9 @@
             console.log('💬 Bubble current classes:', bubble.className);
             
             bubble.style.display = 'block';
-            contentElement.innerHTML = isTyping ? 
+            bubble.style.opacity = '1';
+            bubble.style.visibility = 'visible';
+            contentElement.innerHTML = isTyping ?
                 `<span style="color: #00ffee; font-style: italic;">Thinking...</span>` : content;
             
             console.log('💬 Bubble display set to block, content set');
@@ -1223,37 +1216,32 @@
         speakResponse(response) {
             console.log('🗣️ Avatar speaking:', response);
             
-            // Clear any existing timeout
             if (this.speechTimeout) {
                 clearTimeout(this.speechTimeout);
                 this.speechTimeout = null;
             }
             
-            // Update speech bubble content
             const contentElement = this.elements.speechContent;
-            contentElement.innerHTML = '';
-            
-            // Type the response word by word
             const words = response.split(' ');
+            const readTimeMs = Math.min(25000, Math.max(12000, words.length * 350));
+            
+            // Long answers: show instantly so nothing gets cut off by typing animation
+            if (words.length > 12) {
+                contentElement.textContent = response;
+                this.speechTimeout = setTimeout(() => this.hideSpeechBubble(), readTimeMs);
+                return;
+            }
+            
+            contentElement.innerHTML = '';
             let wordIndex = 0;
             
             const speakWord = () => {
                 if (wordIndex < words.length) {
-                    const word = words[wordIndex] + (wordIndex < words.length - 1 ? ' ' : '');
-                    contentElement.innerHTML += word;
+                    contentElement.innerHTML += words[wordIndex] + (wordIndex < words.length - 1 ? ' ' : '');
                     wordIndex++;
-                    
-                    // Continue speaking
-                    setTimeout(speakWord, this.config.typingSpeed * 2);
+                    setTimeout(speakWord, this.config.typingSpeed);
                 } else {
-                    // Finished speaking - hide after delay
-                    console.log('✅ Avatar finished speaking');
-                    console.log('⏰ Setting 5-second timeout to hide bubble...');
-                    this.speechTimeout = setTimeout(() => {
-                        console.log('⏰ 5-second timeout reached, hiding bubble');
-                        this.hideSpeechBubble();
-                        this.speechTimeout = null;
-                    }, this.config.bubbleTimeout);
+                    this.speechTimeout = setTimeout(() => this.hideSpeechBubble(), readTimeMs);
                 }
             };
             
@@ -1322,6 +1310,12 @@
             typeWord();
         }
         
+        prewarmBackend() {
+            const base = (this.config.enhancedEndpoint || '').replace(/\/chat\/?$/, '');
+            if (!base || base.includes('localhost')) return;
+            fetch(`${base}/health`, { method: 'GET', mode: 'cors' }).catch(() => {});
+        }
+
         // ===============================================
         // RAG SYSTEM INITIALIZATION
         // ===============================================
@@ -1374,8 +1368,14 @@
             if (/hello|hi|hey/.test(msg)) {
                 return "Hey! I'm Ayush's AI assistant. Ask me about his projects, skills, or experience!";
             }
-            if (/who (is|are)|about ayush/.test(msg)) {
-                return `${about.name || 'Ayush Shrivastava'} is an ${about.profession || 'AI Product Manager'}. ${about.bio || ''}`.trim();
+            if (/who (is|are)|about ayush|bout ayush|tell me.*ayush|what can you.*ayush/.test(msg)) {
+                const name = about.name || 'Ayush Shrivastava';
+                const profession = about.profession || 'AI Product Manager';
+                const bio = about.bio || '';
+                const highlights = projects.slice(0, 3).map(p => p.name).filter(Boolean).join(', ');
+                let answer = `${name} is an ${profession}. ${bio}`.trim();
+                if (highlights) answer += ` Notable work includes ${highlights}.`;
+                return answer;
             }
             if (/skill|tech|expertise/.test(msg)) {
                 return skills.length ? `Key skills: ${skills.slice(0, 6).join(', ')}.` : "Ayush works across AI, product, and automation.";
@@ -1401,6 +1401,9 @@
                     'http://localhost:4010/chat';
                 console.log('🔧 Using Enhanced Agentic endpoint:', endpoint);
                 
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 22000);
+
                 const response = await fetch(endpoint, {
                     method: 'POST',
                     headers: {
@@ -1410,8 +1413,10 @@
                         message,
                         user_id: 'website_user',
                         session_id: `session_${Date.now()}`
-                    })
+                    }),
+                    signal: controller.signal
                 });
+                clearTimeout(timeoutId);
                 
                 console.log('🔍 Enhanced Fetch response status:', response.status);
                 

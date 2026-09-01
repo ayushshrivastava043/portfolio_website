@@ -788,6 +788,9 @@ h1, h2, h3, h4, h5, h6,
     display: block !important;
     visibility: visible !important;
     z-index: 10000001 !important;
+    transform: scale(1) translateY(0) !important;
+    max-height: min(50vh, 320px) !important;
+    overflow-y: auto !important;
 }
 
 .chatbot-typing-box {
