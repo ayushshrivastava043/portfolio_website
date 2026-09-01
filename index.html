@@ -10,8 +10,8 @@
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link href="assets/css/style.css?v=90" rel="stylesheet">
-    <link href="assets/css/portfolio-redesign.css?v=90" rel="stylesheet">
+    <link href="assets/css/style.css?v=91" rel="stylesheet">
+    <link href="assets/css/portfolio-redesign.css?v=91" rel="stylesheet">
     <link rel="preload" href="assets/20250821-1758-Relaxed-Chatbot--unscreen-ezgif.com-apng-to-gif-converter.gif" as="image" type="image/gif">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -789,10 +789,21 @@
     <!-- Hero Section -->
     <main class="page-content">
     <div class="hero-section">
-      
+      <div class="hero-glow" aria-hidden="true"></div>
       <div class="hero-text">
-                        <h1>Applied AI &amp; GenAI Product</h1>
-                <p id="typing-text">AI Product Manager · ~9 years · Durham MBA · Agentic systems that ship in production</p>
+        <p class="hero-eyebrow">Ayush Shrivastava</p>
+        <h1>Applied AI &amp; <span class="text-gradient">GenAI Product</span></h1>
+        <p id="typing-text" class="hero-tagline">AI Product Manager · ~9 years · Durham MBA · Agentic systems that ship in production</p>
+        <div class="hero-badges">
+          <span class="hero-badge">Verifast</span>
+          <span class="hero-badge">CGI / Bell Canada</span>
+          <span class="hero-badge">Durham MBA</span>
+          <span class="hero-badge">LangGraph · RAG · AgentCore</span>
+        </div>
+        <div class="hero-cta">
+          <a href="#work" class="btn-ui btn-ui--primary">View experience</a>
+          <a href="#dashboard" class="btn-ui">Profile snapshot</a>
+        </div>
       </div>
       <div class="video-collage">
         <video src="assets/mahajanpadas.mp4" autoplay loop muted playsinline></video>
@@ -884,23 +895,31 @@
             <h3 class="work-block__title">Professional Experience</h3>
             <p class="work-block__subtitle">Reverse chronological — click "View full story" for deeper context</p>
 <div class="dashboard-grid" style="grid-template-columns:1fr">
-            <article class="ui-card dashboard-card" style="padding:var(--space-lg)">
-                <h3 class="dashboard-card__title">Verifast — Agentic AI Product</h3>
-                <ul class="dashboard-item__desc" style="margin:0.75rem 0;padding-left:1.25rem;line-height:1.7">
+            <article class="ui-card dashboard-card experience-card">
+                <div class="experience-card__meta">
+                    <span class="role-badge role-badge--primary">Verifast</span>
+                    <span class="role-badge">Agentic AI Product</span>
+                </div>
+                <h3 class="dashboard-card__title">Agentic AI sales platform — 600+ e-commerce clients</h3>
+                <ul class="experience-list">
                     <li>Agentic AI sales assistant serving <strong>600+ e-commerce clients</strong></li>
                     <li>Owned platform architecture: intent detection, orchestration (tool/action calling), semantic retrieval, business rules/guardrails</li>
                     <li>Built automated pre-go-live evaluation set replacing manual data-quality catching</li>
                     <li>Approach to new capabilities: sandbox testing, edge-case breaking, narrow rollout to 1–2 clients before wide release</li>
                 </ul>
-                <details style="margin-top:1rem;color:var(--color-text-muted)">
-                    <summary style="cursor:pointer;color:var(--color-primary);font-weight:600">View full story: Flash-sale grounding incident</summary>
-                    <p style="margin-top:0.75rem;line-height:1.7">During high-traffic flash sales, the assistant returned stale prices and stock — root cause was batch sync refresh interval mismatch vs real-time catalogue changes. Diagnosed in production, shipped immediate mitigation plus long-term fix to alignment between grounding pipeline and live data sources.</p>
+                <details class="story-details">
+                    <summary>View full story: Flash-sale grounding incident</summary>
+                    <p>During high-traffic flash sales, the assistant returned stale prices and stock — root cause was batch sync refresh interval mismatch vs real-time catalogue changes. Diagnosed in production, shipped immediate mitigation plus long-term fix to alignment between grounding pipeline and live data sources.</p>
                 </details>
             </article>
 
-            <article class="ui-card dashboard-card" style="padding:var(--space-lg)">
-                <h3 class="dashboard-card__title">CGI Inc. — Bell Canada Telecom Projects</h3>
-                <ul class="dashboard-item__desc" style="margin:0.75rem 0;padding-left:1.25rem;line-height:1.7">
+            <article class="ui-card dashboard-card experience-card">
+                <div class="experience-card__meta">
+                    <span class="role-badge role-badge--primary">CGI Inc.</span>
+                    <span class="role-badge">Bell Canada</span>
+                </div>
+                <h3 class="dashboard-card__title">Business Analyst → Associate PM (GenAI pilot)</h3>
+                <ul class="experience-list">
                     <li><strong>Business System Analyst:</strong> workflow documentation, system design, process mapping</li>
                     <li><strong>Associate Product Manager — GenAI pilot:</strong> structured scattered stakeholder ideas into prioritised use cases with success criteria; delivered customer enquiry automation in ~4 months</li>
                     <li>Helped team shift waterfall → agile using a real mid-cycle requirement-change example (not abstract training)</li>
@@ -908,9 +927,12 @@
                 </ul>
             </article>
 
-            <article class="ui-card dashboard-card" style="padding:var(--space-lg);border-style:dashed">
-                <h3 class="dashboard-card__title">DKPR E-Learn</h3>
-                <p class="dashboard-item__desc" style="margin-top:0.5rem"><em>⚠️ Details pending — early-career e-learning role. Specific contributions to be added. Ask about Verifast or CGI for recent work.</em></p>
+            <article class="ui-card dashboard-card experience-card experience-card--pending">
+                <div class="experience-card__meta">
+                    <span class="role-badge">DKPR E-Learn</span>
+                </div>
+                <h3 class="dashboard-card__title">Early-career e-learning role</h3>
+                <p class="dashboard-item__desc"><em>Details pending — specific contributions to be added. Ask about Verifast or CGI for recent work.</em></p>
             </article>
         </div>
         </div>
@@ -918,31 +940,43 @@
             <h3 class="work-block__title">Consulting &amp; Strategy (MBA)</h3>
             <p class="work-block__subtitle">Durham University Business School — client-facing deliverables</p>
 <div class="dashboard-grid" style="grid-template-columns:1fr">
-            <article class="ui-card dashboard-card" style="padding:var(--space-lg)">
-                <h3 class="dashboard-card__title">Salud.ai Consultancy Sprint</h3>
-                <ul class="dashboard-item__desc" style="margin:0.75rem 0;padding-left:1.25rem;line-height:1.7">
+            <article class="ui-card dashboard-card experience-card">
+                <div class="experience-card__meta">
+                    <span class="role-badge role-badge--primary">Salud.ai</span>
+                    <span class="role-badge">MBA Consultancy</span>
+                </div>
+                <h3 class="dashboard-card__title">US-market freemium health app sprint</h3>
+                <ul class="experience-list">
                     <li>Co-founded sprint for US-market freemium health app</li>
                     <li>Led AI &amp; data strategy: GTM (Pod A), data/AI strategy (Pod B), KPI framework, survey instruments, Jira tickets</li>
                     <li>15-minute client presentation with full script</li>
                 </ul>
-                <details style="margin-top:1rem">
-                    <summary style="cursor:pointer;color:var(--color-primary);font-weight:600">View full story: Presentation pivot</summary>
-                    <p style="margin-top:0.75rem;line-height:1.7">Presented to academic supervisor vs company officials with very different attention spans — when the business audience disengaged from detailed frameworks, cut short analysis and jumped to recommendations, keeping client side engaged.</p>
+                <details class="story-details">
+                    <summary>View full story: Presentation pivot</summary>
+                    <p>Presented to academic supervisor vs company officials with very different attention spans — when the business audience disengaged from detailed frameworks, cut short analysis and jumped to recommendations, keeping client side engaged.</p>
                 </details>
             </article>
 
-            <article class="ui-card dashboard-card" style="padding:var(--space-lg)">
-                <h3 class="dashboard-card__title">BP Board Strategy Case</h3>
-                <ul class="dashboard-item__desc" style="margin:0.75rem 0;padding-left:1.25rem;line-height:1.7">
+            <article class="ui-card dashboard-card experience-card">
+                <div class="experience-card__meta">
+                    <span class="role-badge role-badge--primary">BP</span>
+                    <span class="role-badge">Board Strategy Case</span>
+                </div>
+                <h3 class="dashboard-card__title">Asset divestment &amp; AI transformation strategy</h3>
+                <ul class="experience-list">
                     <li>Asset divestment analysis · IEMS for data centres (Lightsource BP + gas + Castrol cooling)</li>
                     <li>AI transformation strategy (four pillars) · Geopolitical Intelligence Unit recommendation</li>
                     <li>Deliverables: PowerPoint, Excel financial models, Word appendices, boardroom speech notes</li>
                 </ul>
             </article>
 
-            <article class="ui-card dashboard-card" style="padding:var(--space-lg)">
-                <h3 class="dashboard-card__title">V-Lab Strategic Consulting &amp; Ongoing Advisory</h3>
-                <ul class="dashboard-item__desc" style="margin:0.75rem 0;padding-left:1.25rem;line-height:1.7">
+            <article class="ui-card dashboard-card experience-card">
+                <div class="experience-card__meta">
+                    <span class="role-badge role-badge--primary">V-Lab</span>
+                    <span class="role-badge">Strategic Consulting</span>
+                </div>
+                <h3 class="dashboard-card__title">Agentic AI use cases &amp; market entry advisory</h3>
+                <ul class="experience-list">
                     <li>Agentic AI use cases from solution architecture through market positioning</li>
                     <li>Market entry: India, China, Australia — wind energy VR training sector</li>
                     <li>Built/corrected TAM/SAM/SOM from first principles · multi-country reports · Australia Excel model</li>
@@ -950,37 +984,43 @@
                 </ul>
             </article>
 
-            <details class="ui-card" style="padding:var(--space-md) var(--space-lg)">
-                <summary style="cursor:pointer;font-weight:600;color:var(--color-text-muted)">Additional MBA coursework (brief)</summary>
-                <p style="margin-top:0.75rem;line-height:1.8;font-size:var(--text-sm);color:var(--color-text-muted)">CGI agile sprint operations report · Tesla sustainability &amp; ethics essay · Patagonia supply chain (Applied Strategic Management) · Salud.ai management consultancy essay · Verifast PM assignment · Lyon IBC learning journal · Philippines country manager simulation</p>
+            <details class="ui-card story-details story-details--card">
+                <summary>Additional MBA coursework (brief)</summary>
+                <p>CGI agile sprint operations report · Tesla sustainability &amp; ethics essay · Patagonia supply chain (Applied Strategic Management) · Salud.ai management consultancy essay · Verifast PM assignment · Lyon IBC learning journal · Philippines country manager simulation</p>
             </details>
         </div>
         </div>
         <div id="technical-projects" class="work-block">
             <h3 class="work-block__title">Hands-on AI &amp; Technical Projects</h3>
             <p class="work-block__subtitle">Built chapter-by-chapter for deep understanding — not demo scaffolding</p>
-<div class="dashboard-grid">
-            <div class="ui-card dashboard-card" style="padding:var(--space-lg)">
+<div class="dashboard-grid project-grid">
+            <div class="ui-card dashboard-card project-card">
+                <span class="project-card__icon">🤖</span>
                 <h4 class="dashboard-item__title">Neo — Personal RAG Assistant</h4>
                 <p class="dashboard-item__desc">Flask, FAISS, Gemini/OpenAI fallback, multi-tenant. This portfolio chatbot uses the same KB-first pattern.</p>
             </div>
-            <div class="ui-card dashboard-card" style="padding:var(--space-lg)">
+            <div class="ui-card dashboard-card project-card">
+                <span class="project-card__icon">📈</span>
                 <h4 class="dashboard-item__title">Finbot — Investment Chatbot</h4>
                 <p class="dashboard-item__desc">Built on BharatGPT, sequential component-by-component build.</p>
             </div>
-            <div class="ui-card dashboard-card" style="padding:var(--space-lg)">
+            <div class="ui-card dashboard-card project-card">
+                <span class="project-card__icon">☁️</span>
                 <h4 class="dashboard-item__title">AWS Bedrock AgentCore + LangGraph</h4>
                 <p class="dashboard-item__desc">Full agent deployment — interview-readiness and hands-on learning exercise.</p>
             </div>
-            <div class="ui-card dashboard-card" style="padding:var(--space-lg)">
+            <div class="ui-card dashboard-card project-card">
+                <span class="project-card__icon">⚡</span>
                 <h4 class="dashboard-item__title">Salesforce Agentforce &amp; Data Cloud</h4>
                 <p class="dashboard-item__desc">Trailhead self-study — Topics/Actions, DMOs, identity resolution; mapped to Verifast agentic architecture.</p>
             </div>
-            <div class="ui-card dashboard-card" style="padding:var(--space-lg)">
+            <div class="ui-card dashboard-card project-card">
+                <span class="project-card__icon">🎬</span>
                 <h4 class="dashboard-item__title">AI Video Content Pipeline</h4>
                 <p class="dashboard-item__desc">ChatGPT scripts · Minimax/Imagine video · Midjourney · Shotcut. Indian history/culture &amp; youth comedy/lifestyle content.</p>
             </div>
-            <div class="ui-card dashboard-card" style="padding:var(--space-lg)">
+            <div class="ui-card dashboard-card project-card">
+                <span class="project-card__icon">🧠</span>
                 <h4 class="dashboard-item__title">MyAgentcore</h4>
                 <p class="dashboard-item__desc">Custom agent framework for building and deploying AI agents.</p>
             </div>
@@ -989,22 +1029,30 @@
         <div id="skills" class="work-block">
             <h3 class="work-block__title">Skills &amp; Tools</h3>
             <p class="work-block__subtitle">Organised by domain</p>
-<div class="dashboard-grid">
-            <div class="ui-card dashboard-card" style="padding:var(--space-lg)">
+<div class="skills-grid">
+            <div class="ui-card dashboard-card skill-card">
                 <h4 class="dashboard-item__title">AI / Agentic</h4>
-                <p class="dashboard-item__desc" style="margin-top:0.5rem">LangGraph · RAG architecture · AWS Bedrock AgentCore · Agentic tool/action design · Retrieval pipelines · Prompt &amp; context engineering · FAISS</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">LangGraph</span><span class="skill-tag">RAG</span><span class="skill-tag">AWS Bedrock AgentCore</span><span class="skill-tag">Tool/Action design</span><span class="skill-tag">FAISS</span><span class="skill-tag">Prompt engineering</span>
+                </div>
             </div>
-            <div class="ui-card dashboard-card" style="padding:var(--space-lg)">
+            <div class="ui-card dashboard-card skill-card">
                 <h4 class="dashboard-item__title">Salesforce</h4>
-                <p class="dashboard-item__desc" style="margin-top:0.5rem">Agentforce (Topics &amp; Actions) · Data Cloud (DMOs, identity resolution)</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">Agentforce</span><span class="skill-tag">Data Cloud</span><span class="skill-tag">DMOs</span><span class="skill-tag">Identity resolution</span>
+                </div>
             </div>
-            <div class="ui-card dashboard-card" style="padding:var(--space-lg)">
+            <div class="ui-card dashboard-card skill-card">
                 <h4 class="dashboard-item__title">PM / Delivery</h4>
-                <p class="dashboard-item__desc" style="margin-top:0.5rem">SAFe Agile certified · Agile transformation · KPI frameworks · Stakeholder management · GTM strategy</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">SAFe Agile</span><span class="skill-tag">Agile transformation</span><span class="skill-tag">KPI frameworks</span><span class="skill-tag">Stakeholder mgmt</span><span class="skill-tag">GTM strategy</span>
+                </div>
             </div>
-            <div class="ui-card dashboard-card" style="padding:var(--space-lg)">
+            <div class="ui-card dashboard-card skill-card">
                 <h4 class="dashboard-item__title">Tools</h4>
-                <p class="dashboard-item__desc" style="margin-top:0.5rem">Flask · Python · Excel financial modeling · Jira · Trailhead</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">Flask</span><span class="skill-tag">Python</span><span class="skill-tag">Excel modeling</span><span class="skill-tag">Jira</span><span class="skill-tag">Trailhead</span>
+                </div>
             </div>
         </div>
         </div>
@@ -1104,65 +1152,38 @@
       </div>
     </div>
     <!-- About Me section with horizontal layout and advanced interactive elements -->
-    <div class="about-section" style="width:100%;background:transparent;padding:32px 0 40px;color:#fff;position:relative;z-index:1001;">
-
-      <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:0 20px;">
-        
-        <!-- Left Side: Profile and Info -->
-        <div style="display:flex;flex-direction:column;align-items:center;gap:25px;">
-          <!-- Simple Profile Image -->
-          <div style="width:280px;height:280px;border-radius:20px;overflow:hidden;box-shadow:0 0 40px rgba(0,255,238,0.4);border:3px solid rgba(0,255,238,0.6);">
-            <img src="assets/IMG_9590.jpg" alt="Ayush" style="width:100%;height:100%;object-fit:cover;" />
+    <div class="about-section section-shell">
+      <div class="about-grid">
+        <div class="about-profile">
+          <div class="about-profile__photo">
+            <img src="assets/IMG_9590.jpg" alt="Ayush Shrivastava" />
           </div>
-          
-          <h2 style="font-family:'Orbitron',sans-serif;font-size:2.2rem;color:#00ffee;margin:0;text-align:center;">Ayush Shrivastava</h2>
-          <p style="font-size:1.05rem;max-width:480px;margin:0 auto;line-height:1.65;color:#ccc;text-align:center;">AI Product Manager — Applied AI / GenAI Product. ~9 years spanning civil engineering, business analysis, and AI product. Full-Time MBA at Durham University Business School (Consulting, Strategy &amp; AI — Sep 2026). SAFe Agile certified. I bridge agentic AI architecture with business outcomes.</p>
+          <h2 class="about-profile__name">Ayush Shrivastava</h2>
+          <p class="about-profile__bio">AI Product Manager — Applied AI / GenAI Product. ~9 years spanning civil engineering, business analysis, and AI product. Full-Time MBA at Durham University Business School (Consulting, Strategy &amp; AI — Sep 2026). SAFe Agile certified. I bridge agentic AI architecture with business outcomes.</p>
         </div>
-        
-        <!-- Right Side: Advanced Interactive Contact Buttons -->
-        <div style="display:flex;flex-direction:column;gap:20px;">
-          <h3 style="font-family:'Orbitron',sans-serif;color:#00ffee;margin:0;text-align:center;font-size:1.5rem;">🚀 Connect & Collaborate</h3>
-          
-          <!-- Social Media Holographic Buttons -->
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
-            <a href="https://www.linkedin.com/in/ayushshrivastava1292" target="_blank" class="holographic-btn linkedin-btn" style="position:relative;display:flex;align-items:center;gap:10px;justify-content:center;padding:12px 16px;background:linear-gradient(135deg,rgba(0,119,181,0.9),rgba(0,88,133,0.9));color:#fff;font-family:'Orbitron',monospace;font-weight:500;border:none;border-radius:12px;box-shadow:0 6px 20px rgba(0,119,181,0.4);font-size:0.85em;text-decoration:none;letter-spacing:0.5px;transition:all 0.3s ease;overflow:hidden;backdrop-filter:blur(10px);border:1px solid rgba(0,119,181,0.3);">
-              <div class="btn-glow" style="position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:left 0.5s ease;"></div>
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm15.5 11.268h-3v-5.604c0-1.337-.025-3.063-1.868-3.063-1.868 0-2.154 1.459-2.154 2.968v5.699h-3v-10h2.881v1.367h.041c.401-.761 1.379-1.563 2.838-1.563 3.036 0 3.6 2.001 3.6 4.601v5.595z"/>
-              </svg>
-              <span>LinkedIn</span>
+        <div class="about-connect">
+          <h3 class="about-connect__title">Connect &amp; Collaborate</h3>
+          <div class="social-grid">
+            <a href="https://www.linkedin.com/in/ayushshrivastava1292" target="_blank" class="social-btn social-btn--linkedin">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm15.5 11.268h-3v-5.604c0-1.337-.025-3.063-1.868-3.063-1.868 0-2.154 1.459-2.154 2.968v5.699h-3v-10h2.881v1.367h.041c.401-.761 1.379-1.563 2.838-1.563 3.036 0 3.6 2.001 3.6 4.601v5.595z"/></svg>
+              LinkedIn
             </a>
-            <a href="https://github.com/ayushshrivastava1292" target="_blank" class="holographic-btn github-btn" style="position:relative;display:flex;align-items:center;gap:10px;justify-content:center;padding:12px 16px;background:linear-gradient(135deg,rgba(36,41,46,0.9),rgba(24,27,30,0.9));color:#fff;font-family:'Orbitron',monospace;font-weight:500;border:none;border-radius:12px;box-shadow:0 6px 20px rgba(36,41,46,0.4);font-size:0.85em;text-decoration:none;letter-spacing:0.5px;transition:all 0.3s ease;overflow:hidden;backdrop-filter:blur(10px);border:1px solid rgba(36,41,46,0.3);">
-              <div class="btn-glow" style="position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:left 0.5s ease;"></div>
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-              </svg>
-              <span>GitHub</span>
+            <a href="https://github.com/ayushshrivastava1292" target="_blank" class="social-btn social-btn--github">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
             </a>
-            <a href="https://www.youtube.com/@Virtualr_eality" target="_blank" class="holographic-btn youtube-btn" style="position:relative;display:flex;align-items:center;gap:10px;justify-content:center;padding:12px 16px;background:linear-gradient(135deg,rgba(255,0,0,0.9),rgba(204,0,0,0.9));color:#fff;font-family:'Orbitron',monospace;font-weight:500;border:none;border-radius:12px;box-shadow:0 6px 20px rgba(255,0,0,0.4);font-size:0.85em;text-decoration:none;letter-spacing:0.5px;transition:all 0.3s ease;overflow:hidden;backdrop-filter:blur(10px);border:1px solid rgba(255,0,0,0.3);">
-              <div class="btn-glow" style="position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:left 0.5s ease;"></div>
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24">
-                <path d="M19.615 3.184c-1.049-.384-5.615-.384-5.615-.384s-4.566 0-5.615.384c-1.049.384-1.871 1.206-2.255 2.255-.384 1.049-.384 3.231-.384 3.231s0 2.182.384 3.231c.384 1.049 1.206 1.871 2.255 2.255 1.049.384 5.615.384 5.615.384s4.566 0 5.615-.384c1.049.384 1.871 1.206 2.255-2.255.384-1.049.384-3.231.384-3.231s0-2.182-.384-3.231c-.384-1.049-1.206-1.871-2.255-2.255zm-8.615 8.816v-5l5 2.5-5 2.5z"/>
-              </svg>
-              <span>YouTube</span>
+            <a href="https://www.youtube.com/@Virtualr_eality" target="_blank" class="social-btn social-btn--youtube">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19.615 3.184c-1.049-.384-5.615-.384-5.615-.384s-4.566 0-5.615.384c-1.049.384-1.871 1.206-2.255 2.255-.384 1.049-.384 3.231-.384 3.231s0 2.182.384 3.231c.384 1.049 1.206 1.871 2.255 2.255 1.049.384 5.615.384 5.615.384s4.566 0 5.615-.384c1.049.384 1.871 1.206 2.255-2.255.384-1.049.384-3.231.384-3.231s0-2.182-.384-3.231c-.384-1.049-1.206-1.871-2.255-2.255zm-8.615 8.816v-5l5 2.5-5 2.5z"/></svg>
+              YouTube
             </a>
-            <a href="https://wa.me/918770087774" target="_blank" class="holographic-btn whatsapp-btn" style="position:relative;display:flex;align-items:center;gap:10px;justify-content:center;padding:12px 16px;background:linear-gradient(135deg,rgba(37,211,102,0.9),rgba(18,140,126,0.9));color:#fff;font-family:'Orbitron',monospace;font-weight:500;border:none;border-radius:12px;box-shadow:0 6px 20px rgba(37,211,102,0.4);font-size:0.85em;text-decoration:none;letter-spacing:0.5px;transition:all 0.3s ease;overflow:hidden;backdrop-filter:blur(10px);border:1px solid rgba(37,211,102,0.3);">
-              <div class="btn-glow" style="position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:left 0.5s ease;"></div>
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24">
-                <path d="M12.004 2.003c-5.514 0-9.997 4.484-9.997 9.997 0 1.762.464 3.484 1.345 4.997l-1.409 5.151 5.293-1.389c1.464.801 3.104 1.241 4.768 1.241h.001c5.514 0 9.997-4.484 9.997-9.997s-4.483-9.997-9.997-9.997zm5.634 14.631c-.241.678-1.413 1.293-1.941 1.377-.495.078-1.123.111-1.809-.117-.417-.137-.954-.312-1.646-.611-2.897-1.252-4.792-4.152-4.941-4.349-.144-.197-1.181-1.574-1.181-3.004 0-1.429.749-2.134 1.017-2.426.267-.292.579-.365.772-.365.193 0 .386.002.555.01.179.008.418-.067.655.501.241.578.819 1.995.891 2.139.072.144.12.312.024.509-.096.197-.144.312-.287.478-.144.166-.303.37-.431.497-.144.144-.293.301-.126.593.166.292.739 1.217 1.587 1.97 1.09.973 2.008 1.273 2.3 1.417.292.144.46.12.632-.072.166-.193.717-.836.909-1.123.192-.287.384-.239.655-.144.271.096 1.719.812 2.011.96.292.144.484.216.555.335.072.12.072.695-.169 1.373z"/>
-              </svg>
-              <span>WhatsApp</span>
+            <a href="https://wa.me/918770087774" target="_blank" class="social-btn social-btn--whatsapp">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M12.004 2.003c-5.514 0-9.997 4.484-9.997 9.997 0 1.762.464 3.484 1.345 4.997l-1.409 5.151 5.293-1.389c1.464.801 3.104 1.241 4.768 1.241h.001c5.514 0 9.997-4.484 9.997-9.997s-4.483-9.997-9.997-9.997zm5.634 14.631c-.241.678-1.413 1.293-1.941 1.377-.495.078-1.123.111-1.809-.117-.417-.137-.954-.312-1.646-.611-2.897-1.252-4.792-4.152-4.941-4.349-.144-.197-1.181-1.574-1.181-3.004 0-1.429.749-2.134 1.017-2.426.267-.292.579-.365.772-.365.193 0 .386.002.555.01.179.008.418-.067.655.501.241.578.819 1.995.891 2.139.072.144.12.312.024.509-.096.197-.144.312-.287.478-.144.166-.303.37-.431.497-.144.144-.293.301-.126.593.166.292.739 1.217 1.587 1.97 1.09.973 2.008 1.273 2.3 1.417.292.144.46.12.632-.072.166-.193.717-.836.909-1.123.192-.287.384-.239.655-.144.271.096 1.719.812 2.011.96.292.144.484.216.555.335.072.12.072.695-.169 1.373z"/></svg>
+              WhatsApp
             </a>
           </div>
-          
-          <!-- Small Contact Buttons -->
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <a href="mailto:ayush.shrivastava.1292@gmail.com" class="contact-btn mail-btn" style="display:flex;align-items:center;justify-content:center;padding:8px 12px;background:linear-gradient(135deg,rgba(0,255,238,0.9),rgba(0,204,255,0.9));color:#111;font-family:'Orbitron',monospace;font-weight:500;border:none;border-radius:8px;box-shadow:0 3px 10px rgba(0,255,238,0.3);font-size:0.75em;text-decoration:none;transition:all 0.3s ease;border:1px solid rgba(0,255,238,0.3);">
-              📧 Email
-            </a>
-            <a href="assets/your_resume.pdf" class="contact-btn resume-btn" style="display:flex;align-items:center;justify-content:center;padding:8px 12px;background:linear-gradient(135deg,rgba(102,126,234,0.9),rgba(118,75,162,0.9));color:#fff;font-family:'Orbitron',monospace;font-weight:500;border:none;border-radius:8px;box-shadow:0 3px 10px rgba(102,126,234,0.4);font-size:0.75em;text-decoration:none;transition:all 0.3s ease;border:1px solid rgba(102,126,234,0.3);">
-              📄 Resume
-            </a>
+          <div class="contact-row">
+            <a href="mailto:ayush.shrivastava.1292@gmail.com" class="btn-ui btn-ui--primary">Email me</a>
+            <a href="assets/your_resume.pdf" class="btn-ui">Download resume</a>
           </div>
         </div>
       </div>
