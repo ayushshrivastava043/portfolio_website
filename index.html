@@ -475,9 +475,17 @@
         .img-slider-controls input[type=range] {
             width: 160px;
         }
-        /* IMPORTANT: Do NOT add overflow:hidden to html or body! This breaks scrolling. Only #space should have overflow:hidden. */
-        html,body{margin:0;width:100vw;height:100vh;background:#000;}
-        #space{width:100vw;height:100vh;overflow:hidden;}
+        /* IMPORTANT: Do NOT add overflow:hidden to html or body! This breaks scrolling. */
+        html, body {
+            margin: 0;
+            width: 100%;
+            min-height: 100vh;
+            height: auto;
+            background: #000;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        #space { width: 100%; min-height: 100vh; overflow: visible; }
 
         /* Professional GIF Alien Character Styles */
         .alien-gif {
