@@ -194,11 +194,21 @@ def kb_fast_response(message):
     skills = KNOWLEDGE_BASE.get('skills', [])
     projects = KNOWLEDGE_BASE.get('projects', [])
 
-    if any(g in msg for g in ('hello', 'hi', 'hey', 'hola')):
+    if any(g in msg for g in ('hello', 'hi', 'hey', 'hola', 'wassup', 'sup', 'yo')) or "what's up" in msg or 'whats up' in msg:
         return (
             "Hey! I'm Ayush's AI assistant. Ask me about his projects, skills, "
             "or experience — happy to help!"
         )
+
+    if 'ayush' in msg and any(p in msg for p in ('what does', 'what do', 'does he do', 'does ayush do', ' his work', ' his job')):
+        name = about.get('name', 'Ayush Shrivastava')
+        profession = about.get('profession', 'AI Product Manager & GenAI Strategist')
+        bio = about.get('bio', '')
+        project_names = ', '.join(p.get('name', '') for p in projects[:3] if p.get('name'))
+        parts = [f"{name} is an {profession}.", bio]
+        if project_names:
+            parts.append(f"He builds things like {project_names}.")
+        return ' '.join(p for p in parts if p).strip()
 
     about_ayush = (
         'about ayush' in msg

@@ -1372,8 +1372,59 @@
         }
 
         isKnownPortfolioQuestion(message) {
-            const msg = message.toLowerCase();
-            return /about ayush|bout ayush|who is ayush|tell me.*ayush|what can you.*ayush|skill|tech|expertise|project|built|portfolio|experience|hello|hi|hey/.test(msg);
+            const msg = message.toLowerCase().trim();
+            if (/ayush/.test(msg)) return true;
+            return /about|skill|tech|expertise|project|built|portfolio|experience|what does he|what do you|hello|^hi$|^hey$|hola|wassup|what'?s up|^sup$|^yo$|howdy|good (morning|afternoon|evening)/.test(msg);
+        }
+
+        buildAboutAyushAnswer(about, projects) {
+            const name = about.name || 'Ayush Shrivastava';
+            const profession = about.profession || 'AI Product Manager & GenAI Strategist';
+            const bio = about.bio || '';
+            const highlights = projects.slice(0, 3).map(p => p.name).filter(Boolean).join(', ');
+            let answer = `${name} is an ${profession}. ${bio}`.trim();
+            if (highlights) answer += ` Notable work includes ${highlights}.`;
+            return answer;
+        }
+
+        async generateLocalResponse(message) {
+            const kb = await this.loadKnowledgeBase();
+            const msg = message.toLowerCase().trim();
+            const about = kb.about_ayush || {};
+            const skills = kb.skills || [];
+            const projects = kb.projects || [];
+
+            if (/hello|^hi$|^hey$|hola|wassup|what'?s up|^sup$|^yo$|howdy|good (morning|afternoon|evening)/.test(msg)) {
+                return "Hey! I'm Ayush's AI assistant. Ask me about his projects, skills, or experience!";
+            }
+            if (/what does ayush do|what do(es)? ayush|does ayush do|what does he do|what's his work|what is his job/.test(msg)) {
+                const name = about.name || 'Ayush Shrivastava';
+                const profession = about.profession || 'AI Product Manager & GenAI Strategist';
+                const bio = about.bio || '';
+                const highlights = projects.slice(0, 3).map(p => p.name).filter(Boolean).join(', ');
+                let answer = `${name} is an ${profession}. ${bio}`.trim();
+                if (highlights) answer += ` He builds things like ${highlights}.`;
+                return answer;
+            }
+            if (/who (is|are)|about ayush|bout ayush|tell me.*ayush|what can you.*ayush/.test(msg)) {
+                return this.buildAboutAyushAnswer(about, projects);
+            }
+            if (/skill|tech|expertise/.test(msg)) {
+                return skills.length ? `Ayush's key skills include ${skills.slice(0, 8).join(', ')}.` : "Ayush works across AI, product, and automation.";
+            }
+            if (/project|built|portfolio|what has he|what has ayush/.test(msg)) {
+                const list = projects.slice(0, 4).map(p => p.description ? `${p.name}: ${p.description}` : p.name).join('; ');
+                return list ? `Highlights: ${list}.` : "Ayush has built AI chatbots, workflow tools, and avatar systems.";
+            }
+            if (/experience|job|role|career|background/.test(msg)) {
+                const exp = (kb.experience || [])[0];
+                if (exp) return `${exp.role || about.profession || 'AI Product Manager'}. ${exp.description || ''}`.trim();
+                return this.buildAboutAyushAnswer(about, projects);
+            }
+            if (/ayush/.test(msg)) {
+                return this.buildAboutAyushAnswer(about, projects);
+            }
+            return "I'm Ayush's portfolio assistant! Ask about his projects, skills, or experience.";
         }
 
         looksIncompleteResponse(text) {
@@ -1382,34 +1433,6 @@
             if (/oops|something went wrong|having trouble|try again|empty reply/i.test(t)) return true;
             if (t.endsWith(',') || t.endsWith(' and') || t.endsWith(' or')) return true;
             return t.length > 50 && !/[.!?]$/.test(t);
-        }
-
-        async generateLocalResponse(message) {
-            const kb = await this.loadKnowledgeBase();
-            const msg = message.toLowerCase();
-            const about = kb.about_ayush || {};
-            const skills = kb.skills || [];
-            const projects = kb.projects || [];
-            if (/hello|hi|hey/.test(msg)) {
-                return "Hey! I'm Ayush's AI assistant. Ask me about his projects, skills, or experience!";
-            }
-            if (/who (is|are)|about ayush|bout ayush|tell me.*ayush|what can you.*ayush/.test(msg)) {
-                const name = about.name || 'Ayush Shrivastava';
-                const profession = about.profession || 'AI Product Manager';
-                const bio = about.bio || '';
-                const highlights = projects.slice(0, 3).map(p => p.name).filter(Boolean).join(', ');
-                let answer = `${name} is an ${profession}. ${bio}`.trim();
-                if (highlights) answer += ` Notable work includes ${highlights}.`;
-                return answer;
-            }
-            if (/skill|tech|expertise/.test(msg)) {
-                return skills.length ? `Key skills: ${skills.slice(0, 6).join(', ')}.` : "Ayush works across AI, product, and automation.";
-            }
-            if (/project|built|portfolio/.test(msg)) {
-                const list = projects.slice(0, 3).map(p => p.name).join(', ');
-                return list ? `Highlights: ${list}.` : "Ayush has built AI chatbots, workflow tools, and avatar systems.";
-            }
-            return "I'm Ayush's portfolio assistant! Ask about his projects, skills, or experience.";
         }
 
         async generateEnhancedResponse(message) {
