@@ -1,201 +1,104 @@
 // Projects data
 const projectData = {
     'ai-sales': {
-        title: '🤖 1. AI Sales Agent for E-commerce',
-        whatItIs: 'A smart, retrieval-augmented chatbot deployed on e-commerce platforms to deliver personalized shopping experiences in real-time—like a human sales rep on every page. Built using GPT + Qdrant, connected to Shopify APIs, and backed by live data and business logic.',
-        howItWorks: [
-            'Understands user queries (e.g., "vegan protein under ₹2,000")',
-            'Fetches matching products via vector similarity search',
-            'Applies cart logic, stock status, and promo rules',
-            'Offers contextual upsells or coupon nudges',
-            'Escalates based on sentiment or friction'
+        title: 'Verifast — Agentic AI Sales Platform',
+        whatItIs: 'Agentic AI sales assistant platform serving 600+ e-commerce clients. Architecture: intent detection, orchestration layer (tool/action calling), semantic retrieval pipeline, and business rules/guardrails for safety.',
+        myContributions: [
+            'Owned Verifast case study end-to-end — platform architecture and production delivery',
+            'Diagnosed flash-sale stale grounding (batch sync vs real-time price/stock); shipped immediate and long-term fixes',
+            'Built automated pre-go-live evaluation set for data quality',
+            'Sandbox testing, edge-case breaking, narrow rollout to 1–2 clients before wide release'
         ],
         keyFeatures: [
-            'Memory-based personalization',
-            'Hindi/English auto-switching',
-            'Drop-off detection and funnel tracking',
-            'Real-time dashboard via Prometheus & Grafana'
+            'Intent detection + orchestration',
+            'Semantic search / RAG grounding',
+            'Business rules guardrails',
+            'Pre-go-live automated evaluation'
         ],
-        impact: {
-            title: 'Impact (Pilot Results)',
-            headers: ['Metric', 'Before', 'After', 'Change'],
-            rows: [
-                { 'Metric': 'Conversion Rate', 'Before': '2.3 %', 'After': '4.1 %', 'Change': '+79 %' },
-                { 'Metric': 'Avg. Order Value', 'Before': '₹1,480', 'After': '₹1,930', 'Change': '+30 %' },
-                { 'Metric': 'CSAT', 'Before': '3.8/5', 'After': '4.5/5', 'Change': '↑ 0.7 pts' },
-                { 'Metric': 'Support Tickets', 'Before': '18/1k users', 'After': '6/1k users', 'Change': '–67 %' }
-            ]
-        },
-        myRole: 'Product lead & architect—designed the retrieval flow, managed rollout, and led a cross-functional dev team.',
-        techStack: ['Python', 'FastAPI', 'GPT-4o', 'Qdrant', 'Shopify API', 'Redis', 'Socket.IO', 'Prometheus', 'Grafana']
+        myRole: 'Agentic AI Product — architecture ownership, production incident response, rollout discipline.',
+        techStack: ['Agentic AI', 'RAG', 'Semantic Search', 'Orchestration', 'E-commerce Integrations']
     },
     'ai-video': {
-        title: '🎬 2. AI Video Generation Pipeline (Script to Screen)',
-        whatItIs: 'An automated pipeline that transforms a single-line prompt into a narrated video with visuals, voice-over, editing, and export-ready MP4. Used to produce explainer and mythology series at scale with zero manual editing.',
+        title: 'AI Video Content Pipeline',
+        whatItIs: 'End-to-end side project: scripts via ChatGPT, video via Minimax/Imagine AI, images via Midjourney, editing via Shotcut. Exploring Indian history/culture content and youth comedy/lifestyle formats for US and Indian audiences.',
         pipelineWorkflow: [
-            'Prompt (e.g., "Why did the Vijayanagara Empire collapse?")',
-            'ChatGPT creates scene-wise script',
-            'Midjourney / Stable Diffusion generates visuals',
-            'Google TTS creates voiceovers',
-            'Minimax & FFmpeg compile and render',
-            'Whisper generates captions',
-            'Auto-publish to YouTube/S3'
+            'Script generation (ChatGPT)',
+            'Visual generation (Midjourney / Imagine AI)',
+            'Video assembly (Minimax)',
+            'Edit and export (Shotcut)'
         ],
         keyFeatures: [
-            'Modular templates (documentary, promo, mythology)',
-            'Multi-language audio & captions',
-            'Visual and audio pacing auto-synced',
-            'Budget-guarded runs with GPU usage tracking'
+            'Multi-format short-form content',
+            'History/culture and lifestyle comedy tracks',
+            'Modular pipeline — each step understood before scaling'
         ],
-        productionEfficiency: {
-            title: 'Production Efficiency',
-            headers: ['Metric', 'Manual', 'AI Pipeline', 'Reduction'],
-            rows: [
-                { 'Metric': 'Time/video', 'Manual': '~3 days', 'AI Pipeline': '48 mins', 'Reduction': '–97 %' },
-                { 'Metric': 'Cost/video', 'Manual': '₹28k', 'AI Pipeline': '₹4.2k', 'Reduction': '–85 %' },
-                { 'Metric': 'View-through', 'Manual': '42 %', 'AI Pipeline': '61 %', 'Reduction': '+19 %' }
-            ]
-        },
-        myRole: 'Designed architecture, scripted prompt logic, deployed orchestrator with Airflow, and published full Indian history video series.',
-        techStack: ['LangChain', 'ChatGPT', 'Midjourney', 'Stable Diffusion XL', 'Google TTS', 'Minimax', 'FFmpeg', 'Whisper', 'Airflow', 'GCP']
+        myRole: 'Solo builder — full pipeline design and content experimentation.',
+        techStack: ['ChatGPT', 'Midjourney', 'Minimax', 'Imagine AI', 'Shotcut']
     },
     'ai-api': {
-        title: '⚙️ 3. End-to-End API Orchestration Framework',
-        whatItIs: 'A centralized automation engine that connects services like Shopify, HubSpot, Twilio, Asana, and Stripe. Incoming webhooks trigger multi-step workflows—managed through simple YAML, no manual intervention needed.',
-        useCaseExample: {
-            title: 'Use Case Example – High-Value Order Automation',
-            description: 'When a Shopify order > ₹3,000 is received:',
-            steps: [
-                '✅ WhatsApp DM is sent via Twilio',
-                '✅ HubSpot contact is created/updated',
-                '✅ Asana task is added for warehouse packing'
-            ],
-            outro: 'All from a single orders/create webhook.'
-        },
+        title: 'Neo RAG + AWS Bedrock AgentCore / LangGraph',
+        whatItIs: 'Neo: personal RAG assistant (Flask, FAISS, Gemini/OpenAI fallback, multi-tenant) built chapter-by-chapter. Plus AWS Bedrock AgentCore and full LangGraph agent deployment as interview-readiness exercises.',
         keyFeatures: [
-            'YAML-based flow definitions',
-            'Idempotent execution',
-            'Rate-limit aware',
-            'Namespace queues for multi-client safety',
-            'Full observability with Prometheus'
+            'KB-first portfolio chatbot pattern',
+            'FAISS vector retrieval',
+            'LangGraph agent workflows',
+            'AWS Bedrock AgentCore hands-on'
         ],
-        myRole: 'Architected event model, built rule engine, containerized backend, and enabled ops teams to own automation without dev handholding.',
-        techStack: ['Python', 'FastAPI', 'Redis Streams', 'Celery', 'RabbitMQ', 'HashiCorp Vault', 'Prometheus', 'Grafana', 'Twilio API', 'HubSpot API', 'Shopify API', 'Asana API']
+        myRole: 'Solo builder — deep conceptual understanding over demo scaffolding.',
+        techStack: ['Flask', 'FAISS', 'LangGraph', 'AWS Bedrock AgentCore', 'Gemini', 'OpenAI']
     },
     // PM Projects Start Here
     'pm-telecom': {
-        title: '📡 1. Dual-Track Telecom Rollout – Bell Canada',
-        subTitle: '(eSIM Activation & DTH Self-Installation)',
-        whatItIs: 'A pair of customer-facing journeys that let subscribers activate an e-SIM in minutes and install DTH hardware without a field visit—underpinned by microservice-based order-provisioning and billing flows.',
+        title: 'Salud.ai Consultancy Sprint (Durham MBA)',
+        subTitle: 'US freemium health app',
+        whatItIs: 'Co-founded and coordinated a consultancy sprint for Salud.ai. Led AI and data strategy across GTM (Pod A), data/AI strategy (Pod B), KPI framework, survey instruments, and Jira tickets across US and India content platforms.',
         myContributions: [
-            'Solution design: Authored end-to-end functional-design docs; mapped legacy calls to new REST services',
-            'SAFe Agile lead: Ran 2 squads (dev + QA), cleared blockers, trimmed sprint slippage by 30%',
-            'Error & delay cuts: Automation + CI checks lowered provisioning errors 10% and delivery delays 30%',
-            'Stakeholder comms: Interactive demos for execs cut clarification time nearly in half'
+            'GTM strategy (Pod A) and data & AI strategy (Pod B)',
+            'KPI framework and survey instrument design',
+            '15-minute client-facing presentation with full script',
+            'Adapted presentation style mid-engagement for business vs academic audiences'
         ],
-        keyFeatures: [
-            'Self-service eSIM activation',
-            'DTH hardware self-installation',
-            'Automated provisioning workflows',
-            'Real-time order tracking'
-        ],
-        impact: {
-            title: 'Impact Metrics',
-            headers: ['Metric', 'Before', 'After', 'Change'],
-            rows: [
-                { 'Metric': 'Provisioning Errors', 'Before': '12%', 'After': '2%', 'Change': '-83%' },
-                { 'Metric': 'Delivery Time', 'Before': '72h', 'After': '48h', 'Change': '-33%' },
-                { 'Metric': 'Customer Satisfaction', 'Before': '3.2/5', 'After': '4.1/5', 'Change': '+28%' }
-            ]
-        },
-        myRole: 'Product Manager & Technical Lead',
-        techStack: ['Microservices', 'Spring Boot', 'Kafka', 'Oracle BRM', 'Jira/Confluence', 'SAFe']
+        keyFeatures: ['GTM strategy', 'AI/data strategy', 'KPI framework', 'Client presentation'],
+        myRole: 'Co-founder & AI/Data Strategy Lead — Durham MBA consultancy sprint',
+        techStack: ['Jira', 'Excel', 'PowerPoint', 'Survey design']
     },
     'pm-hrsuite': {
-        title: '👥 2. KenboxTech HR-Suite Revamp',
-        subTitle: '(LMS, LDS & BES Modules)',
-        whatItIs: 'A ground-up redesign of KenboxTech\'s HR platform—new navigation, dashboards, and mobile-ready flows spanning Learning Management (LMS), Leadership Development (LDS), and Behavior Evaluation (BES).',
+        title: 'BP Board Strategy Case (Durham MBA)',
+        subTitle: 'Major consulting case',
+        whatItIs: 'Board strategy report: asset divestment analysis, IEMS proposition for data centres (Lightsource BP renewables + gas backup + Castrol cooling), AI transformation strategy (four pillars), and Geopolitical Intelligence Unit recommendation.',
         myContributions: [
-            'Re-imagined IA & UX: low-fidelity sketches → high-fidelity Figma prototypes',
-            'Wrote epics & user stories for 30+ new features (skill-gap analytics, AI quiz engine, pulse surveys)',
-            'Acted as SME across three modules, aligning dev & QA on acceptance criteria',
-            'Guided dev handoff; sprint velocity +18% after story refinement workshops'
+            'PowerPoint decks and boardroom speech notes',
+            'Excel financial models',
+            'Word appendices for supporting analysis'
         ],
-        keyFeatures: [
-            'Unified learning dashboard',
-            'Mobile-first design',
-            'Automated skill assessments',
-            'Leadership development tracking'
-        ],
-        impact: {
-            title: 'Platform Impact',
-            headers: ['Metric', 'Before', 'After', 'Change'],
-            rows: [
-                { 'Metric': 'User Engagement', 'Before': '45%', 'After': '78%', 'Change': '+73%' },
-                { 'Metric': 'Mobile Usage', 'Before': '12%', 'After': '58%', 'Change': '+383%' },
-                { 'Metric': 'Training Completion', 'Before': '65%', 'After': '92%', 'Change': '+42%' }
-            ]
-        },
-        myRole: 'Product Manager & UX Lead',
-        techStack: ['Figma', 'Miro', 'React', 'Django', 'Azure DevOps']
+        keyFeatures: ['Asset divestment', 'IEMS for data centres', 'AI transformation (4 pillars)', 'Geopolitical Intelligence Unit'],
+        myRole: 'Consulting team member — Durham MBA',
+        techStack: ['Excel', 'PowerPoint', 'Word']
     },
     'pm-websites': {
-        title: '🌐 3. Multi-Brand Website Builds & Launches',
-        whatItIs: 'Full-service site projects—branding, copy, wireframes, front-end code, and GTM setup—for startups in AI services, boutique retail, and professional coaching.',
+        title: 'V-Lab Strategic Consulting & Advisory',
+        whatItIs: 'Advising V-Lab on agentic AI use cases (solution architecture through market positioning). Led student consulting project on market entry for India, China, and Australia in wind energy VR training.',
         myContributions: [
-            'Defined brand voice & visual mood boards with founders',
-            'Built responsive templates (HTML/Tailwind/React) with Lighthouse 90+ scores',
-            'Integrated Stripe, Calendly, and HubSpot forms; set up GA4 & basic SEO',
-            'Delivered 6 sites in 9 months, each live within 4-week cycles'
+            'Built/corrected TAM/SAM/SOM models from first principles',
+            'Six novel agentic AI service concepts on digital shadow data',
+            'Cross-document positioning framework (pricing, Innovate UK plan, Xodus report)',
+            'Multi-country master reports and Australia Excel financial model'
         ],
-        keyFeatures: [
-            'Custom brand identity',
-            'Responsive design',
-            'SEO optimization',
-            'Analytics integration'
-        ],
-        impact: {
-            title: 'Project Metrics',
-            headers: ['Metric', 'Target', 'Achieved', 'Status'],
-            rows: [
-                { 'Metric': 'Sites Delivered', 'Target': '6', 'Achieved': '6', 'Status': '✅' },
-                { 'Metric': 'Avg. Lighthouse Score', 'Target': '90+', 'Achieved': '92', 'Status': '✅' },
-                { 'Metric': 'Avg. Load Time', 'Target': '<2s', 'Achieved': '1.8s', 'Status': '✅' }
-            ]
-        },
-        myRole: 'Full-Stack Product Manager',
-        techStack: ['React/Next.js', 'TailwindCSS', 'Netlify', 'GA4', 'Stripe']
+        keyFeatures: ['Market entry strategy', 'TAM/SAM/SOM modeling', 'Agentic AI service concepts', 'Positioning framework'],
+        myRole: 'Lead consultant & ongoing advisor',
+        techStack: ['Excel', 'Word', 'Market research', 'Agentic AI architecture']
     },
     'pm-edtech': {
-        title: '🎓 4. Banking-EdTech Content Platform',
-        whatItIs: 'A modular e-learning product for a banking client—customer-awareness, compliance training, and gamified employee-engagement tracks.',
-        myContributions: [
-            'Ran workshops to turn loose requirements into signed-off functional specs, improving timeline predictability 10%',
-            'Crafted clickable wireflows; A/B tweaks boosted learner engagement 15%',
-            'Partnered with motion designers to embed animated explainers, lowering drop-off rates',
-            'Oversaw UAT & release notes, trimming post-launch fixes by 20%'
-        ],
-        keyFeatures: [
-            'Interactive learning modules',
-            'Gamified assessments',
-            'Progress tracking',
-            'Mobile learning support'
-        ],
-        impact: {
-            title: 'Learning Impact',
-            headers: ['Metric', 'Before', 'After', 'Change'],
-            rows: [
-                { 'Metric': 'Engagement Rate', 'Before': '42%', 'After': '57%', 'Change': '+36%' },
-                { 'Metric': 'Drop-off Rate', 'Before': '35%', 'After': '18%', 'Change': '-49%' },
-                { 'Metric': 'Assessment Pass Rate', 'Before': '68%', 'After': '89%', 'Change': '+31%' }
-            ]
-        },
-        myRole: 'Product Manager & Learning Designer',
-        techStack: ['Adobe XD', 'Storyline 360', 'SCORM', 'Firebase', 'Slack/ClickUp']
+        title: 'MBA Coursework Portfolio',
+        whatItIs: 'Selected Durham MBA deliverables: CGI agile sprint operations report, Tesla sustainability essay, Patagonia supply chain (Applied Strategic Management), Salud.ai consultancy essay, Verifast PM assignment, Lyon IBC journal, Philippines country manager simulation.',
+        myContributions: ['Applied strategy across operations, sustainability, consulting, and project management modules'],
+        keyFeatures: ['Multi-disciplinary MBA coursework', 'Real company case studies'],
+        myRole: 'MBA candidate — Durham University Business School',
+        techStack: ['Excel', 'Word', 'PowerPoint', 'Case analysis']
     },
     // PM Projects End Here
 
-    // ───── Product-Management Projects ─────
+    // ───── Product-Management Projects (legacy keys) ─────
     'pm-bell-esim': {
         title: 'eSIM Activation & DTH Self-Install',
         description: 'End-to-end telecom solution for e-SIM activation and DTH self-installation',
@@ -261,45 +164,42 @@ const projectData = {
 
     // ───── Business Development Projects ─────
     'biz-kpi-playbook': {
-        title: 'KPI-Driven AI Growth Playbook',
-        description: 'Defined OKRs & dashboards to drive engagement & GMV',
+        title: 'Verifast — Agentic AI Product',
+        description: '600+ e-commerce clients · intent, orchestration, retrieval, guardrails',
         functionality: [
-            'North-star metrics & quarterly targets',
-            'Feature prioritization by latency & conversion lift',
+            'Production flash-sale grounding incident diagnosis & fix',
+            'Automated pre-go-live evaluation set',
+            'Sandbox testing & narrow client rollout discipline',
         ],
         keyFeatures: [
-            '25% jump in user engagement',
-            '10% GMV growth',
+            'Agentic platform architecture ownership',
+            'Data quality automation before go-live',
         ],
-        role: 'AI Product Manager',
-        techStack: ['Grafana', 'Looker', 'Python'],
+        role: 'Agentic AI Product',
+        techStack: ['Agentic AI', 'RAG', 'Semantic Search', 'Orchestration'],
     },
     'biz-esim-dth-launch': {
-        title: 'e-SIM & DTH Market Launch',
-        description: 'Go-to-market playbooks, pricing & CX for Bell Canada',
-        functionality: [
-            'Exec demos & go/no-go gates',
-            'Cross-team SLA negotiation',
-        ],
-        keyFeatures: [
-            'Service live in <6 months',
-            '30% faster delivery',
-        ],
-        role: 'Sr. Business System Analyst',
-        techStack: ['PowerPoint', 'Confluence', 'Excel'],
+        title: 'DKPR E-Learn',
+        description: 'Early-career e-learning role — details pending update',
+        functionality: ['Specific contributions to be added'],
+        keyFeatures: ['⚠️ Content pending — ask about Verifast or CGI for recent work'],
+        role: 'TBD',
+        techStack: ['E-learning'],
     },
     'biz-genai-pilot': {
-        title: 'Generative-AI Telecom Pilot',
-        description: 'LLM FAQs & ticket-triage POC at CGI',
+        title: 'CGI — GenAI Pilot (Bell Canada)',
+        description: 'BSA → Associate PM · customer enquiry automation in ~4 months',
         functionality: [
-            'Cost-benefit model & sponsor buy-in',
-            'Pilot metrics capture for ops efficiency',
+            'Structured use cases & measurable success criteria',
+            'Agile transformation with real waterfall pain-point example',
+            'Team navigation through restructuring',
         ],
         keyFeatures: [
-            'Ops efficiency gains green-lit for FY25',
+            'GenAI platform pilot from undefined success to delivery',
+            'Stakeholder alignment across scattered ideas',
         ],
-        role: 'Sr. Business Analyst',
-        techStack: ['Excel', 'OpenAI API', 'UiPath'],
+        role: 'Business System Analyst → Associate Product Manager',
+        techStack: ['GenAI', 'Agile/SAFe', 'Workflow documentation'],
     },
     'biz-edtech-expansion': {
         title: 'EdTech Revenue Expansion',

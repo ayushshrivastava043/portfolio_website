@@ -38,6 +38,13 @@
             },
         },
         {
+            id: 'consulting',
+            score(msg) {
+                if (/salud|durham|mba|consulting|v-lab|vlab|bp board|strategy case/.test(msg)) return 10;
+                return 0;
+            },
+        },
+        {
             id: 'experience',
             score(msg) {
                 if (/experience|career|background|resume|cv|work history|job/i.test(msg)) return 10;
@@ -96,7 +103,13 @@
     }
 
     function skillsAnswer(kb) {
-        const skills = kb.skills || [];
+        const s = kb.skills;
+        if (s && !Array.isArray(s) && typeof s === 'object') {
+            return Object.entries(s)
+                .map(([cat, items]) => `${cat.replace(/_/g, ' ')}: ${(items || []).join(', ')}`)
+                .join(' | ');
+        }
+        const skills = Array.isArray(s) ? s : [];
         return skills.length
             ? `Ayush's key skills include ${skills.join(', ')}.`
             : 'Ayush works across AI product management, GenAI, Python, and workflow automation.';
@@ -113,10 +126,11 @@
     }
 
     function experienceAnswer(kb) {
-        const exp = (kb.experience || [])[0];
-        if (exp) {
-            const role = exp.role || (kb.about_ayush || {}).profession || 'AI Product Manager';
-            return `${role}. ${exp.description || ''}`.trim();
+        const exp = kb.experience || [];
+        if (exp.length) {
+            return exp.slice(0, 3).map(e =>
+                `${e.company} — ${e.role}: ${(e.highlights || []).slice(0, 2).join('; ')}`
+            ).join(' | ');
         }
         return aboutBlock(kb);
     }
@@ -158,6 +172,9 @@
                 return skillsAnswer(kb);
             case 'projects':
                 return projectsAnswer(kb);
+            case 'consulting':
+                return (kb.consulting || []).map(c => `${c.name}: ${c.summary}`).join(' | ') ||
+                    'Durham MBA consulting: Salud.ai, BP board strategy, V-Lab advisory.';
             case 'experience':
                 return experienceAnswer(kb);
             case 'contact':

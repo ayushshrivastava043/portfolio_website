@@ -1,82 +1,144 @@
 {
   "about_ayush": {
     "name": "Ayush Shrivastava",
-    "profession": "AI Product Manager & GenAI Strategist",
-    "bio": "Builds AI-powered products that think, talk, and convert — agentic chatbots, workflow automation, and GenAI tools for real business impact.",
-    "location": "",
-    "education": "",
-    "interests": ["AI/ML", "Product Management", "GenAI", "Automation", "Agentic AI"]
+    "profession": "AI Product Manager — Applied AI / GenAI Product",
+    "bio": "~9 years spanning civil engineering, business analysis, and AI product roles. Bridges technical AI systems (agentic architecture, RAG, orchestration) with business outcomes — not core ML research. Currently completing a Full-Time MBA at Durham University Business School (Consulting, Strategy & AI — expected September 2026). SAFe Agile certified.",
+    "location": "Durham, UK",
+    "education": "Full-Time MBA, Durham University Business School (Consulting, Strategy & AI) — expected Sep 2026",
+    "interests": ["Applied AI", "GenAI Product", "Agentic Systems", "Consulting", "Strategy"]
   },
   "contact": {
-    "email": "",
-    "linkedin": "https://www.linkedin.com/in/ayushshrivastava043",
-    "github": "https://github.com/ayushshrivastava043"
+    "email": "ayush.shrivastava.1292@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/ayushshrivastava1292",
+    "github": "https://github.com/ayushshrivastava1292"
   },
-  "skills": [
-    "AI Product Management",
-    "GenAI Strategy",
-    "Agentic AI & LangGraph",
-    "Machine Learning",
-    "Python",
-    "Flask",
-    "RAG Systems",
-    "OpenAI & Gemini Integration",
-    "Workflow Automation"
+  "skills": {
+    "ai_agentic": ["LangGraph", "RAG architecture", "AWS Bedrock AgentCore", "Agentic tool/action design", "Retrieval pipelines", "Prompt & context engineering", "FAISS", "Gemini / OpenAI integration"],
+    "salesforce": ["Agentforce (Topics & Actions)", "Data Cloud (DMOs, identity resolution)"],
+    "pm_delivery": ["SAFe Agile (certified)", "Agile transformation", "KPI framework design", "Stakeholder management", "GTM strategy", "Jira"],
+    "tools": ["Flask", "Python", "Excel financial modeling", "Trailhead", "FAISS"]
+  },
+  "experience": [
+    {
+      "company": "Verifast",
+      "role": "Agentic AI Product",
+      "period": "Recent",
+      "highlights": [
+        "Agentic AI sales assistant platform serving 600+ e-commerce clients",
+        "Owned Verifast case study: intent detection, orchestration, semantic retrieval, business rules/guardrails",
+        "Diagnosed flash-sale stale grounding (batch sync vs real-time price/stock); shipped immediate and long-term fixes",
+        "Built automated pre-go-live evaluation set for data quality",
+        "Sandbox testing, edge-case breaking, narrow rollout to 1–2 clients before wide release"
+      ]
+    },
+    {
+      "company": "CGI Inc. — Bell Canada Telecom",
+      "role": "Business System Analyst → Associate Product Manager",
+      "period": "",
+      "highlights": [
+        "BSA: workflow documentation, system design, process mapping",
+        "APM on GenAI platform pilot — structured use cases, success criteria, delivered customer enquiry automation in ~4 months",
+        "Helped team adopt agile using real waterfall pain-point example; transparent about agile limits",
+        "Navigated restructuring with milestone focus and honest communication"
+      ]
+    },
+    {
+      "company": "DKPR E-Learn",
+      "role": "Details to be added",
+      "period": "Early career",
+      "highlights": ["E-learning platform — specific role contributions pending update"]
+    }
+  ],
+  "consulting": [
+    {
+      "name": "Salud.ai Consultancy Sprint (Durham MBA)",
+      "summary": "Co-founded consultancy sprint for US freemium health app. Led AI/data strategy, GTM (Pod A), data & AI strategy (Pod B), KPI framework, surveys, Jira tickets, 15-min client presentation."
+    },
+    {
+      "name": "BP Board Strategy Case",
+      "summary": "Board strategy: asset divestment, IEMS for data centres (Lightsource BP + gas + Castrol), AI transformation (4 pillars), Geopolitical Intelligence Unit. Deliverables: PPT, Excel models, Word appendices, speech notes."
+    },
+    {
+      "name": "V-Lab Strategic Consulting & Advisory",
+      "summary": "Agentic AI use cases, India/China/Australia wind VR market entry, TAM/SAM/SOM models, six agentic AI service concepts on digital shadow data, cross-document positioning framework."
+    }
   ],
   "projects": [
     {
-      "name": "Neo Agentic Chatbot System",
-      "description": "Conversational AI with RAG, avatar UI, and LangGraph-style agent workflows",
-      "tech": ["LangGraph", "OpenAI", "RAG", "Python", "Flask"]
+      "name": "Neo — Personal RAG AI Assistant",
+      "description": "Flask, FAISS, Gemini/OpenAI fallback, multi-tenant. Built chapter-by-chapter for deep understanding.",
+      "tech": ["Flask", "FAISS", "RAG", "Gemini", "OpenAI"]
     },
     {
-      "name": "Visual Workflow Generator",
-      "description": "Drag-and-drop AI workflow diagrams for product and engineering teams",
-      "tech": ["JavaScript", "AI", "Workflow Design"]
+      "name": "Finbot — Investment Advice Chatbot",
+      "description": "Built on BharatGPT, step-by-step sequential build.",
+      "tech": ["BharatGPT", "Python"]
     },
     {
-      "name": "Universal Avatar Generator",
-      "description": "Portable 3D chatbot avatar system embeddable on any website",
-      "tech": ["JavaScript", "AI", "Chatbot UI"]
+      "name": "AWS Bedrock AgentCore + LangGraph",
+      "description": "Full LangGraph agent deployment — learning and interview-readiness exercise.",
+      "tech": ["AWS Bedrock AgentCore", "LangGraph"]
     },
     {
-      "name": "AI Portal Integration",
-      "description": "Full-stack portal integrating AI assistants, dashboards, and deployment pipelines",
-      "tech": ["Flask", "React", "AI Integration"]
+      "name": "Salesforce Agentforce & Data Cloud",
+      "description": "Trailhead self-study for Success Architect interview; maps to Verifast agentic architecture experience.",
+      "tech": ["Agentforce", "Data Cloud", "Trailhead"]
+    },
+    {
+      "name": "AI Video Content Pipeline",
+      "description": "ChatGPT scripts, Minimax/Imagine video, Midjourney images, Shotcut editing. Indian history/culture and youth comedy/lifestyle content.",
+      "tech": ["ChatGPT", "Midjourney", "Minimax", "Shotcut"]
     },
     {
       "name": "MyAgentcore",
-      "description": "Custom agent framework for building and deploying AI agents",
+      "description": "Custom agent framework for building and deploying AI agents.",
       "tech": ["Python", "Agentic AI"]
-    }
-  ],
-  "experience": [
-    {
-      "role": "AI Product Manager & GenAI Strategist",
-      "company": "",
-      "description": "Leads end-to-end AI product development — from strategy and prototyping to deployment of chatbots, automation, and GenAI features."
     }
   ],
   "faqs": [
     {
-      "keywords": ["langgraph", "agentic", "agent"],
-      "answer": "Ayush builds agentic AI systems using LangGraph-style workflows — multi-step reasoning, tool use, and RAG for accurate portfolio and product chatbots."
+      "keywords": ["verifast", "e-commerce", "600", "flash sale", "grounding"],
+      "answer": "At Verifast, Ayush worked on an agentic AI sales platform for 600+ e-commerce clients. He owned architecture (intent, orchestration, retrieval, guardrails) and fixed a production flash-sale incident where stale grounding data caused wrong price/stock answers — root cause was batch sync interval vs real-time updates."
     },
     {
-      "keywords": ["rag", "retrieval"],
-      "answer": "Ayush uses RAG (Retrieval-Augmented Generation) so chatbots answer from a curated knowledge base instead of guessing — that's how this assistant works too."
+      "keywords": ["cgi", "bell canada", "telecom", "genai pilot"],
+      "answer": "At CGI on Bell Canada projects, Ayush moved from Business System Analyst to Associate PM on a GenAI pilot. He structured use cases, defined success metrics, and delivered a customer enquiry automation platform in roughly 4 months."
     },
     {
-      "keywords": ["hire", "available", "looking for"],
-      "answer": "Ayush is open to AI Product Manager and GenAI roles. Check the Contact section or LinkedIn to get in touch."
+      "keywords": ["durham", "mba", "business school"],
+      "answer": "Ayush is completing a Full-Time MBA at Durham University Business School, specialising in Consulting, Strategy, and AI, expected September 2026. Consulting work includes Salud.ai, BP board strategy, and V-Lab advisory."
+    },
+    {
+      "keywords": ["salud", "health app"],
+      "answer": "Salud.ai sprint: co-founded Durham MBA consultancy for a US freemium health app — GTM strategy, AI/data strategy, KPIs, and client presentation."
+    },
+    {
+      "keywords": ["v-lab", "vlab", "wind", "vr training"],
+      "answer": "V-Lab advisory: market entry for India/China/Australia in wind energy VR training, TAM/SAM/SOM modeling, and six agentic AI service concepts built on digital shadow data."
+    },
+    {
+      "keywords": ["langgraph", "agentic", "rag"],
+      "answer": "Ayush builds agentic systems with LangGraph, RAG, retrieval pipelines, and guardrails — hands-on with Neo (Flask+FAISS), Verifast production platform, and AWS Bedrock AgentCore."
+    },
+    {
+      "keywords": ["safe", "agile", "certified"],
+      "answer": "Ayush is a certified SAFe Agile professional with experience driving agile transformation at CGI and delivering AI products in structured iterations."
+    },
+    {
+      "keywords": ["hire", "available", "looking for", "open to"],
+      "answer": "Ayush is pursuing Applied AI / GenAI Product Manager and consulting-strategy roles. MBA completing Sep 2026. Connect via LinkedIn or the Contact section."
+    },
+    {
+      "keywords": ["dkpr", "e-learn", "elearning"],
+      "answer": "DKPR E-Learn is an early-career e-learning role — detailed contributions are being added to the portfolio. Ask about Verifast, CGI, or Durham consulting for recent work."
     }
   ],
   "templates": {
-    "greeting": "Hey! I'm Ayush's AI assistant. Ask me about his projects, skills, experience, or how to reach him.",
-    "fallback": "I'm Ayush's portfolio assistant. Try: What does Ayush do? | What are his skills? | What projects has he built?"
+    "greeting": "Hey! I'm Ayush's AI assistant. Ask about his experience at Verifast & CGI, Durham MBA consulting, or hands-on AI projects.",
+    "fallback": "Try: What does Ayush do? | Verifast experience | Durham MBA projects | Skills & tools"
   },
   "personal": {
-    "friends": [{ "name": "Patty", "relationship": "friend" }],
+    "friends": [],
     "interests": [],
     "hobbies": []
   },
@@ -84,6 +146,6 @@
     "tone": "casual",
     "formality": "friendly",
     "response_length": "short",
-    "personality": "helpful and accurate"
+    "personality": "accurate and helpful"
   }
 }

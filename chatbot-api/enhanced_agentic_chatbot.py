@@ -225,7 +225,13 @@ def brain_answer(message):
         return ' '.join(p for p in parts if p).strip()
 
     if any(p in msg for p in ('skill', 'tech', 'expertise', 'stack', 'technologies')):
-        return f"Ayush's key skills include {', '.join(skills)}." if skills else "Ayush works across AI product management and GenAI."
+        skills = KNOWLEDGE_BASE.get('skills', {})
+        if isinstance(skills, dict):
+            flat = [i for v in skills.values() for i in (v or [])]
+            return f"Ayush's key skills include {', '.join(flat)}." if flat else "Ayush works across AI product management and GenAI."
+        if skills:
+            return f"Ayush's key skills include {', '.join(skills)}."
+        return "Ayush works across AI product management and GenAI."
 
     if any(p in msg for p in ('project', 'built', 'portfolio', 'showcase', 'demo')):
         if projects:
