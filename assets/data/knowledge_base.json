@@ -121,7 +121,7 @@
       "answer": "V-Lab advisory: market entry for India/China/Australia in wind energy VR training, TAM/SAM/SOM modeling, and six agentic AI service concepts built on digital shadow data."
     },
     {
-      "keywords": ["langgraph", "agentic", "rag"],
+      "keywords": ["langgraph", "agentic systems", "rag architecture", "retrieval pipeline"],
       "answer": "Ayush builds agentic systems with LangGraph, RAG, retrieval pipelines, and guardrails — hands-on with Neo (Flask+FAISS), Verifast production platform, and AWS Bedrock AgentCore."
     },
     {
@@ -145,7 +145,7 @@
       "answer": "Ayush runs an AI video content pipeline: ChatGPT scripts, Minimax/Imagine video, Midjourney images, Shotcut editing — covering Indian history/culture and youth comedy/lifestyle content."
     },
     {
-      "keywords": ["projects", "technical projects", "built"],
+      "keywords": ["projects list", "technical projects", "what has he built", "showcase builds"],
       "answer": "Technical projects include Neo (RAG assistant), Finbot (investment chatbot), AWS Bedrock AgentCore + LangGraph, Salesforce Agentforce/Data Cloud study, AI video pipeline, and MyAgentcore."
     },
     {

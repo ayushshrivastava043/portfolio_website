@@ -1116,7 +1116,7 @@
         }
         
         createMouthSyncedSpeech(message) {
-            console.log('🧠 Smart mouth-synced speech system activated for:', message);
+            console.log('🧠 Agentic brain activated for:', message);
             this.hideSpeechBubble();
 
             setTimeout(async () => {
@@ -1124,25 +1124,53 @@
                 this.positionSpeechContainer(mouthPosition);
                 this.activateMouthIndicator();
 
-                const useBrain = window.ChatbotBrain && (!window.CHATBOT_CONFIG || window.CHATBOT_CONFIG.useApiForChat !== true);
-                if (useBrain) {
-                    const kb = await this.loadKnowledgeBase();
-                    const { intent, text } = window.ChatbotBrain.answer(message, kb);
-                    console.log('⚡ Brain intent:', intent);
-                    this.speakResponse(text);
-                    return;
-                }
-
-                this.showSpeechBubble('Enhanced AI is thinking...', true);
                 try {
+                    const kb = await this.loadKnowledgeBase();
+                    if (window.ChatbotBrain && typeof window.ChatbotBrain.answerAsync === 'function') {
+                        const result = await window.ChatbotBrain.answerAsync(message, kb, {
+                            useApi: !!(
+                                window.CHATBOT_CONFIG &&
+                                (window.CHATBOT_CONFIG.useApiForChat === true ||
+                                    window.CHATBOT_CONFIG.allowGroundedApiPolish === true)
+                            ),
+                            apiUrl: this.config.enhancedEndpoint,
+                        });
+                        console.log('⚡ Brain:', result.intent, 'conf=', result.confidence, result.trace);
+                        this.renderAgentTrace(result.trace);
+                        this.speakResponse(result.text);
+                        return;
+                    }
+                    if (window.ChatbotBrain) {
+                        const { intent, text } = window.ChatbotBrain.answer(message, kb);
+                        console.log('⚡ Brain intent:', intent);
+                        this.speakResponse(text);
+                        return;
+                    }
                     const response = await this.generateEnhancedResponse(message);
-                    console.log('✅ AI response received:', response);
                     this.speakResponse(response);
                 } catch (error) {
                     console.error('❌ Error getting AI response:', error);
-                    this.speakResponse('Sorry, something went wrong. Try asking about Ayush\'s projects or skills.');
+                    this.speakResponse(
+                        "Sorry, something went wrong. Try asking about Verifast, CGI, Durham MBA, or Ayush's projects."
+                    );
                 }
             }, 80);
+        }
+
+        renderAgentTrace(trace) {
+            if (!this.config.showWorkflowSteps || !this.elements.workflowSteps || !trace) return;
+            const el = this.elements.workflowSteps;
+            const labels = (trace || [])
+                .map(function (step) {
+                    return (step.tool || 'step') + ':' + (step.status || 'ok');
+                })
+                .join(' → ');
+            el.textContent = labels ? 'Agent: ' + labels : '';
+            el.classList.add('active');
+            clearTimeout(this._traceHide);
+            this._traceHide = setTimeout(function () {
+                el.classList.remove('active');
+            }, 8000);
         }
         
         calculateMouthPosition() {
@@ -1388,7 +1416,18 @@
         async loadKnowledgeBase() {
             if (this.knowledgeBase) return this.knowledgeBase;
             if (this.knowledgeBaseLoading) return this.knowledgeBaseLoading;
-            const kbUrl = (window.CHATBOT_CONFIG && window.CHATBOT_CONFIG.knowledgeBaseUrl) || 'assets/data/knowledge_base.json';
+            let kbUrl = (window.CHATBOT_CONFIG && window.CHATBOT_CONFIG.knowledgeBaseUrl) || 'assets/data/knowledge_base.json';
+            // Resolve relative to site root (same base as chatbot-boot.js)
+            if (kbUrl.indexOf('http') !== 0) {
+                const scripts = document.getElementsByTagName('script');
+                for (let i = 0; i < scripts.length; i++) {
+                    const src = scripts[i].src || '';
+                    if (src.indexOf('chatbot-brain.js') !== -1 || src.indexOf('chatbot-boot.js') !== -1) {
+                        kbUrl = src.replace(/assets\/js\/[^/]+$/, '') + kbUrl.replace(/^\//, '');
+                        break;
+                    }
+                }
+            }
             this.knowledgeBaseLoading = fetch(kbUrl)
                 .then(res => res.ok ? res.json() : {})
                 .catch(() => ({}))

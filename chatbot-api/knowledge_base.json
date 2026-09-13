@@ -113,12 +113,40 @@
       "answer": "Salud.ai sprint: co-founded Durham MBA consultancy for a US freemium health app — GTM strategy, AI/data strategy, KPIs, and client presentation."
     },
     {
+      "keywords": ["bp", "board strategy", "divestment", "iems", "lightsource", "geopolitical"],
+      "answer": "BP board strategy case: asset divestment analysis, IEMS for data centres (Lightsource BP + gas + Castrol cooling), four-pillar AI transformation strategy, and a Geopolitical Intelligence Unit recommendation. Deliverables included PowerPoint, Excel models, Word appendices, and boardroom speech notes."
+    },
+    {
       "keywords": ["v-lab", "vlab", "wind", "vr training"],
       "answer": "V-Lab advisory: market entry for India/China/Australia in wind energy VR training, TAM/SAM/SOM modeling, and six agentic AI service concepts built on digital shadow data."
     },
     {
-      "keywords": ["langgraph", "agentic", "rag"],
+      "keywords": ["langgraph", "agentic systems", "rag architecture", "retrieval pipeline"],
       "answer": "Ayush builds agentic systems with LangGraph, RAG, retrieval pipelines, and guardrails — hands-on with Neo (Flask+FAISS), Verifast production platform, and AWS Bedrock AgentCore."
+    },
+    {
+      "keywords": ["neo", "rag assistant", "flask", "faiss"],
+      "answer": "Neo is Ayush's personal RAG AI assistant — Flask + FAISS with Gemini/OpenAI fallback and multi-tenant support. He built it chapter-by-chapter; the portfolio chatbot uses the same KB-first pattern."
+    },
+    {
+      "keywords": ["finbot", "investment", "bharatgpt"],
+      "answer": "Finbot is an investment advice chatbot Ayush built on BharatGPT, assembled sequentially component-by-component rather than as a one-shot demo."
+    },
+    {
+      "keywords": ["agentcore", "bedrock", "myagentcore"],
+      "answer": "Ayush has hands-on AWS Bedrock AgentCore + LangGraph deployment experience for interview readiness, plus MyAgentcore — a custom framework for building and deploying AI agents."
+    },
+    {
+      "keywords": ["agentforce", "salesforce", "data cloud", "dmo"],
+      "answer": "Ayush studied Salesforce Agentforce and Data Cloud on Trailhead (Topics/Actions, DMOs, identity resolution) and mapped those patterns to Verifast's agentic architecture."
+    },
+    {
+      "keywords": ["video", "minimax", "midjourney", "shotcut", "youtube"],
+      "answer": "Ayush runs an AI video content pipeline: ChatGPT scripts, Minimax/Imagine video, Midjourney images, Shotcut editing — covering Indian history/culture and youth comedy/lifestyle content."
+    },
+    {
+      "keywords": ["projects list", "technical projects", "what has he built", "showcase builds"],
+      "answer": "Technical projects include Neo (RAG assistant), Finbot (investment chatbot), AWS Bedrock AgentCore + LangGraph, Salesforce Agentforce/Data Cloud study, AI video pipeline, and MyAgentcore."
     },
     {
       "keywords": ["safe", "agile", "certified"],

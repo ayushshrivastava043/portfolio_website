@@ -78,31 +78,32 @@
     if (!kb) kb = await loadKb();
 
     if (window.ChatbotBrain && kb) {
-      var result = window.ChatbotBrain.answer(text, kb);
-      if (result && result.text) {
-        console.log('⚡ Brain intent:', result.intent);
+      if (typeof window.ChatbotBrain.answerAsync === 'function') {
+        var result = await window.ChatbotBrain.answerAsync(text, kb, {
+          useApi: !!(
+            window.CHATBOT_CONFIG &&
+            (window.CHATBOT_CONFIG.useApiForChat === true ||
+              window.CHATBOT_CONFIG.allowGroundedApiPolish === true)
+          ),
+          apiUrl:
+            (window.CHATBOT_CONFIG && window.CHATBOT_CONFIG.apiUrl) ||
+            'https://portfolio-chatbot-api-slev.onrender.com/chat',
+          history: history,
+        });
+        console.log('⚡ Brain:', result.intent, result.confidence, result.trace);
         return result.text;
       }
-    }
-
-    try {
-      var apiUrl =
-        (window.CHATBOT_CONFIG && window.CHATBOT_CONFIG.apiUrl) ||
-        'https://portfolio-chatbot-api-slev.onrender.com/chat';
-      var res = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text, history: history }),
-      });
-      if (res.ok) {
-        var data = await res.json();
-        return data.reply || data.response || data.answer || data.message;
+      var sync = window.ChatbotBrain.answer(text, kb);
+      if (sync && sync.text) {
+        console.log('⚡ Brain intent:', sync.intent);
+        return sync.text;
       }
-    } catch (e) {
-      console.warn('[ask] api failed', e);
     }
 
-    return "Try: What does Ayush do? | Verifast experience | Durham MBA | Skills & tools";
+    return (
+      (kb && kb.templates && kb.templates.fallback) ||
+      'Try: What does Ayush do? | Verifast experience | Durham MBA | Skills & tools'
+    );
   }
 
   async function send(text, opts) {

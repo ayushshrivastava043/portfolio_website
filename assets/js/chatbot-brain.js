@@ -1,201 +1,489 @@
 /**
- * Portfolio Chatbot Brain — single source of truth for answers.
- * Loads knowledge_base.json and routes by intent (not fragile one-off regex).
+ * Agentic Portfolio Brain — retrieve → tool-route → compose.
+ * Grounded only on knowledge_base.json (never invents facts).
+ * The public Render API currently has a STALE KB — do not trust it unless
+ * grounded context is sent and validated.
  */
 (function () {
-    'use strict';
+  'use strict';
 
-    const INTENTS = [
-        {
-            id: 'greeting',
-            score(msg) {
-                if (/^(hi|hey|hello|hola|yo|sup|wassup|howdy)[!.?\s]*$/i.test(msg)) return 10;
-                if (/what'?s up|good (morning|afternoon|evening)/i.test(msg)) return 9;
-                return 0;
-            },
-        },
-        {
-            id: 'what_does_do',
-            score(msg) {
-                if (/what (does|do) (ayush|he) do|does ayush do|his (job|work|role)/i.test(msg)) return 10;
-                if (/ayush/.test(msg) && /do|work|build|role/.test(msg)) return 7;
-                return 0;
-            },
-        },
-        {
-            id: 'skills',
-            score(msg) {
-                if (/skill|tech stack|technologies|expertise|what (can|does) he know/i.test(msg)) return 10;
-                return 0;
-            },
-        },
-        {
-            id: 'projects',
-            score(msg) {
-                if (/project|built|portfolio|what has (he|ayush)|showcase|demo/i.test(msg)) return 10;
-                if (/chatbot|workflow|avatar|portal|agentic/i.test(msg)) return 6;
-                return 0;
-            },
-        },
-        {
-            id: 'consulting',
-            score(msg) {
-                if (/salud|durham|mba|consulting|v-lab|vlab|bp board|strategy case/.test(msg)) return 10;
-                return 0;
-            },
-        },
-        {
-            id: 'experience',
-            score(msg) {
-                if (/experience|career|background|resume|cv|work history|job/i.test(msg)) return 10;
-                return 0;
-            },
-        },
-        {
-            id: 'contact',
-            score(msg) {
-                if (/contact|email|linkedin|reach|hire|available|connect with/i.test(msg)) return 10;
-                return 0;
-            },
-        },
-        {
-            id: 'about',
-            score(msg) {
-                if (/who is ayush|about ayush|tell me about|what can you tell|introduce/i.test(msg)) return 10;
-                if (/ayush/.test(msg)) return 5;
-                return 0;
-            },
-        },
+  var STOP = {
+    a: 1, an: 1, the: 1, is: 1, are: 1, was: 1, were: 1, be: 1, been: 1,
+    to: 1, of: 1, in: 1, on: 1, for: 1, and: 1, or: 1, at: 1, by: 1, with: 1,
+    from: 1, as: 1, it: 1, this: 1, that: 1, his: 1, her: 1, he: 1, she: 1,
+    do: 1, does: 1, did: 1, what: 1, who: 1, how: 1, when: 1, where: 1, why: 1,
+    can: 1, you: 1, me: 1, my: 1, your: 1, about: 1, tell: 1, please: 1,
+  };
+
+  function norm(s) {
+    return String(s || '')
+      .toLowerCase()
+      .replace(/[^a-z0-9+#.\-\s]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function tokens(s) {
+    return norm(s)
+      .split(' ')
+      .filter(function (t) {
+        return t.length > 1 && !STOP[t];
+      });
+  }
+
+  function unique(arr) {
+    var seen = {};
+    return arr.filter(function (x) {
+      if (seen[x]) return false;
+      seen[x] = 1;
+      return true;
+    });
+  }
+
+  /** Detect portfolio entities for tool routing */
+  function detectEntities(msg) {
+    var m = norm(msg);
+    var hits = [];
+    var map = [
+      ['verifast', /verifast|flash.?sale|grounding|600\+?|e-?commerce clients/],
+      ['cgi', /\bcgi\b|bell canada|genai pilot|telecom/],
+      ['dkpr', /dkpr|e-?learn|elearn/],
+      ['salud', /salud|health app|freemium health/],
+      ['bp', /\bbp\b|board strategy|divestment|iems|lightsource|geopolitical/],
+      ['vlab', /v-?lab|vlab|wind|vr training|tam|sam|som/],
+      ['durham', /durham|mba|business school/],
+      ['neo', /\bneo\b|rag assistant/],
+      ['finbot', /finbot|bharatgpt|investment chat/],
+      ['agentcore', /agentcore|bedrock|langgraph|myagentcore/],
+      ['agentforce', /agentforce|salesforce|data cloud|\bdmo/],
+      ['video', /video|minimax|midjourney|shotcut|youtube/],
+      ['skills', /skill|tech stack|technologies|expertise|tools|safe agile/],
+      ['contact', /contact|email|linkedin|github|hire|available|open to|reach/],
+      ['projects', /project|built|portfolio builds|technical projects/],
+      ['experience', /experience|career|background|resume|cv|work history/],
+      [
+        'about',
+        /what (does|do) (ayush|he)|who is ayush|tell me about ayush|introduce|his (job|role|work)|what is ayush/,
+      ],
     ];
+    map.forEach(function (pair) {
+      if (pair[1].test(m)) hits.push(pair[0]);
+    });
+    if (/\bayush\b/.test(m) && hits.length === 0) hits.push('about');
+    return unique(hits);
+  }
 
-    function pickIntent(message) {
-        const msg = String(message || '').trim();
-        let best = { id: 'general', score: 0 };
-        for (const intent of INTENTS) {
-            const s = intent.score(msg);
-            if (s > best.score) best = { id: intent.id, score: s };
-        }
-        return best.id;
+  function buildChunks(kb) {
+    var chunks = [];
+    var about = kb.about_ayush || {};
+    chunks.push({
+      id: 'about',
+      type: 'profile',
+      text:
+        (about.name || 'Ayush Shrivastava') +
+        ' — ' +
+        (about.profession || '') +
+        '. ' +
+        (about.bio || '') +
+        ' Location: ' +
+        (about.location || '') +
+        '. Education: ' +
+        (about.education || '') +
+        '.',
+      tags: ['ayush', 'about', 'who', 'profile', 'mba', 'durham', 'product manager'],
+    });
+
+    (kb.experience || []).forEach(function (e, i) {
+      chunks.push({
+        id: 'exp-' + i,
+        type: 'experience',
+        text:
+          e.company +
+          ' — ' +
+          e.role +
+          (e.period ? ' (' + e.period + ')' : '') +
+          '. ' +
+          (e.highlights || []).join(' '),
+        tags: tokens(e.company + ' ' + e.role + ' ' + (e.highlights || []).join(' ')),
+      });
+    });
+
+    (kb.consulting || []).forEach(function (c, i) {
+      chunks.push({
+        id: 'con-' + i,
+        type: 'consulting',
+        text: c.name + ': ' + c.summary,
+        tags: tokens(c.name + ' ' + c.summary),
+      });
+    });
+
+    (kb.projects || []).forEach(function (p, i) {
+      chunks.push({
+        id: 'proj-' + i,
+        type: 'project',
+        text:
+          p.name +
+          ' — ' +
+          (p.description || '') +
+          ' Tech: ' +
+          ((p.tech || []).join(', ') || 'n/a'),
+        tags: tokens(p.name + ' ' + (p.description || '') + ' ' + ((p.tech || []).join(' ') || '')),
+      });
+    });
+
+    var skills = kb.skills;
+    if (skills && typeof skills === 'object' && !Array.isArray(skills)) {
+      var skillText = Object.keys(skills)
+        .map(function (k) {
+          return k.replace(/_/g, ' ') + ': ' + (skills[k] || []).join(', ');
+        })
+        .join('. ');
+      chunks.push({
+        id: 'skills',
+        type: 'skills',
+        text: 'Skills — ' + skillText,
+        tags: tokens(skillText + ' skills tech stack expertise'),
+      });
     }
 
-    function aboutBlock(kb) {
-        const about = kb.about_ayush || {};
-        const projects = kb.projects || [];
-        const name = about.name || 'Ayush Shrivastava';
-        const profession = about.profession || 'AI Product Manager & GenAI Strategist';
-        const bio = about.bio || '';
-        const highlights = projects.slice(0, 3).map(p => p.name).filter(Boolean).join(', ');
-        let text = `${name} is an ${profession}. ${bio}`.trim();
-        if (highlights) text += ` Notable work includes ${highlights}.`;
-        return text;
-    }
+    var contact = kb.contact || {};
+    chunks.push({
+      id: 'contact',
+      type: 'contact',
+      text:
+        'Contact — Email: ' +
+        (contact.email || '') +
+        '. LinkedIn: ' +
+        (contact.linkedin || '') +
+        '. GitHub: ' +
+        (contact.github || '') +
+        '.',
+      tags: ['contact', 'email', 'linkedin', 'github', 'hire', 'connect'],
+    });
 
-    function whatDoesDo(kb) {
-        const about = kb.about_ayush || {};
-        const projects = kb.projects || [];
-        const name = about.name || 'Ayush Shrivastava';
-        const profession = about.profession || 'AI Product Manager & GenAI Strategist';
-        const bio = about.bio || '';
-        const builds = projects.slice(0, 3).map(p => p.name).filter(Boolean).join(', ');
-        let text = `${name} is an ${profession}. ${bio}`.trim();
-        if (builds) text += ` He builds products like ${builds}.`;
-        return text;
-    }
+    (kb.faqs || []).forEach(function (f, i) {
+      chunks.push({
+        id: 'faq-' + i,
+        type: 'faq',
+        text: f.answer,
+        tags: (f.keywords || []).map(norm),
+        keywords: f.keywords || [],
+      });
+    });
 
-    function skillsAnswer(kb) {
-        const s = kb.skills;
-        if (s && !Array.isArray(s) && typeof s === 'object') {
-            return Object.entries(s)
-                .map(([cat, items]) => `${cat.replace(/_/g, ' ')}: ${(items || []).join(', ')}`)
-                .join(' | ');
-        }
-        const skills = Array.isArray(s) ? s : [];
-        return skills.length
-            ? `Ayush's key skills include ${skills.join(', ')}.`
-            : 'Ayush works across AI product management, GenAI, Python, and workflow automation.';
-    }
+    return chunks;
+  }
 
-    function projectsAnswer(kb) {
-        const projects = kb.projects || [];
-        if (!projects.length) {
-            return 'Ayush has built agentic chatbots, visual workflow tools, and AI portal integrations.';
-        }
-        return projects
-            .map(p => (p.description ? `${p.name} — ${p.description}` : p.name))
-            .join(' | ');
-    }
+  function scoreChunk(chunk, queryTokens, entities, msg) {
+    var score = 0;
+    var hay = norm(chunk.text + ' ' + (chunk.tags || []).join(' '));
+    var tagSet = {};
+    (chunk.tags || []).forEach(function (t) {
+      tagSet[norm(t)] = 1;
+    });
 
-    function experienceAnswer(kb) {
-        const exp = kb.experience || [];
-        if (exp.length) {
-            return exp.slice(0, 3).map(e =>
-                `${e.company} — ${e.role}: ${(e.highlights || []).slice(0, 2).join('; ')}`
-            ).join(' | ');
-        }
-        return aboutBlock(kb);
-    }
+    queryTokens.forEach(function (t) {
+      if (tagSet[t]) score += 4;
+      else if (hay.indexOf(t) !== -1) score += 2;
+    });
 
-    function contactAnswer(kb) {
-        const c = kb.contact || {};
-        const parts = [];
-        if (c.email) parts.push(`Email: ${c.email}`);
-        if (c.linkedin) parts.push(`LinkedIn: ${c.linkedin}`);
-        if (c.github) parts.push(`GitHub: ${c.github}`);
-        if (parts.length) {
-            return `You can reach Ayush here — ${parts.join('. ')}.`;
-        }
-        return "Check the Contact section on this portfolio page, or connect via LinkedIn.";
-    }
-
-    function faqMatch(message, kb) {
-        const msg = message.toLowerCase();
-        for (const faq of kb.faqs || []) {
-            const keys = faq.keywords || [];
-            if (keys.some(k => msg.includes(String(k).toLowerCase()))) {
-                return faq.answer;
-            }
-        }
-        return null;
-    }
-
-    function buildAnswer(intent, kb, message) {
-        const faq = faqMatch(message, kb);
-        if (faq) return faq;
-
-        switch (intent) {
-            case 'greeting':
-                return (kb.templates && kb.templates.greeting) ||
-                    "Hey! I'm Ayush's AI assistant. Ask about his projects, skills, experience, or how to contact him.";
-            case 'what_does_do':
-                return whatDoesDo(kb);
-            case 'skills':
-                return skillsAnswer(kb);
-            case 'projects':
-                return projectsAnswer(kb);
-            case 'consulting':
-                return (kb.consulting || []).map(c => `${c.name}: ${c.summary}`).join(' | ') ||
-                    'Durham MBA consulting: Salud.ai, BP board strategy, V-Lab advisory.';
-            case 'experience':
-                return experienceAnswer(kb);
-            case 'contact':
-                return contactAnswer(kb);
-            case 'about':
-                return aboutBlock(kb);
-            default:
-                return (kb.templates && kb.templates.fallback) ||
-                    "I'm Ayush's portfolio assistant. Try asking: What does Ayush do? What are his skills? What projects has he built?";
-        }
-    }
-
-    window.ChatbotBrain = {
-        pickIntent,
-        answer(message, kb) {
-            const intent = pickIntent(message);
-            const text = buildAnswer(intent, kb, message);
-            return { intent, text, fromApi: false };
-        },
-        isPortfolioIntent(message) {
-            return pickIntent(message) !== 'general';
-        },
+    // Entity boosts
+    var entityBoost = {
+      verifast: /verifast|flash|grounding|e-commerce/,
+      cgi: /cgi|bell canada|genai pilot/,
+      dkpr: /dkpr|e-learn/,
+      salud: /salud|health app/,
+      bp: /\bbp\b|divestment|iems|board strategy/,
+      vlab: /v-lab|vlab|wind|vr training|tam/,
+      durham: /durham|mba/,
+      neo: /\bneo\b|rag assistant|faiss/,
+      finbot: /finbot|bharatgpt/,
+      agentcore: /agentcore|bedrock|langgraph|myagentcore/,
+      agentforce: /agentforce|salesforce|data cloud/,
+      video: /video|minimax|midjourney|shotcut/,
+      skills: /skills —|langgraph|safe agile/,
+      contact: /contact —|email:|linkedin:/,
+      projects: /neo —|finbot —|myagentcore|agentforce/,
+      experience: /verifast|cgi inc|dkpr/,
+      about: /product manager|durham university|bridges technical|about_ayush|ayush shrivastava —/,
     };
+
+    entities.forEach(function (ent) {
+      var re = entityBoost[ent];
+      if (re && re.test(hay)) score += 12;
+      if (chunk.type === 'faq' && (chunk.keywords || []).some(function (k) {
+        return norm(k).indexOf(ent) !== -1 || ent.indexOf(norm(k)) !== -1;
+      })) {
+        score += 8;
+      }
+    });
+
+    // FAQ keyword density (prefer specific multi-hit FAQs)
+    if (chunk.type === 'faq' && chunk.keywords) {
+      var hits = 0;
+      var weight = 0;
+      chunk.keywords.forEach(function (k) {
+        var kk = norm(k);
+        if (kk && msg.indexOf(kk) !== -1) {
+          hits += 1;
+          weight += Math.min(kk.length, 14);
+        }
+      });
+      if (hits) score += hits * 6 + weight;
+      // Penalize ultra-generic single-keyword FAQs unless they clearly hit
+      if (hits === 1 && chunk.keywords.length <= 2) score -= 2;
+    }
+
+    // Type affinity
+    if (entities.indexOf('skills') >= 0 && chunk.type === 'skills') score += 10;
+    if (entities.indexOf('contact') >= 0 && chunk.type === 'contact') score += 10;
+    if (entities.indexOf('about') >= 0 && chunk.type === 'profile') score += 14;
+    if (
+      (entities.indexOf('projects') >= 0 || entities.indexOf('neo') >= 0) &&
+      chunk.type === 'project'
+    ) {
+      score += 6;
+    }
+    if (
+      (entities.indexOf('experience') >= 0 ||
+        entities.indexOf('verifast') >= 0 ||
+        entities.indexOf('cgi') >= 0) &&
+      chunk.type === 'experience'
+    ) {
+      score += 6;
+    }
+    if (
+      (entities.indexOf('salud') >= 0 ||
+        entities.indexOf('bp') >= 0 ||
+        entities.indexOf('vlab') >= 0 ||
+        entities.indexOf('durham') >= 0) &&
+      chunk.type === 'consulting'
+    ) {
+      score += 6;
+    }
+
+    return score;
+  }
+
+  function retrieve(kb, message, limit) {
+    var msg = norm(message);
+    var qTokens = unique(tokens(message));
+    var entities = detectEntities(message);
+    var chunks = buildChunks(kb);
+    var ranked = chunks
+      .map(function (c) {
+        return { chunk: c, score: scoreChunk(c, qTokens, entities, msg) };
+      })
+      .filter(function (x) {
+        return x.score > 0;
+      })
+      .sort(function (a, b) {
+        return b.score - a.score;
+      });
+
+    return {
+      entities: entities,
+      hits: ranked.slice(0, limit || 4),
+      topScore: ranked.length ? ranked[0].score : 0,
+    };
+  }
+
+  function isGreeting(message) {
+    return /^(hi|hey|hello|hola|yo|sup|wassup|howdy)[!.?\s]*$/i.test(String(message || '').trim()) ||
+      /^(good (morning|afternoon|evening)|what'?s up)[!.?\s]*$/i.test(String(message || '').trim());
+  }
+
+  function compose(message, kb, retrieval) {
+    var trace = [];
+    var templates = kb.templates || {};
+
+    if (isGreeting(message)) {
+      trace.push({ tool: 'greet', status: 'ok' });
+      return {
+        intent: 'greeting',
+        text:
+          templates.greeting ||
+          "Hey! I'm Ayush's AI assistant. Ask about Verifast, CGI, Durham MBA consulting, or technical projects.",
+        confidence: 1,
+        trace: trace,
+        fromApi: false,
+      };
+    }
+
+    trace.push({
+      tool: 'retrieve_kb',
+      status: 'ok',
+      entities: retrieval.entities,
+      topScore: retrieval.topScore,
+      docs: retrieval.hits.map(function (h) {
+        return h.chunk.id + '(' + h.score + ')';
+      }),
+    });
+
+    if (!retrieval.hits.length || retrieval.topScore < 6) {
+      trace.push({ tool: 'compose', status: 'low_confidence' });
+      return {
+        intent: 'general',
+        text:
+          templates.fallback ||
+          "I can answer from Ayush's portfolio knowledge — try: Verifast experience, CGI GenAI pilot, Durham MBA / Salud / BP / V-Lab, Neo RAG, skills, or contact.",
+        confidence: 0.2,
+        trace: trace,
+        fromApi: false,
+      };
+    }
+
+    // Prefer a strong FAQ answer if it clearly wins
+    var top = retrieval.hits[0];
+    if (top.chunk.type === 'faq' && top.score >= 14) {
+      trace.push({ tool: 'faq_answer', status: 'ok', id: top.chunk.id });
+      return {
+        intent: 'faq',
+        text: top.chunk.text,
+        confidence: Math.min(0.98, 0.55 + top.score / 40),
+        trace: trace,
+        fromApi: false,
+      };
+    }
+
+    // Profile / "what does Ayush do" — lead with about, then top experience
+    if (retrieval.entities.indexOf('about') >= 0) {
+      var aboutHit = retrieval.hits.filter(function (h) {
+        return h.chunk.type === 'profile';
+      })[0];
+      var expBits = retrieval.hits
+        .filter(function (h) {
+          return h.chunk.type === 'experience';
+        })
+        .slice(0, 2)
+        .map(function (h) {
+          return h.chunk.text;
+        });
+      var aboutText = aboutHit ? aboutHit.chunk.text : '';
+      if (!aboutText) {
+        var a = kb.about_ayush || {};
+        aboutText =
+          (a.name || 'Ayush Shrivastava') +
+          ' — ' +
+          (a.profession || '') +
+          '. ' +
+          (a.bio || '');
+      }
+      var composed = aboutText;
+      if (expBits.length) composed += ' Recent work: ' + expBits.join(' ');
+      if (composed.length > 900) composed = composed.slice(0, 880).replace(/\s+\S*$/, '') + '…';
+      trace.push({ tool: 'profile_answer', status: 'ok' });
+      return {
+        intent: 'about',
+        text: composed,
+        confidence: 0.92,
+        trace: trace,
+        fromApi: false,
+        context: composed,
+      };
+    }
+
+    // Compose from top chunks (dedupe by type preference)
+    var parts = [];
+    var seenType = {};
+    retrieval.hits.forEach(function (h) {
+      if (h.score < 6) return;
+      // Avoid dumping every FAQ; one FAQ max unless it's the best
+      if (h.chunk.type === 'faq' && parts.length && h !== top) return;
+      if (seenType[h.chunk.type] && h.chunk.type !== 'experience' && h.chunk.type !== 'project' && h.chunk.type !== 'consulting') {
+        return;
+      }
+      if (h.chunk.type === 'experience' || h.chunk.type === 'project' || h.chunk.type === 'consulting') {
+        // allow multiple
+      } else {
+        seenType[h.chunk.type] = 1;
+      }
+      parts.push(h.chunk.text);
+    });
+
+    // Cap length for speech bubble UX
+    var text = parts.slice(0, 3).join(' ');
+    if (text.length > 900) text = text.slice(0, 880).replace(/\s+\S*$/, '') + '…';
+
+    trace.push({ tool: 'compose_grounded', status: 'ok', parts: parts.length });
+    return {
+      intent: retrieval.entities[0] || top.chunk.type || 'retrieved',
+      text: text,
+      confidence: Math.min(0.95, 0.45 + retrieval.topScore / 35),
+      trace: trace,
+      fromApi: false,
+      context: parts.join('\n'),
+    };
+  }
+
+  function answer(message, kb) {
+    kb = kb || {};
+    var retrieval = retrieve(kb, message, 5);
+    return compose(message, kb, retrieval);
+  }
+
+  /**
+   * Optional grounded API polish — only accepts API text if it still
+   * mentions portfolio entities present in local context (anti-stale guard).
+   */
+  async function answerAsync(message, kb, opts) {
+    opts = opts || {};
+    var local = answer(message, kb);
+
+    if (!opts.useApi || !opts.apiUrl || local.confidence >= 0.72) {
+      return local;
+    }
+
+    try {
+      var grounded =
+        'Answer ONLY using this portfolio context. If missing, say you do not have that detail.\n\n' +
+        'CONTEXT:\n' +
+        (local.context || local.text) +
+        '\n\nQUESTION: ' +
+        message;
+
+      var res = await fetch(opts.apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: grounded,
+          history: opts.history || [],
+          user_id: 'portfolio_grounded',
+        }),
+      });
+      if (!res.ok) return local;
+      var data = await res.json();
+      var apiText = String(data.reply || data.response || data.answer || '').trim();
+      if (!apiText) return local;
+
+      // Reject stale/generic API answers that ignore Verifast/CGI/etc.
+      var staleMarkers = /visual workflow generator|universal avatar generator|neo agentic chatbot system/i;
+      if (staleMarkers.test(apiText)) {
+        local.trace.push({ tool: 'api_gemini', status: 'rejected_stale' });
+        return local;
+      }
+
+      local.trace.push({ tool: 'api_gemini', status: 'ok' });
+      local.text = apiText;
+      local.fromApi = true;
+      local.confidence = Math.max(local.confidence, 0.8);
+      return local;
+    } catch (e) {
+      local.trace.push({ tool: 'api_gemini', status: 'error' });
+      return local;
+    }
+  }
+
+  window.ChatbotBrain = {
+    detectEntities: detectEntities,
+    retrieve: retrieve,
+    answer: answer,
+    answerAsync: answerAsync,
+    pickIntent: function (message) {
+      return answer(message, {}).intent;
+    },
+    isPortfolioIntent: function (message) {
+      return detectEntities(message).length > 0 || isGreeting(message);
+    },
+  };
 })();
