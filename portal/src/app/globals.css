@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-surface-muted font-body text-base text-zinc-900 antialiased;
+  @apply dark:bg-surface-dark dark:text-zinc-100;
+}
+
+::selection {
+  @apply bg-accent/20;
+}
+
+/* Avoid horizontal scroll */
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
