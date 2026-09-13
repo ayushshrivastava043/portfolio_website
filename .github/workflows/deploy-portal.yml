@@ -4,10 +4,17 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "portal/**"
+      - ".github/workflows/deploy-portal.yml"
   workflow_dispatch:
 
 permissions:
   contents: write
+
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
 
 jobs:
   build-and-deploy:
@@ -26,18 +33,25 @@ jobs:
       - name: Install & build
         working-directory: portal
         env:
-          NODE_ENV: production
-          # Project site: ayushshrivastava043.github.io/portfolio_website
           NEXT_PUBLIC_BASE_PATH: /portfolio_website
         run: |
           npm ci
           npm run build
 
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: portal/out
-          publish_branch: gh-pages
-          force_orphan: true
-          commit_message: "Deploy Next.js portal"
+      - name: Publish to docs/ (GitHub Pages source)
+        run: |
+          rm -rf docs
+          cp -R portal/out docs
+          touch docs/.nojekyll
+
+      - name: Commit docs and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs
+          if git diff --staged --quiet; then
+            echo "No docs changes"
+            exit 0
+          fi
+          git commit -m "chore: publish portal static build to docs/ [skip ci]"
+          git push
