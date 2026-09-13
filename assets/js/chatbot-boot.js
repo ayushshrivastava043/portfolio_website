@@ -5,22 +5,41 @@
 (function () {
   'use strict';
 
+  /** Resolve asset paths from this script’s location (works on GitHub Pages). */
+  function assetUrl(path) {
+    var scripts = document.getElementsByTagName('script');
+    for (var i = 0; i < scripts.length; i++) {
+      var src = scripts[i].src || '';
+      if (src.indexOf('chatbot-boot.js') !== -1) {
+        return src.replace(/assets\/js\/chatbot-boot\.js.*$/, '') + path.replace(/^\//, '');
+      }
+    }
+    return path;
+  }
+
   function initializeEnhancedChatbot() {
     if (typeof EnhancedAgenticChatbotWidget === 'undefined') {
       setTimeout(initializeEnhancedChatbot, 100);
       return;
     }
 
+    // Animated GIF is the known-good avatar (WebP looked broken in the floating widget).
+    var avatarPrimary = assetUrl('assets/relaxed-chatbot-final.gif');
+    var avatarFallback = assetUrl(
+      'assets/20250821-1758-Relaxed-Chatbot--unscreen-ezgif.com-apng-to-gif-converter.gif'
+    );
+
     window.enhancedChatbotWidget = new EnhancedAgenticChatbotWidget({
       avatarType: 'assistant',
       avatarName: "Ayush's AI Assistant",
-      avatarImage: 'assets/chatbot-avatar-optimized.webp',
+      avatarImage: avatarPrimary,
+      avatarFallback: avatarFallback,
       avatarColor: '#00ffee',
       welcomeMessage:
         "Hello! I'm Ayush's AI Assistant. Ask about Verifast, CGI, Durham MBA consulting, or technical projects.",
       placeholderText: 'Type your message...',
       position: 'bottom-right',
-      offsetX: 120,
+      offsetX: 20,
       offsetY: 20,
       theme: 'dark',
       enableLangGraph: true,

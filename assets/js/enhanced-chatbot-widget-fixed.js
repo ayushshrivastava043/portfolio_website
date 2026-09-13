@@ -23,6 +23,7 @@
                 avatarType: options.avatarType || 'assistant',
                 avatarName: options.avatarName || 'Enhanced AI Assistant',
                 avatarImage: options.avatarImage || 'assets/relaxed-chatbot-final.gif',
+                avatarFallback: options.avatarFallback || 'assets/relaxed-chatbot-final.gif',
                 avatarColor: options.avatarColor || '#00ffee',
                 
                 // Position Configuration (Original System - 70% down from top)
@@ -167,11 +168,10 @@
                          alt="${this.config.avatarName}"
                          title="Click to chat with ${this.config.avatarName} (LangGraph Enhanced)"
                          loading="eager"
-                         decoding="sync"
+                         decoding="async"
                          fetchpriority="high"
-                         importance="high"
-                         onload="console.log('🚀 [PERF] Enhanced 3D Avatar image loaded successfully'); this.style.opacity='1';"
-                         onerror="console.error('❌ [PERF] Enhanced 3D Avatar image failed to load')">
+                         onload="this.style.opacity='1'; this.dataset.loaded='1';"
+                         onerror="if(!this.dataset.fallbackTried){this.dataset.fallbackTried='1';this.src='${this.config.avatarFallback || this.config.avatarImage}';}else{this.style.opacity='1';}">
                     
                     <!-- LangGraph Enhancement Indicator - REMOVED to avoid covering avatar -->
                     
@@ -268,11 +268,13 @@
                 .chatbot-avatar {
                     width: auto;
                     height: 200px;
+                    max-width: min(160px, 42vw);
+                    object-fit: contain;
                     filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
-                    transition: all 0.3s ease;
-                    border-radius: 20px;
-                    background: linear-gradient(135deg, #333, #666) !important;
-                    background-color: #333 !important;
+                    transition: transform 0.3s ease, filter 0.3s ease, opacity 0.3s ease;
+                    border-radius: 0;
+                    background: transparent !important;
+                    background-color: transparent !important;
                     background-image: none !important;
                     cursor: pointer !important;
                     pointer-events: auto !important;
@@ -280,8 +282,9 @@
                     border: none !important;
                     outline: none !important;
                     box-shadow: none !important;
-                    opacity: 0.6;
+                    opacity: 0;
                     position: relative;
+                    display: block;
                 }
                 
                 .chatbot-avatar::before {

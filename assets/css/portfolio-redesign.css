@@ -892,6 +892,14 @@ h1, h2, h3, h4, h5, h6,
     pointer-events: auto !important;
 }
 
+.chatbot-avatar-container .chatbot-avatar {
+    background: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    object-fit: contain !important;
+}
+
 .chatbot-speech-bubble.visible {
     opacity: 1 !important;
     display: block !important;
