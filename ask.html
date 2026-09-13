@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#070b14">
+  <meta name="description" content="Ask Ayush's AI assistant about Verifast, CGI, Durham MBA, and projects.">
+  <title>Ask AI | Ayush Shrivastava</title>
+  <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="assets/css/style.css?v=99" rel="stylesheet">
+  <link href="assets/css/portfolio-redesign.css?v=99" rel="stylesheet">
+  <link href="assets/css/portal-chrome.css?v=99" rel="stylesheet">
+  <link href="assets/css/portal-motion.css?v=99" rel="stylesheet">
+</head>
+<body data-page="ask">
+  <div id="site-nav-root"></div>
+
+  <main class="page-content portal-page">
+    <section class="dashboard-section section-shell">
+      <h1 class="section-title">Ask AI</h1>
+      <p class="section-subtitle">Same KB-first assistant as the floating widget — ask about Verifast, CGI, Durham MBA consulting, or technical projects.</p>
+
+      <div id="ask-context" class="ask-context" hidden>
+        <p>Context: <strong data-ask-ctx-label></strong></p>
+      </div>
+
+      <div class="ask-prompts" id="ask-prompts" role="group" aria-label="Suggested questions">
+        <button type="button" class="ask-prompt" data-ask-prompt="What does Ayush do?">What does Ayush do?</button>
+        <button type="button" class="ask-prompt" data-ask-prompt="Tell me about Verifast and the flash-sale grounding incident">Verifast</button>
+        <button type="button" class="ask-prompt" data-ask-prompt="What did Ayush do at CGI on the Bell Canada GenAI pilot?">CGI / Bell</button>
+        <button type="button" class="ask-prompt" data-ask-prompt="Summarise Ayush's Durham MBA consulting work">Durham MBA</button>
+        <button type="button" class="ask-prompt" data-ask-prompt="What technical AI projects has Ayush built?">Projects</button>
+        <button type="button" class="ask-prompt" data-ask-prompt="What roles is Ayush open to?">Hiring fit</button>
+      </div>
+
+      <div class="ask-chat" id="ask-chat">
+        <div class="ask-chat__messages" id="ask-messages" role="log" aria-live="polite"></div>
+        <form class="ask-chat__form" id="ask-form">
+          <input type="text" id="ask-input" class="ask-chat__input" placeholder="Ask about experience, projects, MBA…" autocomplete="off" aria-label="Chat message">
+          <button type="submit" class="btn-ui btn-ui--primary" id="ask-send">Send</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer-root"></div>
+  <script src="assets/js/site-chrome.js"></script>
+  <script src="assets/js/portal-motion.js?v=99"></script>
+  <script src="assets/js/chatbot-config.js"></script>
+  <script src="assets/js/chatbot-brain.js?v=99"></script>
+  <script src="assets/js/ask-page.js?v=99"></script>
+  <script src="assets/js/enhanced-chatbot-widget-fixed.js?v=99"></script>
+  <script src="assets/js/chatbot-boot.js?v=99"></script>
+</body>
+</html>

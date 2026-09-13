@@ -1,0 +1,104 @@
+/**
+ * Portal motion — presence & hierarchy (vanilla CSS).
+ * Paired with assets/js/portal-motion.js (Intersection Observer).
+ */
+
+:root {
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-duration: 0.55s;
+  --motion-stagger: 0.06s;
+}
+
+/* Hero wash — soft breathe (home only) */
+.hero-glow {
+  animation: heroBreathe 8s ease-in-out infinite;
+}
+
+@keyframes heroBreathe {
+  0%, 100% { opacity: 0.55; transform: translateX(-50%) scale(1); }
+  50% { opacity: 0.85; transform: translateX(-50%) scale(1.04); }
+}
+
+/* Scroll / load reveal */
+.motion-ready .motion-in {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity var(--motion-duration) var(--motion-ease),
+    transform var(--motion-duration) var(--motion-ease);
+  transition-delay: var(--motion-delay, 0s);
+  will-change: opacity, transform;
+}
+
+.motion-ready .motion-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.motion-ready .motion-in--left {
+  transform: translateX(-16px);
+}
+
+.motion-ready .motion-in--left.is-visible {
+  transform: translateX(0);
+}
+
+/* Case study TOC / prompt chips — slight cascade via delay set in JS */
+.motion-ready .ask-prompts.motion-in,
+.motion-ready .case-study__toc.motion-in {
+  transform: translateY(10px);
+}
+
+/* Nav brand micro-presence on first paint */
+.site-nav__brand {
+  transition: color 0.2s ease, letter-spacing 0.35s var(--motion-ease);
+}
+
+.site-nav__brand:hover {
+  letter-spacing: 0.01em;
+}
+
+/* Ask messages — gentle entrance */
+.ask-msg {
+  animation: askMsgIn 0.28s var(--motion-ease) both;
+}
+
+@keyframes askMsgIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Theme toggle press feedback */
+.site-theme-toggle:active {
+  transform: scale(0.96);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-glow {
+    animation: none;
+  }
+
+  .motion-ready .motion-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .ask-msg {
+    animation: none;
+  }
+
+  .resources-card {
+    animation: none;
+  }
+
+  .site-nav__brand:hover {
+    letter-spacing: inherit;
+  }
+}

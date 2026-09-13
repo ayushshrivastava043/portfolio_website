@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#070b14">
+  <meta name="description" content="Resources hub — models, decks, PDFs, and GitHub repos. Ayush Shrivastava.">
+  <title>Resources | Ayush Shrivastava</title>
+  <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="assets/css/style.css?v=99" rel="stylesheet">
+  <link href="assets/css/portfolio-redesign.css?v=99" rel="stylesheet">
+  <link href="assets/css/portal-chrome.css?v=99" rel="stylesheet">
+  <link href="assets/css/portal-motion.css?v=99" rel="stylesheet">
+</head>
+<body data-page="resources">
+  <div id="site-nav-root"></div>
+
+  <main class="page-content portal-page">
+    <section class="dashboard-section section-shell">
+      <h1 class="section-title">Resources</h1>
+      <p class="section-subtitle">Filterable hub for decks, models, PDFs, and repos. Cards marked “Needs file” await real uploads.</p>
+
+      <div class="resources-toolbar">
+        <div class="resources-toolbar__top">
+          <input type="search" id="resource-search" class="resources-search" placeholder="Search title, type, or category…" aria-label="Search resources" autocomplete="off">
+          <button type="button" class="resources-clear" id="resources-clear" hidden>Clear filters</button>
+        </div>
+
+        <div class="resources-filter-group">
+          <span class="resources-filter-label" id="label-avail">Availability</span>
+          <div class="resources-filters" id="resource-avail-filters" role="group" aria-labelledby="label-avail"></div>
+        </div>
+        <div class="resources-filter-group">
+          <span class="resources-filter-label" id="label-cat">Category</span>
+          <div class="resources-filters" id="resource-cat-filters" role="group" aria-labelledby="label-cat"></div>
+        </div>
+        <div class="resources-filter-group">
+          <span class="resources-filter-label" id="label-type">Type</span>
+          <div class="resources-filters" id="resource-type-filters" role="group" aria-labelledby="label-type"></div>
+        </div>
+      </div>
+
+      <p class="resources-meta" id="resources-meta" aria-live="polite"></p>
+
+      <div class="resources-grid" id="resources-grid"></div>
+      <div id="resources-empty" class="resources-empty" hidden>
+        <p>No resources match these filters.</p>
+        <button type="button" class="btn-ui" id="resources-empty-clear">Clear filters</button>
+      </div>
+
+      <aside class="ask-cta">
+        <div>
+          <h2>Looking for a file that isn’t uploaded yet?</h2>
+          <p>Ask the assistant about BP, V-Lab, Salud.ai, or GitHub projects while files are pending.</p>
+        </div>
+        <div class="ask-cta__actions">
+          <a class="btn-ui btn-ui--primary" href="ask.html?q=Summarise%20Ayush%27s%20BP%20board%20strategy%20case&ctx=Resources">Ask AI →</a>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <div id="site-footer-root"></div>
+  <script src="assets/js/site-chrome.js"></script>
+  <script src="assets/js/portal-motion.js?v=99"></script>
+  <script src="assets/js/resources-data.js?v=99"></script>
+  <script src="assets/js/resources-filter.js?v=99"></script>
+  <script src="assets/js/chatbot-config.js"></script>
+  <script src="assets/js/chatbot-brain.js?v=99"></script>
+  <script src="assets/js/enhanced-chatbot-widget-fixed.js?v=99"></script>
+  <script src="assets/js/chatbot-boot.js?v=99"></script>
+</body>
+</html>
