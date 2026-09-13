@@ -38,8 +38,8 @@
       welcomeMessage:
         "Hello! I'm Ayush's AI Assistant. Ask about Verifast, CGI, Durham MBA consulting, or technical projects.",
       placeholderText: 'Type your message...',
-      position: 'bottom-right',
-      offsetX: 20,
+      position: 'bottom-left',
+      offsetX: 96,
       offsetY: 20,
       theme: 'dark',
       enableLangGraph: true,

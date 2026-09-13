@@ -466,11 +466,12 @@
                     padding: 20px 30px 30px 30px !important; /* Extra bottom padding for cloud bumps */
                     font-size: 16px !important;
                     color: #000000 !important;
-                    max-width: 320px !important; /* Increased max width */
-                    min-width: 200px !important;
+                    max-width: min(320px, calc(100vw - 32px)) !important;
+                    min-width: min(200px, calc(100vw - 48px)) !important;
                     width: auto !important;
                     min-height: 60px !important; /* Minimum height */
                     height: auto !important; /* Allow height to grow */
+                    box-sizing: border-box !important;
                     box-shadow: 
                         0 10px 30px rgba(0, 0, 0, 0.2),
                         inset 0 2px 0 rgba(255, 255, 255, 0.8) !important;
@@ -1162,20 +1163,30 @@
         
         positionSpeechContainer(mouthPosition) {
             const container = this.elements.speechContainer;
-            
-            // Position bubble so its BOTTOM is fixed above avatar's face
-            // This way the bubble grows upward and sideways, not downward
             const viewportHeight = window.innerHeight;
-            const moveUp10Percent = viewportHeight * 0.1; // 10% of viewport height
-            const bubbleBottomY = mouthPosition.y - 30 - moveUp10Percent; // 30px + 10% viewport above avatar's face
-            
-            container.style.left = `${mouthPosition.x}px`;
-            container.style.bottom = `${window.innerHeight - bubbleBottomY}px`; // Use bottom positioning
-            container.style.top = 'auto'; // Clear any top positioning
+            const viewportWidth = window.innerWidth;
+            const margin = 16;
+            const bubbleMax = Math.min(320, viewportWidth - margin * 2);
+            const bubbleHalf = bubbleMax / 2;
+
+            // Keep bubble bottom anchored above the avatar face
+            const moveUp = Math.min(viewportHeight * 0.08, 64);
+            let bubbleBottomY = mouthPosition.y - 24 - moveUp;
+
+            // Clamp horizontal so a centered bubble never leaves the viewport
+            let x = mouthPosition.x;
+            x = Math.max(margin + bubbleHalf, Math.min(viewportWidth - margin - bubbleHalf, x));
+
+            let bottomPx = viewportHeight - bubbleBottomY;
+            // Keep bubble body on-screen (above avatar, below top chrome)
+            bottomPx = Math.max(140, Math.min(viewportHeight - 96, bottomPx));
+
+            container.style.left = `${x}px`;
+            container.style.bottom = `${bottomPx}px`;
+            container.style.top = 'auto';
             container.style.transform = 'translateX(-50%)';
-            
-            console.log('📍 Fixed bottom positioning - Bottom Y:', bubbleBottomY);
-            console.log('📍 Container bottom:', window.innerHeight - bubbleBottomY);
+            container.style.width = 'auto';
+            container.style.maxWidth = `${bubbleMax}px`;
         }
         
         activateMouthIndicator() {

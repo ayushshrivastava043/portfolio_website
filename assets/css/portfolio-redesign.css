@@ -907,14 +907,31 @@ h1, h2, h3, h4, h5, h6,
     z-index: 10000001 !important;
     transform: scale(1) translateY(0) !important;
     max-height: min(50vh, 320px) !important;
+    max-width: min(320px, calc(100vw - 32px)) !important;
     overflow-y: auto !important;
+    box-sizing: border-box !important;
 }
 
 .chatbot-typing-box {
     z-index: 10000002 !important;
-    left: 20px !important;
+    left: 96px !important;
     bottom: 24px !important;
     top: auto !important;
+    width: min(300px, calc(100vw - 112px)) !important;
+    max-width: calc(100vw - 32px) !important;
+}
+
+@media (max-width: 768px) {
+    .chatbot-avatar-container {
+        left: 24px !important;
+    }
+
+    .chatbot-typing-box {
+        left: 16px !important;
+        right: 16px !important;
+        width: auto !important;
+        max-width: none !important;
+    }
 }
 
 .chatbot-mouth-indicator {
