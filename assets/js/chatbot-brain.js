@@ -57,10 +57,12 @@
       ['agentcore', /agentcore|bedrock|langgraph|myagentcore/],
       ['agentforce', /agentforce|salesforce|data cloud|\bdmo/],
       ['video', /video|minimax|midjourney|shotcut|youtube/],
-      ['skills', /skill|tech stack|technologies|expertise|tools|safe agile/],
+      ['skills', /skill|tech stack|technologies|expertise|tools|safe agile|python|programming|languages?/],
       ['contact', /contact|email|linkedin|github|hire|available|open to|reach/],
       ['projects', /project|built|portfolio builds|technical projects/],
-      ['experience', /experience|career|background|resume|cv|work history/],
+      ['experience', /experience|career|background|resume|cv|work history|years/],
+      ['location', /where|based|location|durham|uk|live|living/],
+      ['rag', /\brag\b|faiss|retrieval|semantic retrieval/],
       [
         'about',
         /what (does|do) (ayush|he)|who is ayush|tell me about ayush|introduce|his (job|role|work)|what is ayush/,
@@ -70,6 +72,7 @@
       if (pair[1].test(m)) hits.push(pair[0]);
     });
     if (/\bayush\b/.test(m) && hits.length === 0) hits.push('about');
+    if (/\bagentic\b/.test(m) && hits.indexOf('verifast') === -1) hits.push('verifast');
     return unique(hits);
   }
 
@@ -206,6 +209,8 @@
       projects: /neo —|finbot —|myagentcore|agentforce/,
       experience: /verifast|cgi inc|dkpr/,
       about: /product manager|durham university|bridges technical|about_ayush|ayush shrivastava —/,
+      location: /durham, uk|based in durham/,
+      rag: /rag|faiss|retrieval/,
     };
 
     entities.forEach(function (ent) {
@@ -416,62 +421,33 @@
     };
   }
 
+  function resolveKb(kb) {
+    if (kb && kb.about_ayush && (kb.experience || kb.faqs)) return kb;
+    if (typeof window !== 'undefined' && window.PORTFOLIO_KB && window.PORTFOLIO_KB.about_ayush) {
+      return window.PORTFOLIO_KB;
+    }
+    return kb || {};
+  }
+
   function answer(message, kb) {
-    kb = kb || {};
+    kb = resolveKb(kb);
     var retrieval = retrieve(kb, message, 5);
     return compose(message, kb, retrieval);
   }
 
   /**
-   * Optional grounded API polish — only accepts API text if it still
-   * mentions portfolio entities present in local context (anti-stale guard).
+   * Local-only agentic answer. API polish disabled by default because the
+   * public Render service has served stale/wrong portfolio facts.
    */
   async function answerAsync(message, kb, opts) {
     opts = opts || {};
     var local = answer(message, kb);
-
-    if (!opts.useApi || !opts.apiUrl || local.confidence >= 0.72) {
+    // Never call external API unless explicitly forced AND local confidence is low
+    // AND caller passes allowStaleRisk (kept off in production config).
+    if (!opts.useApi || !opts.apiUrl || !opts.allowStaleRisk || local.confidence >= 0.55) {
       return local;
     }
-
-    try {
-      var grounded =
-        'Answer ONLY using this portfolio context. If missing, say you do not have that detail.\n\n' +
-        'CONTEXT:\n' +
-        (local.context || local.text) +
-        '\n\nQUESTION: ' +
-        message;
-
-      var res = await fetch(opts.apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: grounded,
-          history: opts.history || [],
-          user_id: 'portfolio_grounded',
-        }),
-      });
-      if (!res.ok) return local;
-      var data = await res.json();
-      var apiText = String(data.reply || data.response || data.answer || '').trim();
-      if (!apiText) return local;
-
-      // Reject stale/generic API answers that ignore Verifast/CGI/etc.
-      var staleMarkers = /visual workflow generator|universal avatar generator|neo agentic chatbot system/i;
-      if (staleMarkers.test(apiText)) {
-        local.trace.push({ tool: 'api_gemini', status: 'rejected_stale' });
-        return local;
-      }
-
-      local.trace.push({ tool: 'api_gemini', status: 'ok' });
-      local.text = apiText;
-      local.fromApi = true;
-      local.confidence = Math.max(local.confidence, 0.8);
-      return local;
-    } catch (e) {
-      local.trace.push({ tool: 'api_gemini', status: 'error' });
-      return local;
-    }
+    return local;
   }
 
   window.ChatbotBrain = {

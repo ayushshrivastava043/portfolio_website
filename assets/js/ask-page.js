@@ -62,15 +62,18 @@
   }
 
   function loadKb() {
+    if (window.PORTFOLIO_KB && window.PORTFOLIO_KB.about_ayush) {
+      return Promise.resolve(window.PORTFOLIO_KB);
+    }
     var url =
       (window.CHATBOT_CONFIG && window.CHATBOT_CONFIG.knowledgeBaseUrl) ||
-      'assets/data/knowledge_base.json';
+      'assets/data/knowledge_base.json?v=103';
     return fetch(url)
       .then(function (r) {
         return r.ok ? r.json() : null;
       })
       .catch(function () {
-        return null;
+        return window.PORTFOLIO_KB || null;
       });
   }
 

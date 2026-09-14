@@ -71,9 +71,11 @@
             this.knowledgeBase = null;
             this.knowledgeBaseLoading = null;
 
-            // Preload KB + warm Render API so first message is faster
+            // Preload embedded/local KB only (no remote API)
             this.loadKnowledgeBase();
-            this.prewarmBackend();
+            if (this.config.enhancedEndpoint) {
+                this.prewarmBackend();
+            }
             
             const configTime = performance.now();
             console.log('🚀 [PERF] Config setup completed in:', configTime - startTime, 'ms');
@@ -947,10 +949,6 @@
                     e.preventDefault();
                     e.stopPropagation();
                     console.log('🚀 Enhanced 3D Avatar clicked!');
-                    
-                    // Trigger background RAG initialization for fast responses
-                    this.initializeRAGSystem();
-                    
                     this.toggleChat();
                 });
                 console.log('✅ Enhanced 3D Avatar click event bound');
@@ -1414,25 +1412,42 @@
         }
         
         async loadKnowledgeBase() {
-            if (this.knowledgeBase) return this.knowledgeBase;
+            if (this.knowledgeBase && this.knowledgeBase.about_ayush) return this.knowledgeBase;
+            // Prefer embedded KB (always correct, no network race)
+            if (window.PORTFOLIO_KB && window.PORTFOLIO_KB.about_ayush) {
+                this.knowledgeBase = window.PORTFOLIO_KB;
+                return this.knowledgeBase;
+            }
             if (this.knowledgeBaseLoading) return this.knowledgeBaseLoading;
-            let kbUrl = (window.CHATBOT_CONFIG && window.CHATBOT_CONFIG.knowledgeBaseUrl) || 'assets/data/knowledge_base.json';
-            // Resolve relative to site root (same base as chatbot-boot.js)
+            let kbUrl = (window.CHATBOT_CONFIG && window.CHATBOT_CONFIG.knowledgeBaseUrl) || 'assets/data/knowledge_base.json?v=103';
             if (kbUrl.indexOf('http') !== 0) {
                 const scripts = document.getElementsByTagName('script');
                 for (let i = 0; i < scripts.length; i++) {
                     const src = scripts[i].src || '';
-                    if (src.indexOf('chatbot-brain.js') !== -1 || src.indexOf('chatbot-boot.js') !== -1) {
-                        kbUrl = src.replace(/assets\/js\/[^/]+$/, '') + kbUrl.replace(/^\//, '');
+                    if (src.indexOf('portfolio-kb.js') !== -1 || src.indexOf('chatbot-boot.js') !== -1 || src.indexOf('chatbot-brain.js') !== -1) {
+                        kbUrl = src.replace(/assets\/js\/[^/?]+(\?.*)?$/, '') + kbUrl.replace(/^\//, '');
                         break;
                     }
                 }
             }
             this.knowledgeBaseLoading = fetch(kbUrl)
-                .then(res => res.ok ? res.json() : {})
-                .catch(() => ({}))
-                .then(data => { this.knowledgeBase = data; this.knowledgeBaseLoading = null; return data; });
+                .then(res => res.ok ? res.json() : null)
+                .catch(() => null)
+                .then(data => {
+                    this.knowledgeBase = (data && data.about_ayush) ? data : (window.PORTFOLIO_KB || {});
+                    this.knowledgeBaseLoading = null;
+                    return this.knowledgeBase;
+                });
             return this.knowledgeBaseLoading;
+        }
+
+        async generateLocalResponse(message) {
+            const kb = await this.loadKnowledgeBase();
+            if (window.ChatbotBrain) {
+                const result = window.ChatbotBrain.answer(message, kb);
+                return result.text;
+            }
+            return "Ask about Verifast, CGI, Durham MBA, projects, skills, or contact.";
         }
 
         isKnownPortfolioQuestion(message) {
@@ -1443,52 +1458,9 @@
 
         buildAboutAyushAnswer(about, projects) {
             const name = about.name || 'Ayush Shrivastava';
-            const profession = about.profession || 'AI Product Manager & GenAI Strategist';
+            const profession = about.profession || 'AI Product Manager';
             const bio = about.bio || '';
-            const highlights = projects.slice(0, 3).map(p => p.name).filter(Boolean).join(', ');
-            let answer = `${name} is an ${profession}. ${bio}`.trim();
-            if (highlights) answer += ` Notable work includes ${highlights}.`;
-            return answer;
-        }
-
-        async generateLocalResponse(message) {
-            const kb = await this.loadKnowledgeBase();
-            const msg = message.toLowerCase().trim();
-            const about = kb.about_ayush || {};
-            const skills = kb.skills || [];
-            const projects = kb.projects || [];
-
-            if (/hello|^hi$|^hey$|hola|wassup|what'?s up|^sup$|^yo$|howdy|good (morning|afternoon|evening)/.test(msg)) {
-                return "Hey! I'm Ayush's AI assistant. Ask me about his projects, skills, or experience!";
-            }
-            if (/what does ayush do|what do(es)? ayush|does ayush do|what does he do|what's his work|what is his job/.test(msg)) {
-                const name = about.name || 'Ayush Shrivastava';
-                const profession = about.profession || 'AI Product Manager & GenAI Strategist';
-                const bio = about.bio || '';
-                const highlights = projects.slice(0, 3).map(p => p.name).filter(Boolean).join(', ');
-                let answer = `${name} is an ${profession}. ${bio}`.trim();
-                if (highlights) answer += ` He builds things like ${highlights}.`;
-                return answer;
-            }
-            if (/who (is|are)|about ayush|bout ayush|tell me.*ayush|what can you.*ayush/.test(msg)) {
-                return this.buildAboutAyushAnswer(about, projects);
-            }
-            if (/skill|tech|expertise/.test(msg)) {
-                return skills.length ? `Ayush's key skills include ${skills.slice(0, 8).join(', ')}.` : "Ayush works across AI, product, and automation.";
-            }
-            if (/project|built|portfolio|what has he|what has ayush/.test(msg)) {
-                const list = projects.slice(0, 4).map(p => p.description ? `${p.name}: ${p.description}` : p.name).join('; ');
-                return list ? `Highlights: ${list}.` : "Ayush has built AI chatbots, workflow tools, and avatar systems.";
-            }
-            if (/experience|job|role|career|background/.test(msg)) {
-                const exp = (kb.experience || [])[0];
-                if (exp) return `${exp.role || about.profession || 'AI Product Manager'}. ${exp.description || ''}`.trim();
-                return this.buildAboutAyushAnswer(about, projects);
-            }
-            if (/ayush/.test(msg)) {
-                return this.buildAboutAyushAnswer(about, projects);
-            }
-            return "I'm Ayush's portfolio assistant! Ask about his projects, skills, or experience.";
+            return `${name} is an ${profession}. ${bio}`.trim();
         }
 
         looksIncompleteResponse(text) {
@@ -1501,84 +1473,12 @@
 
         async generateEnhancedResponse(message) {
             const kb = await this.loadKnowledgeBase();
-
             if (window.ChatbotBrain) {
-                const { intent, text } = window.ChatbotBrain.answer(message, kb);
-                if (intent !== 'general') {
-                    console.log('⚡ Brain intent:', intent);
-                    return text;
-                }
-                if (!window.CHATBOT_CONFIG || window.CHATBOT_CONFIG.useApiForChat !== true) {
-                    return text;
-                }
+                const result = window.ChatbotBrain.answer(message, kb);
+                console.log('⚡ Brain intent:', result.intent, result.confidence);
+                return result.text;
             }
-
-            const useFallback = !window.CHATBOT_CONFIG || window.CHATBOT_CONFIG.useLocalFallback !== false;
-            try {
-                console.log('🤖 Enhanced generateResponse called with:', message);
-                console.log('🔍 About to fetch from enhanced endpoint:', this.config.enhancedEndpoint);
-                console.log('🚀 FIXED VERSION - Using correct API endpoint!');
-                console.log('🎯 NEW FILE LOADED - enhanced-chatbot-widget-fixed.js');
-                
-                const endpoint =
-                    this.config.enhancedEndpoint ||
-                    this.config.fallbackEndpoint ||
-                    'http://localhost:4010/chat';
-                console.log('🔧 Using Enhanced Agentic endpoint:', endpoint);
-                
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 22000);
-
-                const response = await fetch(endpoint, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ 
-                        message,
-                        user_id: 'website_user',
-                        session_id: `session_${Date.now()}`
-                    }),
-                    signal: controller.signal
-                });
-                clearTimeout(timeoutId);
-                
-                console.log('🔍 Enhanced Fetch response status:', response.status);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const data = await response.json();
-                console.log('🤖 Enhanced Received response:', data);
-                
-                // Show LangGraph features if available
-                if (data.langgraph_features) {
-                    this.showLangGraphFeatures(data);
-                }
-                
-                const candidates = [data.response, data.reply, data.answer];
-                for (const c of candidates) {
-                    if (c != null && String(c).trim() !== '') {
-                        const text = String(c).trim();
-                        if (this.looksIncompleteResponse(text) && useFallback) {
-                            console.warn('⚠️ API response incomplete, using local KB');
-                            return this.generateLocalResponse(message);
-                        }
-                        return text;
-                    }
-                }
-                if (data.status !== 'error' && data.message != null && String(data.message).trim() !== '')
-                    return String(data.message).trim();
-                if (data.status === 'error' && data.message)
-                    return typeof data.message === 'string' ? data.message : 'Request failed.';
-                return 'I got an empty reply from the server. Please try again.';
-                
-            } catch (error) {
-                console.warn('❌ API unavailable, using local knowledge base:', error);
-                if (useFallback) return this.generateLocalResponse(message);
-                return "I'm having trouble connecting right now. Please try again!";
-            }
+            return this.generateLocalResponse(message);
         }
         
         showLangGraphFeatures(data) {

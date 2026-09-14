@@ -49,12 +49,8 @@
       enableStatePersistence: true,
       enableMultiAgent: true,
       enableFeedbackLoops: true,
-      enhancedEndpoint: window.CHATBOT_CONFIG
-        ? window.CHATBOT_CONFIG.apiUrl
-        : 'http://localhost:4010/chat',
-      fallbackEndpoint: window.CHATBOT_CONFIG
-        ? window.CHATBOT_CONFIG.apiUrl
-        : 'http://localhost:4010/chat',
+      enhancedEndpoint: null,
+      fallbackEndpoint: null,
       widgetSize: { width: 400, height: 600 },
       enableAnimations: true,
       enableTypingIndicator: true,
